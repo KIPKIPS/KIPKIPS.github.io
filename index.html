@@ -9,7 +9,6 @@
     <script type="text/javascript">
         document.addEventListener('visibilitychange',function(){ //浏览器切换事件
             if(document.visibilityState=='hidden') { //状态判断
-                //normal_title=document.title;
                 document.title = '(●――●)喔呦,崩溃啦!';
                 setTimeout(function () {
                     document.title = "KIPS 丨 kipkips official website";
@@ -31,12 +30,52 @@
             margin: 0;
             padding: 0;
         }
+        h1{
+            font:10px/40px "Microsoft Yi Baiti";
+            font-size:80px;
+            line-height:60px;
+            letter-spacing: 5px;
+        }
+        h2{
+            font:100% "Microsoft JhengHei Light";
+            font-size: calc(.7rem + .9vmin);
+            line-height:1.5;
+            letter-spacing: 5px;
+            color: #3c3c3c;
+        }
+        h3{
+            font:90% "Microsoft Yi Baiti";
+            font-size: calc(2rem + 3vmin);
+            line-height:1.5;
+            letter-spacing: 5px;
+            margin-bottom:1vh
+        }
+        /*动画*/
+        @keyframes mouseenter {
+             from{opacity: 1}
+             to{opacity: 0.5}
+         }
+        @keyframes mouseleave {
+            from{opacity: 0.5}
+            to{opacity: 1}
+        }
+        h3:hover{
+            /*animation:mouseenter 0.5s ease ,mouseleave 0.5s ease;*/
+            opacity: 0.3;
+        }
     </style>
 </head>
 <body id="body" style="height: 100%;width: 100%" >
-
-<div style="background-color: #FFFFFF;cursor: auto; height: 100%;width: 100%">
-
+<div id="menu" style="background-color: #FFFFFF;cursor: auto; height: 100%;width: 100%;display: block;">
+    <h1 style="margin-left:40px;margin-top:30px;position: absolute">KIPS</h1>
+    <h2 style="margin-top: 100px;margin-left:44px;position: absolute">kipkips official website</h2>
+    <h3 style="margin-top: 160px;margin-left:44px;position: absolute">NEWS</h3>
+    <h3 style="margin-top: 230px;margin-left:44px;position: absolute">CONTENTS</h3>
+    <h3 style="margin-top: 300px;margin-left:44px;position: absolute">SOUNDS</h3>
+    <h3 style="margin-top: 370px;margin-left:44px;position: absolute">ABOUT</h3>
+    <h3 style="margin-top: 460px;margin-left:44px;position: absolute">GITHUB</h3>
+    <h3 style="margin-top: 530px;margin-left:44px;position: absolute">TWITTER</h3>
+    <h3 style="margin-top: 620px;margin-left:44px;position: absolute">PIXIV</h3>
 </div>
 </body>
 </html>
