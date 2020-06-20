@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6509626f-b97c-4a9b-9f2a-0e0193661780" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/images/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/leaveIcon.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/leaveIcon.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -15,19 +17,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="7" column="31" lean-forward="true" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
+            <state relative-caret-position="396">
+              <caret line="22" column="19" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
               <folding>
                 <element signature="n#style#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -81,6 +79,16 @@
               <item name="RECNEPS-KIPS.github.io" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="E:\WebStormWorkstation\RECNEPS-KIPS.github.io" type="442cc68d:ScopeViewTreeModel$RootNode" />
             </path>
+            <path>
+              <item name="RECNEPS-KIPS.github.io" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="E:\WebStormWorkstation\RECNEPS-KIPS.github.io" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="CS" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="RECNEPS-KIPS.github.io" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="E:\WebStormWorkstation\RECNEPS-KIPS.github.io" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="images" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -92,6 +100,12 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -118,12 +132,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1592656422764</updated>
-      <workItem from="1592656425175" duration="1294000" />
+      <workItem from="1592656425175" duration="4747000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1294000" />
+    <option name="totallyTimeSpent" value="4747000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -155,13 +169,74 @@
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/html/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-509">
+          <folding>
+            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#p#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#p#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#5182#5188#0" expanded="true" />
+            <element signature="e#5189#5195#0" expanded="true" />
+            <element signature="e#5196#5202#0" expanded="true" />
+            <element signature="e#5203#5209#0" expanded="true" />
+            <element signature="n#style#0;n#p#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#5321#5327#0" expanded="true" />
+            <element signature="e#5327#5333#0" expanded="true" />
+            <element signature="e#5333#5339#0" expanded="true" />
+            <element signature="e#5339#5345#0" expanded="true" />
+            <element signature="e#5346#5352#0" expanded="true" />
+            <element signature="e#5352#5358#0" expanded="true" />
+            <element signature="e#5358#5364#0" expanded="true" />
+            <element signature="e#5373#5379#0" expanded="true" />
+            <element signature="e#5379#5385#0" expanded="true" />
+            <element signature="e#5385#5391#0" expanded="true" />
+            <element signature="e#5394#5400#0" expanded="true" />
+            <element signature="e#5400#5406#0" expanded="true" />
+            <element signature="e#5406#5412#0" expanded="true" />
+            <element signature="e#5417#5423#0" expanded="true" />
+            <element signature="e#5423#5429#0" expanded="true" />
+            <element signature="e#5429#5435#0" expanded="true" />
+            <element signature="e#5444#5450#0" expanded="true" />
+            <element signature="e#5450#5456#0" expanded="true" />
+            <element signature="e#5456#5462#0" expanded="true" />
+            <element signature="e#5467#5473#0" expanded="true" />
+            <element signature="e#5473#5479#0" expanded="true" />
+            <element signature="e#5479#5485#0" expanded="true" />
+            <element signature="e#5496#5502#0" expanded="true" />
+            <element signature="e#5502#5508#0" expanded="true" />
+            <element signature="e#5508#5514#0" expanded="true" />
+            <element signature="e#5515#5521#0" expanded="true" />
+            <element signature="e#5521#5527#0" expanded="true" />
+            <element signature="e#5527#5533#0" expanded="true" />
+            <element signature="e#5533#5539#0" expanded="true" />
+            <element signature="n#style#0;n#p#4;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#p#4;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#5;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#5;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#1;n#p#5;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#2;n#p#5;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#p#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="31" lean-forward="true" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
+        <state relative-caret-position="396">
+          <caret line="22" column="19" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
           <folding>
             <element signature="n#style#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
