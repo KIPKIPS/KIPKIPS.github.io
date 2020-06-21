@@ -31,30 +31,28 @@
             line-height:60px;
             letter-spacing: 5px;
         }
-        h2{
-            font:100% "Microsoft JhengHei Light";
+        a2{
+            font:100% "Yu Gothic";
             font-size: calc(.7rem + .9vmin);
-            line-height:1.5;
+            line-height:1;
             letter-spacing: 5px;
-            color: #3c3c3c;
+            color: #232323;
         }
         a{
-            font:90% "Microsoft Yi Baiti";
-            font-size: calc(2rem + 3vmin);
+            font:70% "Yu Gothic";
+            font-size: calc(1.5rem + 1.5vmin);
             line-height:1.5;
-            letter-spacing: 5px;
+            letter-spacing: 6px;
             margin-bottom:1vh
         }
         /*动画*/
         @keyframes gradient {
             0%{height: 72px;width: 72px;opacity: 0.3}
-            50%{height: 82px;width: 82px;opacity: 1}
+            50%{height: 83px;width: 83px;opacity: 1}
             100%{height: 72px;width: 72px;opacity: 0.3}
          }
-        a:hover{
-            opacity: 0.3;
-        }
-        a1:hover{
+
+        .text:hover{
             opacity: 0.3;
         }
         #menuBtn{
@@ -62,11 +60,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%,-50%);
-            animation:gradient 2.5s ease-in-out;
+            animation:gradient 2s ease-out;
             animation-iteration-count: infinite
-        }
-        #menu {
-            /*animation:moveDown 0.7s;*/
         }
         @keyframes moveDown {
             from {top:-100%;}
@@ -76,18 +71,39 @@
             from {top:0;}
             to {top:-100%;}
         }
+        h{
+            font:70% "Yu Gothic";
+            font-size: calc(0.8rem + 1.1vmin);
+            line-height:1.5;
+            letter-spacing:6px;
+            margin-bottom:1vh;
+            color: #7b7b7b;
+        }
+        h1{
+            font:70% "Yu Gothic";
+            font-size: calc(1.5rem + 1.5vmin);
+            line-height:1.5;
+            letter-spacing:6px;
+            margin-bottom:1vh
+        }
     </style>
 </head>
 <body id="body" style="height: 100%;width: 100%" >
+<div id="contents" style="height: 100%;width: 100%">
+    <div class="text" style="margin-top:60px;position: absolute;width: 100%;">
+        <h style="margin-left:40px;margin-top:30px;position: absolute">2019.8.31</h>
+        <h1 style="margin-left:40px;margin-top:70px;position: absolute;width: 100%">开始学习shader graph</h1>
+    </div>
+</div>
 
 <div id="menu" style="top:-100%;background-color: #FFFFFF;cursor:auto;height:100%;width: 100%;display: block;position: absolute">
-    <a1 onclick="window.location = 'index.html'" style="margin-left:40px;margin-top:30px;position: absolute">KIPS</a1>
-    <h2 style="margin-top: 100px;margin-left:44px;position: absolute">kipkips official website</h2>
-    <a id="news" onclick="window.location = 'news.html'" style="margin-top: 160px;margin-left:44px;position: absolute">NEWS</a>
-    <a style="margin-top: 230px;margin-left:44px;position: absolute">CONTENTS</a>
-    <a style="margin-top: 300px;margin-left:44px;position: absolute">SOUNDS</a>
-    <a style="margin-top: 370px;margin-left:44px;position: absolute">ABOUT</a>
-    <a style="margin-top: 460px;margin-left:44px;position: absolute">GITHUB</a>
+    <a1 class="text" onclick="window.location = 'index.html'" style="margin-left:40px;margin-top:30px;position: absolute">KIPS</a1>
+    <a2 style="margin-top: 110px;margin-left:44px;position: absolute">kipkips official website</a2>
+    <a class="text" id="news" onclick="window.location = 'news.html'" style="text-decoration-line:line-through;margin-top:160px;margin-left:44px;position: absolute">NEWS</a>
+    <a class="text" style="margin-top: 230px;margin-left:44px;position: absolute">CONTENTS</a>
+    <a class="text" style="margin-top: 300px;margin-left:44px;position: absolute">SOUNDS</a>
+    <a class="text" style="margin-top: 370px;margin-left:44px;position: absolute">ABOUT</a>
+    <a class="text" style="margin-top: 460px;margin-left:44px;position: absolute">GITHUB</a>
 </div>
 <div style="top:0;right:0;width:144px;height:144px;position: absolute;display: table-cell;vertical-align: middle;text-align: center;">
     <img id="menuBtn" src="images/menu.png" style="height: 72px;" onmousedown=OnMenuClick()>
