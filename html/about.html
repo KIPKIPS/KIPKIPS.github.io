@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
     <link id="icon" rel="shortcut icon" href="../images/icon.png"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700,900|Ubuntu:400,500,700" rel="stylesheet">
     <title>KIPS丨ABOUT</title>
     <script type="text/javascript">
         OnMenuClick = function(){
@@ -18,6 +19,16 @@
                 menu.style.top="-100%";
             }
         }
+        IconMouseEnterEvent = function(icon_name){
+            var icon = document.getElementById(icon_name)
+            icon.style.animation="mouseEnter 0.15s ease-in";
+            icon.style.opacity=0.4
+        }
+        IconMouseLeaveEvent = function(icon_name){
+            var icon = document.getElementById(icon_name)
+            icon.style.animation="mouseLeave 0.15s ease-in";
+            icon.style.opacity=1
+        }
     </script>
 
     <style>
@@ -26,24 +37,22 @@
             padding: 0;
         }
         a1{
-            font:100% "Microsoft Yi Baiti";
-            font-size: calc(3.2rem + 3.2vmin);
+            font:100% "Montserrat";
+            font-size: calc(2.3rem + 2.3vmin);
             line-height:60px;
             letter-spacing: 6px;
-            font-weight: bold;
         }
         a2{
-            font:100% "Microsoft Yi Baiti";
-            font-size: calc(1.1rem + 1.1vmin);
-            line-height:1;
+            font:100% "Montserrat";
+            font-size: calc(0.7rem + .9vmin);
+            line-height:0;
             font-weight: 400;
             letter-spacing: 6px;
             color: #000000;
         }
         a{
-            font:70% "Microsoft Yi Baiti";
-            font-weight: bold;
-            font-size: calc(1.6rem + 1.6vmin);
+            font:70% "Montserrat";
+            font-size: calc(1.4rem + 1.6vmin);
             line-height:1.8;
             letter-spacing: 6px;
             margin-bottom:1vh
@@ -74,32 +83,107 @@
             from {top:0;}
             to {top:-100%;}
         }
-        h{
-            font:70% "Yu Gothic";
-            font-size: calc(0.8rem + 1.1vmin);
-            line-height:1.5;
-            letter-spacing:6px;
-            margin-bottom:1vh;
-            color: #000000;
+        .title{
+             font:70% "Montserrat";
+             line-height:1;
+             letter-spacing:5px;
+         }
+        span {
+            padding-bottom: 3px;
+            border-bottom: 1px dashed;
         }
-        h1{
-            font:70% "Yu Gothic";
-            font-size: calc(1.5rem + 1.5vmin);
-            line-height:1.5;
-            letter-spacing:6px;
-            margin-bottom:1vh
+        span:hover{
+            color: #FF66A3;
+        }
+        .pink_box{
+            position: absolute;width: 100%;display: table-cell;vertical-align: middle;text-align: center;
+        }
+        .pink_box:hover{
+            color: #FF66A3;
+        }
+        .box{
+            position: absolute;width: 100%;display: table-cell;vertical-align: middle;text-align: center;
+        }
+        .box_bottom{
+            position: absolute;width: 100%;display:flex;
+            justify-content:center;
+        }
+        .icon{
+            position: relative;width: 90px;display: table-cell;vertical-align: middle;text-align: center
+        }
+        @keyframes mouseEnter {
+            from {opacity:1;}
+            to {opacity: 0.4;}
+        }
+        @keyframes mouseLeave {
+            from {opacity:0.4;}
+            to {opacity: 1;}
         }
     </style>
 </head>
 <body id="body" style="height: 100%;width: 100%" >
 <div id="contents" style="position:absolute;height: 100%;width: 100%;cursor:auto;">
-    <div class="text" style="margin-top:60px;cursor:auto;position: absolute;width: 100%;">
-        <h style="margin-left:40px;margin-top:30px;cursor:auto;position: absolute">2019.8.31</h>
-        <h1 style="margin-left:40px;margin-top:70px;position: absolute;cursor:auto;width:90%">开始学习shader graph</h1>
+    <div class="box" style="margin-top:40px;">
+        <h class="title" style="color:#FF66A3;font-size: calc(.8rem + .8vmin);">
+            ABOUT
+        </h>
+    </div>
+    <div class="box" style="margin-top:100px;">
+        <h class="title" style="font-size: calc(1.1rem + 1.1vmin);">
+            KIPKIPS
+        </h>
+    </div>
+    <div class="box" style="margin-top:160px;">
+        <h class="title" style="font-size: calc(.55rem + .55vmin);">
+            The Game Development Engineers .
+        </h>
+    </div>
+    <div class="box" style="margin-top:185px;">
+        <h class="title" style="font-size: calc(.55rem + .55vmin);">
+            Illustration / Modeling / Programming / Animate / Rhythm game /Music .
+        </h>
+    </div>
+    <div class="pink_box" style="margin-top:250px;">
+        <h class="title" style="font-size: calc(.65rem + .65vmin);">
+            <span onclick="window.location='../index.html'" target="_self">OFFICIAL WEBSITE</span>
+        </h>
+    </div>
+    <div class="pink_box" style="margin-top:320px;">
+        <h class="title" style="font-size: calc(.65rem + .65vmin);">
+            <span >TWITTER</span>
+        </h>
+    </div>
+    <div class="pink_box" style="margin-top:360px;">
+        <h class="title" style="font-size: calc(.65rem + .65vmin);">
+            <span >YOUTUBE</span>
+        </h>
+    </div>
+    <div class="pink_box" style="margin-top:410px;">
+        <h class="title" style="font-size: calc(.65rem + .65vmin);">
+            <span >GITHUB</span>
+        </h>
+    </div>
+    <div class="pink_box" style="margin-top:450px;">
+        <h class="title" style="font-size: calc(.65rem + .65vmin);">
+            <span >BILIBILI</span>
+        </h>
+    </div>
+    <div class="box_bottom" style="margin-top:590px;">
+        <div class="icon">
+            <img id="twitter" src="../images/twitter.png" style="height:54px;width: 54px" onmouseover=IconMouseEnterEvent("twitter") onmouseleave=IconMouseLeaveEvent("twitter")>
+        </div>
+        <div class="icon">
+            <img id="facebook" src="../images/facebook.png" style="height:54px;width:54px" onmouseover=IconMouseEnterEvent("facebook") onmouseleave=IconMouseLeaveEvent("facebook")>
+        </div>
+    </div>
+    <div class="box" style="top:95%">
+        <h class="title" style="font-size: calc(.5rem + .5vmin);color: #8d8d8d">
+           © KIPS recneps-kips.github.io
+        </h>
     </div>
 </div>
 
-<div id="menu" style="top:-100%;background-color: #f0f0f0;cursor:auto;height:100%;width: 100%;display: block;position: absolute">
+<div id="menu" style="top:-100%;background-color: #fbfbfb;cursor:auto;height:100%;width: 100%;display: block;position: absolute">
     <a1 class="text" onclick="window.location = '../index.html'" style="margin-left:40px;margin-top:30px;position: absolute">KIPS</a1>
     <a2 style="margin-top: 110px;margin-left:44px;position: absolute">kipkips official website</a2>
     <a class="text" id="news" onclick="window.location = 'news.html'" style="margin-top:160px;margin-left:44px;position: absolute">NEWS</a>
