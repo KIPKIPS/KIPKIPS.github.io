@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <link id="icon" rel="shortcut icon" href="images/icon.png"/>
+    <link id="icon" rel="shortcut icon" href="../images/icon.png"/>
     <title>KIPS丨NEWS</title>
     <script type="text/javascript">
         OnMenuClick = function(){
@@ -77,7 +77,7 @@
             line-height:1.5;
             letter-spacing:6px;
             margin-bottom:1vh;
-            color: #7b7b7b;
+            color: #000000;
         }
         h1{
             font:70% "Yu Gothic";
@@ -89,24 +89,24 @@
     </style>
 </head>
 <body id="body" style="height: 100%;width: 100%" >
-<div id="contents" style="height: 100%;width: 100%">
-    <div class="text" style="margin-top:60px;position: absolute;width: 100%;">
-        <h style="margin-left:40px;margin-top:30px;position: absolute">2019.8.31</h>
-        <h1 style="margin-left:40px;margin-top:70px;position: absolute;width: 100%">开始学习shader graph</h1>
+<div id="contents" style="position:absolute;height: 100%;width: 100%;cursor:auto;">
+    <div class="text" style="margin-top:60px;cursor:auto;position: absolute;width: 100%;">
+        <h style="margin-left:40px;margin-top:30px;cursor:auto;position: absolute">2019.8.31</h>
+        <h1 style="margin-left:40px;margin-top:70px;position: absolute;cursor:auto;width:90%">开始学习shader graph</h1>
     </div>
 </div>
 
-<div id="menu" style="top:-100%;background-color: #FFFFFF;cursor:auto;height:100%;width: 100%;display: block;position: absolute">
-    <a1 class="text" onclick="window.location = 'index.html'" style="margin-left:40px;margin-top:30px;position: absolute">KIPS</a1>
+<div id="menu" style="top:-100%;background-color: #f0f0f0;cursor:auto;height:100%;width: 100%;display: block;position: absolute">
+    <a1 class="text" onclick="window.location = '../index.html'" style="margin-left:40px;margin-top:30px;position: absolute">KIPS</a1>
     <a2 style="margin-top: 110px;margin-left:44px;position: absolute">kipkips official website</a2>
     <a class="text" id="news" onclick="window.location = 'news.html'" style="text-decoration-line:line-through;margin-top:160px;margin-left:44px;position: absolute">NEWS</a>
-    <a class="text" style="margin-top: 230px;margin-left:44px;position: absolute">CONTENTS</a>
-    <a class="text" style="margin-top: 300px;margin-left:44px;position: absolute">SOUNDS</a>
-    <a class="text" style="margin-top: 370px;margin-left:44px;position: absolute">ABOUT</a>
-    <a class="text" style="margin-top: 460px;margin-left:44px;position: absolute">GITHUB</a>
+    <a onclick="window.location = 'contents.html'" target="_self" class="text" style="margin-top: 230px;margin-left:44px;position: absolute">CONTENTS</a>
+    <a onclick="window.location = 'sounds.html'" class="text" style="margin-top: 300px;margin-left:44px;position: absolute">SOUNDS</a>
+    <a onclick="window.location = 'about.html'" class="text" style="margin-top: 370px;margin-left:44px;position: absolute">ABOUT</a>
+    <a onclick="window.open('https://github.com/RECNEPS-KIPS')" target="_blank" class="text" style="margin-top: 460px;margin-left:44px;position: absolute">GITHUB</a>
 </div>
 <div style="top:0;right:0;width:144px;height:144px;position: absolute;display: table-cell;vertical-align: middle;text-align: center;">
-    <img id="menuBtn" src="images/menu.png" style="height: 72px;" onmousedown=OnMenuClick()>
+    <img id="menuBtn" src="../images/menu.png" style="height: 72px;" onmousedown=OnMenuClick()>
 </div>
 </body>
 </html>
