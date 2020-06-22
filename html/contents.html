@@ -45,7 +45,7 @@
             font-size: calc(1.4rem + 1.6vmin);
             line-height:1.8;
             letter-spacing: 6px;
-            margin-bottom:1vh
+            bottom:1vh
         }
         /*动画*/
         @keyframes gradient {
@@ -75,16 +75,15 @@
         }
         h{
             font:70% "Montserrat";
-            font-size: calc(1.1rem + 1.1vmin);
-            line-height:1.5;
-            letter-spacing:6px;
+            font-size: calc(.9rem + .8vmin);
+            line-height:1;
+            letter-spacing:5px;
             margin-bottom:1vh;
-            font-weight: bold;
             color: #707070;
         }
         h1{
             font:70% "Montserrat";
-            font-size: calc(1.7rem + 2.9vmin);
+            font-size: calc(1.6rem + 1.6vmin);
             line-height:1;
             letter-spacing:6px;
         }
@@ -92,20 +91,20 @@
 </head>
 <body id="body" style="height: 100%;width: 100%" >
 <div id="contents" style="position:absolute;height: 100%;width: 100%;cursor:auto;">
-    <div class="text" style="margin-top:60px;cursor:auto;position: absolute;width: 100%;">
-        <h style="margin-left:40px;margin-top:30px;cursor:auto;position: absolute">2019.8.31</h>
-        <h1 style="margin-left:40px;margin-top:70px;position: absolute;cursor:auto;width:90%">start shader graph</h1>
+    <div class="text" style="top:60px;cursor:auto;position: absolute;width: 100%;">
+        <h style="left:40px;top:30px;cursor:auto;position: absolute">2019.8.31</h>
+        <h1 style="left:40px;top:70px;position: absolute;cursor:auto;width:90%">start shader graph</h1>
     </div>
 </div>
 
 <div id="menu" style="top:-100%;background-color: #fbfbfb;cursor:auto;height:100%;width: 100%;display: block;position: absolute">
-    <a1 class="text" onclick="window.location = '../index.html'" style="margin-left:40px;margin-top:30px;position: absolute">KIPS</a1>
-    <a2 style="margin-top: 110px;margin-left:44px;position: absolute">kipkips official website</a2>
-    <a class="text" id="news" onclick="window.location = 'news.html'" style="margin-top:160px;margin-left:44px;position: absolute">NEWS</a>
-    <a onclick="window.location = 'contents.html'" target="_self" class="text" style="text-decoration-line:line-through;margin-top: 220px;margin-left:44px;position: absolute">CONTENTS</a>
-    <a onclick="window.location = 'sounds.html'" class="text" style="margin-top: 280px;margin-left:44px;position: absolute">SOUNDS</a>
-    <a onclick="window.location = 'about.html'" class="text" style="margin-top: 340px;margin-left:44px;position: absolute">ABOUT</a>
-    <a onclick="window.open('https://github.com/RECNEPS-KIPS')" target="_blank" class="text" style="margin-top: 420px;margin-left:44px;position: absolute">GITHUB</a>
+    <a1 class="text" onclick="window.location = '../index.html'" style="left:40px;top:30px;position: absolute">KIPS</a1>
+    <a2 style="top: 110px;left:44px;position: absolute">kipkips official website</a2>
+    <a class="text" id="news" onclick="window.location = 'news.html'" style="top:160px;left:44px;position: absolute">NEWS</a>
+    <a onclick="window.location = 'contents.html'" target="_self" class="text" style="text-decoration-line:line-through;top: 220px;left:44px;position: absolute">CONTENTS</a>
+    <a onclick="window.location = 'sounds.html'" class="text" style="top: 280px;left:44px;position: absolute">SOUNDS</a>
+    <a onclick="window.location = 'about.html'" class="text" style="top: 340px;left:44px;position: absolute">ABOUT</a>
+    <a onclick="window.open('https://github.com/RECNEPS-KIPS')" target="_blank" class="text" style="top: 420px;left:44px;position: absolute">GITHUB</a>
 </div>
 <div style="top:0;right:0;width:144px;height:144px;position: absolute;display: table-cell;vertical-align: middle;text-align: center;">
     <img id="menuBtn" src="../images/menu.png" style="height: 72px;" onmousedown=OnMenuClick()>
