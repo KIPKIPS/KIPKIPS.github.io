@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html style="height: 100%;width: 100%">
+<html style="height: 100%;width: 100%;overflow:auto;">
 <head lang="en">
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
     <link id="icon" rel="shortcut icon" href="../images/icon.png"/>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700,900|Ubuntu:400,500,700" rel="stylesheet">
-    <title>KIPS丨SOUNDS</title>
+    <title>KIPS丨ABOUT</title>
     <script type="text/javascript">
         OnMenuClick = function(){
             var menu = document.getElementById("menu")
@@ -19,39 +19,22 @@
                 menu.style.top="-100%";
             }
         }
+        IconMouseEnterEvent = function(icon_name){
+            var icon = document.getElementById(icon_name)
+            icon.style.animation="mouseEnter 0.15s ease-in";
+            icon.style.opacity=0.4
+        }
+        IconMouseLeaveEvent = function(icon_name){
+            var icon = document.getElementById(icon_name)
+            icon.style.animation="mouseLeave 0.15s ease-in";
+            icon.style.opacity=1
+        }
     </script>
 
     <style>
         * {
             margin: 0;
             padding: 0;
-        }
-        a1{
-            font:100% "Montserrat";
-            font-size: calc(2.3rem + 2.3vmin);
-            line-height:60px;
-            letter-spacing: 6px;
-        }
-        a2{
-            font:100% "Montserrat";
-            font-size: calc(0.7rem + .9vmin);
-            line-height:0;
-            font-weight: 400;
-            letter-spacing: 6px;
-            color: #000000;
-        }
-        a{
-            font:70% "Montserrat";
-            font-size: calc(1.4rem + 1.6vmin);
-            line-height:1.8;
-            letter-spacing: 6px;
-            bottom:1vh
-        }
-        /*动画*/
-        @keyframes gradient {
-            0%{height: 72px;width: 72px;opacity: 0.3}
-            50%{height: 83px;width: 83px;opacity: 1}
-            100%{height: 72px;width: 72px;opacity: 0.3}
         }
 
         .text:hover{
@@ -73,41 +56,220 @@
             from {top:0;}
             to {top:-100%;}
         }
-        h{
+        .title{
             font:70% "Montserrat";
-            font-size: calc(.9rem + .8vmin);
             line-height:1;
             letter-spacing:5px;
-            margin-bottom:1vh;
-            color: #707070;
         }
-        h1{
-            font:70% "Montserrat";
-            font-size: calc(1.6rem + 1.6vmin);
-            line-height:1;
-            letter-spacing:6px;
+        span {
+            padding-bottom: 3px;
+            border-bottom: 1px dashed;
+        }
+        span1:hover{
+            opacity: 0.4;
+        }
+        span1{
+            margin-left:3%
+        }
+        span2{
+            margin-left: 3%
+        }
+        span:hover{
+            color: #FF66A3;
+        }
+        .pink_box{
+            position: relative;width: 100%;display: inline-block;
+        }
+        .drop_box{
+            position: relative;width: 100%;display: inline-block;
+        }
+        .box{
+            position: relative;width: 100%;display: inline-block;
+        }
+        .box_bottom{
+            position: relative;width: 100%;display:inline-block;
+        }
+        @keyframes mouseEnter {
+            from {opacity:1;}
+            to {opacity: 0.4;}
+        }
+        @keyframes mouseLeave {
+            from {opacity:0.4;}
+            to {opacity: 1;}
+        }
+        /*自适应*/
+        @media (min-width:1px) and (max-width: 794px){
+            .icon{
+                position: relative;width: 60px;display:inline-block;
+            }
+            #circle{
+                top:10px;
+                right:10px;
+                width:80px;
+                height:80px;
+                position: absolute;
+                display: table-cell;
+                vertical-align: middle;
+                text-align: center;
+            }
+            #menuBtn{
+                width: 54px;
+            }
+            /*动画*/
+            @keyframes gradient {
+                0%{height: 54px;width: 54px;opacity: 0.3}
+                50%{height: 65px;width: 65px;opacity: 1}
+                100%{height: 54px;width: 54px;opacity: 0.3}
+            }
+            #bottom{
+                top:430px;position: relative;width: 100%;display: inline-block;
+            }
+            #twitter,#facebook{
+                height: 36px;
+                width: 36px;
+            }
+        }
+
+
+        @media (min-width:755px) and (max-width:10000px){
+            #twitter,#facebook{
+                height: 54px;
+                width: 54px;
+            }
+            #circle{
+                top:0;
+                right:0;
+                width:144px;
+                height:144px;
+                position: absolute;
+                display: table-cell;
+                vertical-align: middle;
+                text-align: center;
+            }
+            #menuBtn{
+                width: 72px;
+            }
+            /*动画*/
+            @keyframes gradient {
+                0%{height: 72px;width: 72px;opacity: 0.3}
+                50%{height: 83px;width: 83px;opacity: 1}
+                100%{height: 72px;width: 72px;opacity: 0.3}
+            }
+            #bottom{
+                top:450px;position: relative;width: 100%;display: inline-block;
+            }
+            .icon{
+                position: relative;width: 90px;display:inline-block;
+            }
         }
     </style>
 </head>
-<body id="body" style="height: 100%;width: 100%" >
-<div id="contents" style="position:absolute;height: 100%;width: 100%;">
-    <div class="text" style="top:60px;position: absolute;width: 100%;">
-        <h style="left:40px;top:30px;position: absolute">2019.8.31</h>
-        <h1 style="left:40px;top:70px;position: absolute;width:90%">start shader graph</h1>
+<body id="body" style="height: 100%;width: 100%;overflow:auto;" >
+<div id="contents" style="position:absolute;height:inherit;text-align:center;overflow:auto;">
+    <div class="box" style="top:30px;">
+        <h class="title" style="color:#FF66A3;font-size: calc(.8rem + .8vmin);">
+            ABOUT
+        </h>
     </div>
+    <div class="box" style="top:80px;">
+        <h class="title" style="font-size: calc(1.1rem + 1.1vmin);">
+            KIPKIPS
+        </h>
+    </div>
+    <div class="box" style="top:130px;">
+        <h class="title" style="font-size: calc(.55rem + .55vmin);">
+            The Game Development Engineers .
+        </h>
+    </div>
+    <div class="box" style="top:145px;">
+        <h class="title" style="font-size: calc(.55rem + .55vmin);">
+            Illustration / Modeling / Programming / Animate / Rhythm game /Music .
+        </h>
+    </div>
+    <div class="pink_box" style="top:200px;">
+        <h class="title" style="font-size: calc(.65rem + .65vmin);">
+            <span onclick="window.location='../index.html'" target="_self">OFFICIAL WEBSITE</span>
+        </h>
+    </div>
+    <div class="pink_box" style="top:260px;">
+        <h class="title" style="font-size: calc(.65rem + .65vmin);">
+            <span onclick="window.open('https://twitter.com/RECNEPS_KIPS')" target="_blank">TWITTER</span>
+        </h>
+    </div>
+    <div class="pink_box" style="top:280px;">
+        <h class="title" style="font-size: calc(.65rem + .65vmin);">
+            <span onclick="window.open('https://www.youtube.com/channel/UCLRIiA3trYeIwuf6smFgweA?view_as=subscriber')" target="_blank">YOUTUBE</span>
+        </h>
+    </div>
+    <div class="pink_box" style="top:320px;">
+        <h class="title" style="font-size: calc(.65rem + .65vmin);">
+            <span onclick="window.open('https://github.com/RECNEPS-KIPS')" target="_blank">GITHUB</span>
+        </h>
+    </div>
+    <div class="pink_box" style="top:340px;">
+        <h class="title" style="font-size: calc(.65rem + .65vmin);">
+            <span onclick="window.open('https://space.bilibili.com/44106253')" target="_blank">BILIBILI</span>
+        </h>
+    </div>
+    <div class="box_bottom" style="top:400px;">
+        <div class="icon">
+            <img id="twitter" src="../images/twitter.png"
+                 onmouseover=IconMouseEnterEvent("twitter") onmouseleave=IconMouseLeaveEvent("twitter")
+                 onclick="window.open('https://twitter.com/RECNEPS_KIPS')" target="_blank">
+        </div>
+        <div class="icon">
+            <img id="facebook" src="../images/facebook.png"
+                 onmouseover=IconMouseEnterEvent("facebook") onmouseleave=IconMouseLeaveEvent("facebook")
+                 onclick="window.open('https://www.facebook.com/profile.php?id=100021707954561')" target="_blank">
+        </div>
+    </div>
+    <div id="bottom">
+        <h class="title" style="font-size: calc(.5rem + .5vmin);color: #8d8d8d">
+            © KIPS recneps-kips.github.io
+        </h>
+    </div>
+
 </div>
 
-<div id="menu" style="top:-100%;background-color: #fbfbfb;height:100%;width: 100%;display: block;position: absolute">
-    <a1 class="text" onclick="window.location = '../index.html'" style="left:40px;top:30px;position: absolute">KIPS</a1>
-    <a2 style="top: 110px;left:44px;position: absolute">kipkips official website</a2>
-    <a class="text" id="news" onclick="window.location = 'news.html'" style="top:160px;left:44px;position: absolute">NEWS</a>
-    <a onclick="window.location = 'contents.html'" target="_self" class="text" style="top: 220px;left:44px;position: absolute">CONTENTS</a>
-    <a onclick="window.location = 'sounds.html'" class="text" style="text-decoration-line:line-through;top: 280px;left:44px;position: absolute">SOUNDS</a>
-    <a onclick="window.location = 'about.html'" class="text" style="top: 340px;left:44px;position: absolute">ABOUT</a>
-    <a onclick="window.open('https://github.com/RECNEPS-KIPS')" target="_blank" class="text" style="top: 420px;left:44px;position: absolute">GITHUB</a>
+<div id="menu" style="overflow:auto;height: 100%;top:-100%;background-color: #fbfbfb;height:100%;width: 100%;position: absolute;float:bottom;">
+    <div class="drop_box" style="top:50px;">
+        <h class="title" onclick="window.location = '../index.html'" style="font-size: calc(1.9rem + 1.9vmin);">
+            <span1 style="margin-left: 2.5%">KIPS</span1>
+        </h>
+    </div>
+    <div class="drop_box" style="top:70px;">
+        <h class="title" style="font-size: calc(.7rem + .7vmin);">
+            <span2>kipkips official website</span2>
+        </h>
+    </div>
+    <div class="drop_box" style="top:120px;">
+        <h class="title" id="news" onclick="window.location = 'news.html'" style="font-size: calc(1rem + 1vmin);">
+            <span1>NEWS</span1>
+        </h>
+    </div>
+    <div class="drop_box" style="top:160px;">
+        <h onclick="window.location = 'contents.html'" target="_self" class="title" style="font-size: calc(1rem + 1vmin);">
+            <span1>CONTENTS</span1>
+        </h>
+    </div>
+    <div class="drop_box" style="top:200px;">
+        <h onclick="window.location = 'sounds.html'" class="title" style="font-size: calc(1rem + 1vmin);">
+            <span1>SOUNDS</span1>
+        </h>
+    </div>
+    <div class="drop_box" style="top:230px;">
+        <h onclick="window.location = 'about.html'" class="title" style="text-decoration-line:line-through;font-size: calc(1rem + 1vmin);">
+            <span1>ABOUT</span1>
+        </h>
+    </div>
+    <div class="drop_box" style="top:260px;">
+        <h onclick="window.open('https://github.com/RECNEPS-KIPS')" target="_blank" class="title" style="font-size: calc(1rem + 1vmin);">
+            <span1> GITHUB</span1>
+        </h>
+    </div>
 </div>
-<div style="top:0;right:0;width:144px;height:144px;position: absolute;display: table-cell;vertical-align: middle;text-align: center;">
-    <img id="menuBtn" src="../images/menu.png" style="height: 72px;" onmousedown=OnMenuClick()>
+<div id="circle">
+    <img id="menuBtn" src="../images/menu.png" onmousedown=OnMenuClick()>
 </div>
 </body>
 </html>
