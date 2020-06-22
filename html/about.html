@@ -96,13 +96,10 @@
             color: #FF66A3;
         }
         .pink_box{
-            position: absolute;width: 100%;display: table-cell;vertical-align: middle;text-align: center;
-        }
-        .pink_box:hover{
-            color: #FF66A3;
+            position: relative;width: 100%;display: inline-block;
         }
         .box{
-            position: absolute;width: 100%;display: table-cell;vertical-align: middle;text-align: center;
+            position: relative;width: 100%;display: inline-block;
         }
         .box_bottom{
             position: absolute;width: 100%;display:flex;
@@ -122,53 +119,53 @@
     </style>
 </head>
 <body id="body" style="height: 100%;width: 100%" >
-<div id="contents" style="position:absolute;height: 100%;width: 100%;cursor:auto;">
+<div id="contents" style="position:absolute;height:100%;width: 100%;cursor:auto;text-align:center;">
     <div class="box" style="top:3%;">
         <h class="title" style="color:#FF66A3;font-size: calc(.8rem + .8vmin);">
             ABOUT
         </h>
     </div>
-    <div class="box" style="top:100px;">
+    <div class="box" style="top:10%;">
         <h class="title" style="font-size: calc(1.1rem + 1.1vmin);">
             KIPKIPS
         </h>
     </div>
-    <div class="box" style="top:160px;">
+    <div class="box" style="top:17%;">
         <h class="title" style="font-size: calc(.55rem + .55vmin);">
             The Game Development Engineers .
         </h>
     </div>
-    <div class="box" style="top:185px;">
+    <div class="box" style="top:19%;">
         <h class="title" style="font-size: calc(.55rem + .55vmin);">
             Illustration / Modeling / Programming / Animate / Rhythm game /Music .
         </h>
     </div>
-    <div class="pink_box" style="top:250px;">
+    <div class="pink_box" style="top:26%;">
         <h class="title" style="font-size: calc(.65rem + .65vmin);">
             <span onclick="window.location='../index.html'" target="_self">OFFICIAL WEBSITE</span>
         </h>
     </div>
-    <div class="pink_box" style="top:320px;">
+    <div class="pink_box" style="top:33%;">
         <h class="title" style="font-size: calc(.65rem + .65vmin);">
             <span onclick="window.open('https://twitter.com/RECNEPS_KIPS')" target="_blank">TWITTER</span>
         </h>
     </div>
-    <div class="pink_box" style="top:360px;">
+    <div class="pink_box" style="top:36.5%;">
         <h class="title" style="font-size: calc(.65rem + .65vmin);">
             <span onclick="window.open('https://www.youtube.com/channel/UCLRIiA3trYeIwuf6smFgweA?view_as=subscriber')" target="_blank">YOUTUBE</span>
         </h>
     </div>
-    <div class="pink_box" style="top:410px;">
+    <div class="pink_box" style="top:42%;">
         <h class="title" style="font-size: calc(.65rem + .65vmin);">
             <span onclick="window.open('https://github.com/RECNEPS-KIPS')" target="_blank">GITHUB</span>
         </h>
     </div>
-    <div class="pink_box" style="top:450px;">
+    <div class="pink_box" style="top:45.5%;">
         <h class="title" style="font-size: calc(.65rem + .65vmin);">
             <span onclick="window.open('https://space.bilibili.com/44106253')" target="_blank">BILIBILI</span>
         </h>
     </div>
-    <div class="box_bottom" style="top:790px;">
+    <div class="box_bottom" style="top:82%;">
         <div class="icon">
             <img id="twitter" src="../images/twitter.png" style="height:54px;width: 54px"
                  onmouseover=IconMouseEnterEvent("twitter") onmouseleave=IconMouseLeaveEvent("twitter")
@@ -180,7 +177,7 @@
                  onclick="window.open('https://www.facebook.com/profile.php?id=100021707954561')" target="_blank">
         </div>
     </div>
-    <div class="box" style="top:920px;">
+    <div class="box" style="top:78%;">
         <h class="title" style="font-size: calc(.5rem + .5vmin);color: #8d8d8d">
             © KIPS recneps-kips.github.io
         </h>
@@ -198,7 +195,7 @@
     <a onclick="window.open('https://github.com/RECNEPS-KIPS')" target="_blank" class="text" style="top: 420px;left:44px;position: absolute">GITHUB</a>
 </div>
 <div style="top:0;right:0;width:144px;height:144px;position: absolute;display: table-cell;vertical-align: middle;text-align: center;">
-    <img id="menuBtn" src="../images/menu.png" style="height: 72px;" onmousedown=OnMenuClick()>
+    <img id="menuBtn" src="../images/menu.png" style="height: 10%;" onmousedown=OnMenuClick()>
 </div>
 </body>
 </html>
