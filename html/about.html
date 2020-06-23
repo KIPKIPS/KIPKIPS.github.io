@@ -8,6 +8,12 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700,900|Ubuntu:400,500,700" rel="stylesheet">
     <title>KIPS丨ABOUT</title>
     <script type="text/javascript">
+        window.onresize=function(){
+
+            var h=document.documentElement.clientHeight;
+            document.body.style.height=h+"px";
+            console.log(h)
+        }
         OnMenuClick = function(){
             var menu = document.getElementById("menu");
             if(menu.style.top==="-100%"){
@@ -164,7 +170,8 @@
     </style>
 </head>
 <body id="body" style="height: 100%;width: 100%;overflow:auto;" >
-<div id="contents" style="position:absolute;height:inherit;text-align:center;overflow:auto;">
+<div id="contents"
+     style="position:absolute;height:100%;text-align:center;overflow:auto;">
     <div class="box" style="top:30px;">
         <h class="title" style="color:#FF66A3;font-size: calc(.8rem + .8vmin);">
             ABOUT
