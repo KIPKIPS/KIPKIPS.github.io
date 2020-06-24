@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="height: 100%;width: 100%;overflow:auto;">
+<html style="height: 100%;width: 100%;overflow:auto;" lang="">
 <head lang="en">
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -9,8 +9,8 @@
     <title>KIPS丨ABOUT</title>
     <script type="text/javascript">
         OnMenuClick = function(){
-            var menu = document.getElementById("menu")
-            if(menu.style.top=="-100%"){
+            var menu = document.getElementById("menu");
+            if(menu.style.top==="-100%"){
                 menu.style.animation="moveDown 0.5s";
                 menu.style.top=0
             }
@@ -18,14 +18,14 @@
                 menu.style.animation="moveUp 0.5s";
                 menu.style.top="-100%";
             }
-        }
+        };
         IconMouseEnterEvent = function(icon_name){
-            var icon = document.getElementById(icon_name)
+            var icon = document.getElementById(icon_name);
             icon.style.animation="mouseEnter 0.15s ease-in";
             icon.style.opacity=0.4
-        }
+        };
         IconMouseLeaveEvent = function(icon_name){
-            var icon = document.getElementById(icon_name)
+            var icon = document.getElementById(icon_name);
             icon.style.animation="mouseLeave 0.15s ease-in";
             icon.style.opacity=1
         }
@@ -215,12 +215,12 @@
         <div class="icon">
             <img id="twitter" src="../images/twitter.png"
                  onmouseover=IconMouseEnterEvent("twitter") onmouseleave=IconMouseLeaveEvent("twitter")
-                 onclick="window.open('https://twitter.com/RECNEPS_KIPS')" target="_blank">
+                 onclick="window.open('https://twitter.com/RECNEPS_KIPS')" target="_blank" alt="">
         </div>
         <div class="icon">
             <img id="facebook" src="../images/facebook.png"
                  onmouseover=IconMouseEnterEvent("facebook") onmouseleave=IconMouseLeaveEvent("facebook")
-                 onclick="window.open('https://www.facebook.com/profile.php?id=100021707954561')" target="_blank">
+                 onclick="window.open('https://www.facebook.com/profile.php?id=100021707954561')" target="_blank" alt="">
         </div>
     </div>
     <div id="bottom">
@@ -231,45 +231,51 @@
 
 </div>
 
-<div id="menu" style="overflow:auto;height: 100%;top:-100%;background-color: #fbfbfb;height:100%;width: 100%;position: absolute;float:bottom;">
-    <div class="drop_box" style="top:50px;">
-        <h class="title" onclick="window.location = '../index.html'" style="font-size: calc(1.9rem + 1.9vmin);">
-            <span1 style="margin-left: 2.5%">KIPS</span1>
+<div id="menu" style="overflow:auto;height: 100%;top:-100%;background-color: #fbfbfb;width: 100%;position: absolute;float:bottom;">
+    <div class="drop_box" style="top:30px;">
+        <h class="title" onclick="window.location = '../index.html'"
+           style="font-size: calc(2.5rem + 2.5vmin);">
+            <span1 style="margin-left: 2.7%">KIPS</span1>
         </h>
     </div>
-    <div class="drop_box" style="top:70px;">
-        <h class="title" style="font-size: calc(.7rem + .7vmin);">
+    <div class="drop_box" style="top:40px;">
+        <h class="title" style="font-size: calc(.8rem + .8vmin);">
             <span2>kipkips official website</span2>
         </h>
     </div>
-    <div class="drop_box" style="top:120px;">
-        <h class="title" id="news" onclick="window.location = 'news.html'" style="font-size: calc(1rem + 1vmin);">
+    <div class="drop_box" style="top:90px;">
+        <h class="title" id="news" onclick="window.location = 'news.html'"
+           style="text-decoration-line:line-through;font-size: calc(1.4rem + 1.4vmin);">
             <span1>NEWS</span1>
         </h>
     </div>
-    <div class="drop_box" style="top:160px;">
-        <h onclick="window.location = 'contents.html'" target="_self" class="title" style="font-size: calc(1rem + 1vmin);">
+    <div class="drop_box" style="top:120px;">
+        <h onclick="window.location = 'contents.html'" target="_self" class="title"
+           style="font-size: calc(1.4rem + 1.4vmin);">
             <span1>CONTENTS</span1>
         </h>
     </div>
-    <div class="drop_box" style="top:200px;">
-        <h onclick="window.location = 'sounds.html'" class="title" style="font-size: calc(1rem + 1vmin);">
+    <div class="drop_box" style="top:150px;">
+        <h onclick="window.location = 'sounds.html'" class="title"
+           style="font-size: calc(1.4rem + 1.4vmin);">
             <span1>SOUNDS</span1>
         </h>
     </div>
-    <div class="drop_box" style="top:230px;">
-        <h onclick="window.location = 'about.html'" class="title" style="text-decoration-line:line-through;font-size: calc(1rem + 1vmin);">
+    <div class="drop_box" style="top:180px;">
+        <h onclick="window.location = 'about.html'" class="title"
+           style="font-size: calc(1.4rem + 1.4vmin);">
             <span1>ABOUT</span1>
         </h>
     </div>
-    <div class="drop_box" style="top:260px;">
-        <h onclick="window.open('https://github.com/RECNEPS-KIPS')" target="_blank" class="title" style="font-size: calc(1rem + 1vmin);">
+    <div class="drop_box" style="top:230px;">
+        <h onclick="window.open('https://github.com/RECNEPS-KIPS')" target="_blank" class="title"
+           style="font-size: calc(1.4rem + 1.4vmin);">
             <span1> GITHUB</span1>
         </h>
     </div>
 </div>
 <div id="circle">
-    <img id="menuBtn" src="../images/menu.png" onmousedown=OnMenuClick()>
+    <img id="menuBtn" src="../images/menu.png" onmousedown=OnMenuClick(); alt="">
 </div>
 </body>
 </html>

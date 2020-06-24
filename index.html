@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="height: 100%;width: 100%">
+<html style="height: 100%;width: 100%" lang="">
 <head lang="en">
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -15,44 +15,81 @@
             margin: 0;
             padding: 0;
         }
-        a1{
-            font:100% "Montserrat";
-            font-size: calc(1.9rem + 1.9vmin);
-            line-height:60px;
-            letter-spacing: 6px;
+        span1:hover{
+            opacity: 0.4;
         }
-        a2{
-            font:100% "Montserrat";
-            font-size: calc(0.7rem + .7vmin);
-            line-height:0;
-            font-weight: 400;
-            letter-spacing: 6px;
-            color: #000000;
+        span1{
+            margin-left:3%
         }
-        a{
+        span2{
+            margin-left: 3%
+        }
+        .drop_box{
+            position: relative;width: 100%;display: inline-block;
+        }
+        .title{
             font:70% "Montserrat";
-            font-size: calc(1rem + 1vmin);
-            line-height:1.8;
-            letter-spacing: 6px;
-            margin-bottom:1vh;
-        }
-        a:hover{
-            /*animation:mouseenter 0.5s ease ,mouseleave 0.5s ease;*/
-            opacity: 0.3;
+            line-height:1;
+            letter-spacing:5px;
         }
     </style>
 </head>
-<body id="body" style="height: 100%;width: 100%" >
-<div id="menu" style="background-color: #FFFFFF;cursor: auto; height: 100%;width: 100%;display: block;">
-    <a1 style="margin-left:40px;margin-top:30px;position: absolute">KIPS</a1>
-    <a2 style="margin-top: 110px;margin-left:44px;position: absolute">kipkips official website</a2>
-    <a id="news" onclick="window.location = 'html/news.html'" style="margin-top: 160px;margin-left:44px;position: absolute">NEWS</a>
-    <a onclick="window.location = 'html/contents.html'" style="margin-top: 220px;margin-left:44px;position: absolute">CONTENTS</a>
-    <a onclick="window.location = 'html/sounds.html'" style="margin-top: 280px;margin-left:44px;position: absolute">SOUNDS</a>
-    <a onclick="window.location = 'html/about.html'" style="margin-top: 340px;margin-left:44px;position: absolute">ABOUT</a>
-    <a onclick="window.open('https://github.com/RECNEPS-KIPS')" target="_blank" style="margin-top: 420px;margin-left:44px;position: absolute">GITHUB</a>
-    <a onclick="window.open('https://twitter.com/RECNEPS_KIPS')" target="_blank" style="margin-top: 480px;margin-left:44px;position: absolute">TWITTER</a>
-    <a onclick="window.open('https://www.pixiv.net/users/20381212')" target="_blank" style="margin-top: 560px;margin-left:44px;position: absolute">PIXIV</a>
+<body id="body" style="overflow:auto;height: 100%;width: 100%" >
+<div id="menu" style="overflow:auto;height: 100%;top:0;background-color: #fbfbfb;width: 100%;position: absolute;">
+    <div class="drop_box" style="top:30px;">
+        <h class="title" style="font-size: calc(2.5rem + 2.5vmin);">
+            <span2
+                    style="margin-left: 2.7%">KIPS</span2>
+        </h>
+    </div>
+    <div class="drop_box" style="top:40px;">
+        <h class="title"
+           style="font-size: calc(.8rem + .8vmin);">
+            <span2>kipkips official website</span2>
+        </h>
+    </div>
+    <div class="drop_box" style="top:90px;">
+        <h class="title" id="news" onclick="window.location = 'html/news.html'"
+           style="font-size: calc(1.4rem + 1.4vmin);">
+            <span1>NEWS</span1>
+        </h>
+    </div>
+    <div class="drop_box" style="top:120px;">
+        <h onclick="window.location = 'html/contents.html'" target="_self" class="title"
+           style="font-size: calc(1.4rem + 1.4vmin);">
+            <span1>CONTENTS</span1>
+        </h>
+    </div>
+    <div class="drop_box" style="top:150px;">
+        <h onclick="window.location = 'html/sounds.html'" class="title"
+           style="font-size: calc(1.4rem + 1.4vmin);">
+            <span1>SOUNDS</span1>
+        </h>
+    </div>
+    <div class="drop_box" style="top:180px;">
+        <h onclick="window.location = 'html/about.html'" class="title"
+           style="font-size: calc(1.4rem + 1.4vmin);">
+            <span1>ABOUT</span1>
+        </h>
+    </div>
+    <div class="drop_box" style="top:230px;">
+        <h onclick="window.open('https://github.com/RECNEPS-KIPS')" target="_blank" class="title"
+           style="font-size: calc(1.4rem + 1.4vmin);">
+            <span1> GITHUB</span1>
+        </h>
+    </div>
+    <div class="drop_box" style="top:260px;">
+        <h onclick="window.open('https://twitter.com/RECNEPS_KIPS')" target="_blank" class="title"
+           style="font-size: calc(1.4rem + 1.4vmin);">
+            <span1> TWITTER</span1>
+        </h>
+    </div>
+    <div class="drop_box" style="top:310px;">
+        <h onclick="window.open('https://www.nicovideo.jp/my/top')" target="_blank" class="title"
+           style="font-size: calc(1.4rem + 1.4vmin);">
+            <span1> NICONICO</span1>
+        </h>
+    </div>
 </div>
 </body>
 </html>
