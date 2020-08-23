@@ -1,36 +1,32 @@
-<!DOCTYPE html>
-<html style="height: 100%;width: 100%;overflow:auto;" lang="">
-<head lang="en">
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <link id="icon" rel="shortcut icon" href="../images/icon.png"/>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700,900|Ubuntu:400,500,700" rel="stylesheet">
-    <title>KIPS丨ABOUT</title>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>KIPS | CONTENTS</title>
+    <link href="https://fonts.googleapis.com/css?family=Sawarabi+Gothic|Montserrat&amp;display=swap" rel="stylesheet">
     <script type="text/javascript">
-        OnMenuClick = function(){
+        OnMenuClick = function () {
             var menu = document.getElementById("menu");
-            if(menu.style.top==="-100%"){
-                menu.style.animation="moveDown 0.5s";
-                menu.style.top=0
+            if (menu.style.top === "-100%") {
+                menu.style.animation = "moveDown 0.5s";
+                menu.style.top = 0
             }
-            else{
-                menu.style.animation="moveUp 0.5s";
-                menu.style.top="-100%";
+            else {
+                menu.style.animation = "moveUp 0.5s";
+                menu.style.top = "-100%";
             }
         };
-        IconMouseEnterEvent = function(icon_name){
+        IconMouseEnterEvent = function (icon_name) {
             var icon = document.getElementById(icon_name);
-            icon.style.animation="mouseEnter 0.15s ease-in";
-            icon.style.opacity=0.4
+            icon.style.animation = "mouseEnter 0.15s ease-in";
+            icon.style.opacity = 0.4
         };
-        IconMouseLeaveEvent = function(icon_name){
+        IconMouseLeaveEvent = function (icon_name) {
             var icon = document.getElementById(icon_name);
-            icon.style.animation="mouseLeave 0.15s ease-in";
-            icon.style.opacity=1
+            icon.style.animation = "mouseLeave 0.15s ease-in";
+            icon.style.opacity = 1
         }
     </script>
-
     <style>
         * {
             margin: 0;
@@ -97,11 +93,108 @@
             from {opacity:0.4;}
             to {opacity: 1;}
         }
-        /*自适应*/
-        @media (min-width:1px) and (max-width: 794px){
-            .icon{
-                position: relative;width: 60px;display:inline-block;
-            }
+        #contents {
+            word-break: break-all;
+            display: none;
+        }
+
+        .contents {
+            margin-bottom: 2vmin;
+
+        }
+
+        #contents p.title {
+            font-size: calc(1.6rem + 3vmin);
+
+
+            margin: calc(24px + 2vmin) 4.4vmin;
+        }
+
+        #contents div:last-child {
+            margin-bottom: 0;
+        }
+
+        #contents span {
+            display: inline-block;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            vertical-align: top;
+        }
+
+        #contents span img {
+            vertical-align: bottom;
+            width: 100%;
+        }
+
+
+        #contents span {
+
+            background: #eee;
+        }
+
+        #contents a:nth-child(odd) span {
+
+            background: #e2e2e2;
+        }
+
+        #contents span p {
+            position: absolute;
+            top: 50%;
+
+            color: #fff;
+
+            transform: translateY(-50%);
+
+            font-size: calc(0.8rem + 1.5vmin);
+            padding: 20px;
+            line-height: 1.8;
+        }
+
+        #contents span p.target {
+            bottom: 0;
+            top: auto;
+            right: 0;
+            left: auto;
+            color: #fff;
+            transform: none;
+            font-size: calc(0.4rem + 0.5vmin);
+            padding: 4px 5px;
+
+            letter-spacing: 0.2rem;
+            background-color: rgba(0, 0, 0, 0.6);
+            line-height: unset;
+            margin: 10px 10px;
+        }
+
+        #contents span p.loading {
+            -webkit-animation: animLoading 0.15s ease-out infinite;
+            animation: animLoading 0.15s ease-out infinite;
+        }
+
+        #contents span.blank p {
+
+            color: #777;
+        }
+
+        #contents span.blank p.target {
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        #contents a span.others {
+
+            background: #333;
+        }
+
+        #contents span.others p {
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            color: #fff;
+            font-size: calc(1.5rem + 2vmin);
+            transform: translateY(-50%);
+        }
+        @media (max-width: 10000px) and (max-height: 10000px) {
             #circle{
                 top:10px;
                 right:10px;
@@ -121,161 +214,126 @@
                 50%{height: 65px;width: 65px;opacity: 1}
                 100%{height: 54px;width: 54px;opacity: 0.3}
             }
-            #bottom{
-                top:430px;position: relative;width: 100%;display: inline-block;
+            #menuBtn{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            animation:gradient 2s ease-out;
+            animation-iteration-count: infinite
+        }
+        }
+        @media (max-width: 600px) and (max-height: 900px) {
+            #contents span {
+                height: calc(32px + 36vmin);
             }
-            #twitter,#facebook{
-                height: 36px;
-                width: 36px;
+
+            #contents span img {
+                top: 50%;
+                transform: translateY(-50%);
+                position: relative;
             }
         }
 
+        @media (min-width: 600px) {
+            #contents span {
+                width: calc(100%/2);
+            }
+        }
 
-        @media (min-width:755px) and (max-width:10000px){
-            #twitter,#facebook{
-                height: 54px;
-                width: 54px;
+        @media (min-width: 1000px) {
+            #contents span {
+                width: calc(100%/3);
             }
-            #circle{
-                top:0;
-                right:0;
-                width:144px;
-                height:144px;
-                position: absolute;
-                display: table-cell;
-                vertical-align: middle;
-                text-align: center;
+        }
+
+        @media (min-width: 1400px) {
+            #contents span {
+                width: calc(100%/4);
             }
-            #menuBtn{
-                width: 72px;
+        }
+
+        @media (min-width: 1800px) {
+            #contents span {
+                width: calc(100%/5);
             }
-            /*动画*/
-            @keyframes gradient {
-                0%{height: 72px;width: 72px;opacity: 0.3}
-                50%{height: 83px;width: 83px;opacity: 1}
-                100%{height: 72px;width: 72px;opacity: 0.3}
+        }
+
+        @-webkit-keyframes animLoading {
+            0% {
+                opacity: 0.2;
             }
-            #bottom{
-                top:450px;position: relative;width: 100%;display: inline-block;
+
+            100% {
+                opacity: 1.0;
             }
-            .icon{
-                position: relative;width: 90px;display:inline-block;
+        }
+
+        @keyframes animLoading {
+            0% {
+                opacity: 0.2;
+            }
+
+            100% {
+                opacity: 1.0;
             }
         }
     </style>
 </head>
-<body id="body" style="height: 100%;width: 100%;overflow:auto;" >
-<div id="contents" style="position:absolute;height:inherit;text-align:center;overflow:auto;">
-    <div class="box" style="top:30px;">
-        <h class="title" style="color:#FF66A3;font-size: calc(.8rem + .8vmin);">
-            ABOUT
-        </h>
-    </div>
-    <div class="box" style="top:80px;">
-        <h class="title" style="font-size: calc(1.1rem + 1.1vmin);">
-            KIPKIPS
-        </h>
-    </div>
-    <div class="box" style="top:130px;">
-        <h class="title" style="font-size: calc(.55rem + .55vmin);">
-            The Game Development Engineers .
-        </h>
-    </div>
-    <div class="box" style="top:145px;">
-        <h class="title" style="font-size: calc(.55rem + .55vmin);">
-            Illustration / Modeling / Programming / Animate / Rhythm game /Music .
-        </h>
-    </div>
-    <div class="pink_box" style="top:200px;">
-        <h class="title" style="font-size: calc(.65rem + .65vmin);">
-            <span onclick="window.location='../index.html'" target="_self">OFFICIAL WEBSITE</span>
-        </h>
-    </div>
-    <div class="pink_box" style="top:260px;">
-        <h class="title" style="font-size: calc(.65rem + .65vmin);">
-            <span onclick="window.open('https://twitter.com/RECNEPS_KIPS')" target="_blank">TWITTER</span>
-        </h>
-    </div>
-    <div class="pink_box" style="top:280px;">
-        <h class="title" style="font-size: calc(.65rem + .65vmin);">
-            <span onclick="window.open('https://www.youtube.com/channel/UCLRIiA3trYeIwuf6smFgweA?view_as=subscriber')" target="_blank">YOUTUBE</span>
-        </h>
-    </div>
-    <div class="pink_box" style="top:320px;">
-        <h class="title" style="font-size: calc(.65rem + .65vmin);">
-            <span onclick="window.open('https://github.com/RECNEPS-KIPS')" target="_blank">GITHUB</span>
-        </h>
-    </div>
-    <div class="pink_box" style="top:340px;">
-        <h class="title" style="font-size: calc(.65rem + .65vmin);">
-            <span onclick="window.open('https://space.bilibili.com/44106253')" target="_blank">BILIBILI</span>
-        </h>
-    </div>
-    <div class="box_bottom" style="top:400px;">
-        <div class="icon">
-            <img id="twitter" src="../images/twitter.png"
-                 onmouseover=IconMouseEnterEvent("twitter"); onmouseleave=IconMouseLeaveEvent("twitter");
-                 onclick="window.open('https://twitter.com/RECNEPS_KIPS')" target="_blank" alt="">
-        </div>
-        <div class="icon">
-            <img id="facebook" src="../images/facebook.png"
-                 onmouseover=IconMouseEnterEvent("facebook"); onmouseleave=IconMouseLeaveEvent("facebook");
-                 onclick="window.open('https://www.facebook.com/profile.php?id=100021707954561')" target="_blank" alt="">
+
+<body id="content">
+    <div id="contents" style="display: block;">
+        <p class="title">WEB</p>
+        <div class="contents"><a href=""><span>
+            <img src="../images/wechat.png">
+                    <p class="loading" style="display: none;">DEMO</p>
+                </span></a>
         </div>
     </div>
-    <div id="bottom">
-        <h class="title" style="font-size: calc(.5rem + .5vmin);color: #8d8d8d">
-            © KIPS recneps-kips.github.io
-        </h>
+    <div id="menu"
+        style="overflow:auto;height: 100%;top:-100%;background-color: #fbfbfb;width: 100%;position: absolute;float:bottom;">
+        <div class="drop_box" style="top:30px;">
+            <h class="title" onclick="window.location = '../index.html'" style="font-size: calc(2.5rem + 2.5vmin);">
+                <span1 style="margin-left: 2.7%">KIPS</span1>
+            </h>
+        </div>
+        <div class="drop_box" style="top:40px;">
+            <h class="title" style="font-size: calc(.8rem + .8vmin);">
+                <span2>kipkips official website</span2>
+            </h>
+        </div>
+        <div class="drop_box" style="top:90px;">
+            <h class="title" id="news" onclick="window.location = 'news.html'"
+                style="text-decoration-line:line-through;font-size: calc(1.4rem + 1.4vmin);">
+                <span1>NEWS</span1>
+            </h>
+        </div>
+        <div class="drop_box" style="top:120px;">
+            <h onclick="window.location = 'contents.html'" target="_self" class="title"
+                style="font-size: calc(1.4rem + 1.4vmin);">
+                <span1>CONTENTS</span1>
+            </h>
+        </div>
+        <div class="drop_box" style="top:150px;">
+            <h onclick="window.location = 'sounds.html'" class="title" style="font-size: calc(1.4rem + 1.4vmin);">
+                <span1>SOUNDS</span1>
+            </h>
+        </div>
+        <div class="drop_box" style="top:180px;">
+            <h onclick="window.location = 'about.html'" class="title" style="font-size: calc(1.4rem + 1.4vmin);">
+                <span1>ABOUT</span1>
+            </h>
+        </div>
+        <div class="drop_box" style="top:230px;">
+            <h onclick="window.open('https://github.com/RECNEPS-KIPS')" target="_blank" class="title"
+                style="font-size: calc(1.4rem + 1.4vmin);">
+                <span1> GITHUB</span1>
+            </h>
+        </div>
     </div>
-
-</div>
-
-<div id="menu" style="overflow:auto;height: 100%;top:-100%;background-color: #fbfbfb;width: 100%;position: absolute;">
-    <div class="drop_box" style="top:30px;">
-        <h class="title" onclick="window.location = '../index.html'"
-           style="font-size: calc(2.5rem + 2.5vmin);">
-            <span1 style="margin-left: 2.7%">KIPS</span1>
-        </h>
+    <div id="circle">
+        <img id="menuBtn" src="../images/menu.png" onmousedown=OnMenuClick(); alt="">
     </div>
-    <div class="drop_box" style="top:40px;">
-        <h class="title" style="font-size: calc(.8rem + .8vmin);">
-            <span2>kipkips official website</span2>
-        </h>
-    </div>
-    <div class="drop_box" style="top:90px;">
-        <h class="title" id="news" onclick="window.location = 'news.html'"
-           style="font-size: calc(1.4rem + 1.4vmin);">
-            <span1>NEWS</span1>
-        </h>
-    </div>
-    <div class="drop_box" style="top:120px;">
-        <h onclick="window.location = 'contents.html'" target="_self" class="title"
-           style="text-decoration-line:line-through;font-size: calc(1.4rem + 1.4vmin);">
-            <span1>CONTENTS</span1>
-        </h>
-    </div>
-    <div class="drop_box" style="top:150px;">
-        <h onclick="window.location = 'sounds.html'" class="title"
-           style="font-size: calc(1.4rem + 1.4vmin);">
-            <span1>SOUNDS</span1>
-        </h>
-    </div>
-    <div class="drop_box" style="top:180px;">
-        <h onclick="window.location = 'about.html'" class="title"
-           style="font-size: calc(1.4rem + 1.4vmin);">
-            <span1>ABOUT</span1>
-        </h>
-    </div>
-    <div class="drop_box" style="top:230px;">
-        <h onclick="window.open('https://github.com/RECNEPS-KIPS')" target="_blank" class="title"
-           style="font-size: calc(1.4rem + 1.4vmin);">
-            <span1> GITHUB</span1>
-        </h>
-    </div>
-</div>
-<div id="circle">
-    <img id="menuBtn" src="../images/menu.png" onmousedown=OnMenuClick(); alt="">
-</div>
 </body>
+
 </html>
