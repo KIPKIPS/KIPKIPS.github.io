@@ -1,34 +1,22 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-06-24 19:04:06
+ * @LastEditTime: 2020-08-24 01:03:12
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \KIPKIPS.github.io\test.html
+-->
 <!DOCTYPE html>
-<html style="height: 100%;width: 100%;overflow:auto;" lang="">
+<html style="height: 100%;width: 100%">
+
 <head lang="en">
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <link id="icon" rel="shortcut icon" href="../images/icon.png"/>
+    <link id="icon" rel="shortcut icon" href="images/icon.png" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700,900|Ubuntu:400,500,700" rel="stylesheet">
-    <title>KIPS丨ABOUT</title>
+    <title>KIPS丨kipkips official website</title>
     <script type="text/javascript">
-        OnMenuClick = function(){
-            var menu = document.getElementById("menu");
-            if(menu.style.top==="-100%"){
-                menu.style.animation="moveDown 0.5s";
-                menu.style.top=0
-            }
-            else{
-                menu.style.animation="moveUp 0.5s";
-                menu.style.top="-100%";
-            }
-        };
-        IconMouseEnterEvent = function(icon_name){
-            var icon = document.getElementById(icon_name);
-            icon.style.animation="mouseEnter 0.15s ease-in";
-            icon.style.opacity=0.4
-        };
-        IconMouseLeaveEvent = function(icon_name){
-            var icon = document.getElementById(icon_name);
-            icon.style.animation="mouseLeave 0.15s ease-in";
-            icon.style.opacity=1
-        }
     </script>
 
     <style>
@@ -37,245 +25,41 @@
             padding: 0;
         }
 
-        .text:hover{
+        a {
+            font-family: "Montserrat";
+            line-height: 1.5;
+            letter-spacing: 6px;
+            position: relative;
+            height: 100%;
+            display: block;
+        }
+
+        a:hover {
+            /*animation:mouseenter 0.5s ease ,mouseleave 0.5s ease;*/
             opacity: 0.3;
         }
-        #menuBtn{
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            animation:gradient 2s ease-out;
-            animation-iteration-count: infinite
-        }
-        @keyframes moveDown {
-            from {top:-100%;}
-            to {top:0;}
-        }
-        @keyframes moveUp {
-            from {top:0;}
-            to {top:-100%;}
-        }
-        .title{
-            font:70% "Montserrat";
-            line-height:1;
-            letter-spacing:5px;
-        }
-        span {
-            padding-bottom: 3px;
-            border-bottom: 1px dashed;
-        }
-        span1:hover{
-            opacity: 0.4;
-        }
-        span1{
-            margin-left:3%
-        }
-        span2{
-            margin-left: 3%
-        }
-        span:hover{
-            color: #FF66A3;
-        }
-        .pink_box{
-            position: relative;width: 100%;display: inline-block;
-        }
-        .drop_box{
-            position: relative;width: 100%;display: inline-block;
-        }
-        .box{
-            position: relative;width: 100%;display: inline-block;
-        }
-        .box_bottom{
-            position: relative;width: 100%;display:inline-block;
-        }
-        @keyframes mouseEnter {
-            from {opacity:1;}
-            to {opacity: 0.4;}
-        }
-        @keyframes mouseLeave {
-            from {opacity:0.4;}
-            to {opacity: 1;}
-        }
-        /*自适应*/
-        @media (min-width:1px) and (max-width: 794px){
-            .icon{
-                position: relative;width: 60px;display:inline-block;
-            }
-            #circle{
-                top:10px;
-                right:10px;
-                width:80px;
-                height:80px;
-                position: absolute;
-                display: table-cell;
-                vertical-align: middle;
-                text-align: center;
-            }
-            #menuBtn{
-                width: 54px;
-            }
-            /*动画*/
-            @keyframes gradient {
-                0%{height: 54px;width: 54px;opacity: 0.3}
-                50%{height: 65px;width: 65px;opacity: 1}
-                100%{height: 54px;width: 54px;opacity: 0.3}
-            }
-            #bottom{
-                top:430px;position: relative;width: 100%;display: inline-block;
-            }
-            #twitter,#facebook{
-                height: 36px;
-                width: 36px;
-            }
-        }
 
-
-        @media (min-width:755px) and (max-width:10000px){
-            #twitter,#facebook{
-                height: 54px;
-                width: 54px;
-            }
-            #circle{
-                top:0;
-                right:0;
-                width:144px;
-                height:144px;
-                position: absolute;
-                display: table-cell;
-                vertical-align: middle;
-                text-align: center;
-            }
-            #menuBtn{
-                width: 72px;
-            }
-            /*动画*/
-            @keyframes gradient {
-                0%{height: 72px;width: 72px;opacity: 0.3}
-                50%{height: 83px;width: 83px;opacity: 1}
-                100%{height: 72px;width: 72px;opacity: 0.3}
-            }
-            #bottom{
-                top:450px;position: relative;width: 100%;display: inline-block;
-            }
-            .icon{
-                position: relative;width: 90px;display:inline-block;
-            }
+        div {
+            font-size: 2.5vh;
+            font-size: 16px;
         }
     </style>
 </head>
-<body id="body" style="height: 100%;width: 100%;overflow:auto;" >
-<div id="contents" style="position:absolute;height:inherit;text-align:center;overflow:auto;">
-    <div class="box" style="top:30px;">
-        <h class="title" style="color:#FF66A3;font-size: calc(.8rem + .8vmin);">
-            ABOUT
-        </h>
-    </div>
-    <div class="box" style="top:80px;">
-        <h class="title" style="font-size: calc(1.1rem + 1.1vmin);">
-            KIPKIPS
-        </h>
-    </div>
-    <div class="box" style="top:130px;">
-        <h class="title" style="font-size: calc(.55rem + .55vmin);">
-            The Game Development Engineers .
-        </h>
-    </div>
-    <div class="box" style="top:145px;">
-        <h class="title" style="font-size: calc(.55rem + .55vmin);">
-            Illustration / Modeling / Programming / Animate / Rhythm game /Music .
-        </h>
-    </div>
-    <div class="pink_box" style="top:200px;">
-        <h class="title" style="font-size: calc(.65rem + .65vmin);">
-            <span onclick="window.location='../index.html'" target="_self">OFFICIAL WEBSITE</span>
-        </h>
-    </div>
-    <div class="pink_box" style="top:260px;">
-        <h class="title" style="font-size: calc(.65rem + .65vmin);">
-            <span onclick="window.open('https://twitter.com/RECNEPS_KIPS')" target="_blank">TWITTER</span>
-        </h>
-    </div>
-    <div class="pink_box" style="top:280px;">
-        <h class="title" style="font-size: calc(.65rem + .65vmin);">
-            <span onclick="window.open('https://www.youtube.com/channel/UCLRIiA3trYeIwuf6smFgweA?view_as=subscriber')" target="_blank">YOUTUBE</span>
-        </h>
-    </div>
-    <div class="pink_box" style="top:320px;">
-        <h class="title" style="font-size: calc(.65rem + .65vmin);">
-            <span onclick="window.open('https://github.com/RECNEPS-KIPS')" target="_blank">GITHUB</span>
-        </h>
-    </div>
-    <div class="pink_box" style="top:340px;">
-        <h class="title" style="font-size: calc(.65rem + .65vmin);">
-            <span onclick="window.open('https://space.bilibili.com/44106253')" target="_blank">BILIBILI</span>
-        </h>
-    </div>
-    <div class="box_bottom" style="top:400px;">
-        <div class="icon">
-            <img id="twitter" src="../images/twitter.png"
-                 onmouseover=IconMouseEnterEvent("twitter") onmouseleave=IconMouseLeaveEvent("twitter")
-                 onclick="window.open('https://twitter.com/RECNEPS_KIPS')" target="_blank" alt="">
-        </div>
-        <div class="icon">
-            <img id="facebook" src="../images/facebook.png"
-                 onmouseover=IconMouseEnterEvent("facebook") onmouseleave=IconMouseLeaveEvent("facebook")
-                 onclick="window.open('https://www.facebook.com/profile.php?id=100021707954561')" target="_blank" alt="">
-        </div>
-    </div>
-    <div id="bottom">
-        <h class="title" style="font-size: calc(.5rem + .5vmin);color: #8d8d8d">
-            © KIPS recneps-kips.github.io
-        </h>
-    </div>
 
-</div>
-
-<div id="menu" style="overflow:auto;height: 100%;top:-100%;background-color: #fbfbfb;width: 100%;position: absolute;float:bottom;">
-    <div class="drop_box" style="top:30px;">
-        <h class="title" onclick="window.location = '../index.html'"
-           style="font-size: calc(2.5rem + 2.5vmin);">
-            <span1 style="margin-left: 2.7%">KIPS</span1>
-        </h>
+<body id="body" style="height: 100%;width: 100%;font-size:63%">
+    <div style="height: 100%">
+        <div style="display: block;height:5%;background-color: #FF66A3"> </div>
+        <!--none-->
+        <div style="display: block;height:10%;background-color: #00ffe9">
+            <a style="font-size: calc((80vh - 3rem) / 10);">KIPS</a>
+        </div>
+        <div style="display: block;height:3%;background-color: #ff1f1c"> </div>
+        <div style="display: block;height:6%;background-color: #ffe800"> </div>
+        <!--none-->
+        <div style="display: block;height:10%;background-color: #00ff48"> </div>
+        <div style="display: block;height:10%;background-color: #ffe800"> </div>
+        <div style="display: block;height:10%;background-color: #b000ff"> </div>
     </div>
-    <div class="drop_box" style="top:40px;">
-        <h class="title" style="font-size: calc(.8rem + .8vmin);">
-            <span2>kipkips official website</span2>
-        </h>
-    </div>
-    <div class="drop_box" style="top:90px;">
-        <h class="title" id="news" onclick="window.location = 'news.html'"
-           style="font-size: calc(1.4rem + 1.4vmin);">
-            <span1>NEWS</span1>
-        </h>
-    </div>
-    <div class="drop_box" style="top:120px;">
-        <h onclick="window.location = 'contents.html'" target="_self" class="title"
-           style="font-size: calc(1.4rem + 1.4vmin);">
-            <span1>CONTENTS</span1>
-        </h>
-    </div>
-    <div class="drop_box" style="top:150px;">
-        <h onclick="window.location = 'sounds.html'" class="title"
-           style="text-decoration-line:line-through;font-size: calc(1.4rem + 1.4vmin);">
-            <span1>SOUNDS</span1>
-        </h>
-    </div>
-    <div class="drop_box" style="top:180px;">
-        <h onclick="window.location = 'about.html'" class="title"
-           style="font-size: calc(1.4rem + 1.4vmin);">
-            <span1>ABOUT</span1>
-        </h>
-    </div>
-    <div class="drop_box" style="top:230px;">
-        <h onclick="window.open('https://github.com/RECNEPS-KIPS')" target="_blank" class="title"
-           style="font-size: calc(1.4rem + 1.4vmin);">
-            <span1> GITHUB</span1>
-        </h>
-    </div>
-</div>
-<div id="circle">
-    <img id="menuBtn" src="../images/menu.png" onmousedown=OnMenuClick(); alt="">
-</div>
 </body>
+
 </html>
