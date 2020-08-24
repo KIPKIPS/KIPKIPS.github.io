@@ -2,38 +2,27 @@
 
 <head>
     <meta charset="utf-8">
-    <!-- <meta name="google-site-verification" content="kDm7L5QyOIWwvxJVw9Aq1QppIH30RPw95dhBT2YTXbE"> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
     <title>KIPS | CONTENTS</title>
-    <link id="icon" rel="shortcut icon" href="../images/icon.png" />
+    <script src="../js/common.js" defer=""></script>
     <link href="https://fonts.googleapis.com/css?family=Sawarabi+Gothic|Montserrat&amp;display=swap" rel="stylesheet">
-    <script type="text/javascript">
-        OnMenuClick = function () {
-            var menu = document.getElementById("menu");
-            if (menu.style.top === "-100%") {
-                menu.style.animation = "moveDown 0.5s";
-                menu.style.top = 0
-            }
-            else {
-                menu.style.animation = "moveUp 0.5s";
-                menu.style.top = "-100%";
-            }
-        };
-        IconMouseEnterEvent = function (icon_name) {
-            var icon = document.getElementById(icon_name);
-            icon.style.animation = "mouseEnter 0.15s ease-in";
-            icon.style.opacity = 0.4
-        };
-        IconMouseLeaveEvent = function (icon_name) {
-            var icon = document.getElementById(icon_name);
-            icon.style.animation = "mouseLeave 0.15s ease-in";
-            icon.style.opacity = 1
-        }
-    </script>
+    <link charset="UTF-8" href="../css/main.css" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            font-family: "Montserrat";
+        #contents {
+            word-break: break-all;
+            display: none;
+        }
+        .contents {
+            margin-bottom: 2vmin;
+        }
+        #contents p.title {
+            font-size: calc(1.6rem + 3vmin);
+            margin: calc(24px + 2vmin) 4.4vmin;
+        }
+        #contents div:last-child {
+            margin-bottom: 0;
         }
         #menuBtn{
             position: absolute;
@@ -51,45 +40,6 @@
             from {top:0;}
             to {top:-100%;}
         }
-        .title{
-            font:"Montserrat";
-            line-height:1;
-            letter-spacing:5px;
-        }
-        .title span:hover{
-            opacity: 0.4;
-        }
-        .title span{
-            margin-left:3%
-        }
-        .drop_box{
-            position: relative;width: 100%;display: inline-block;
-        }
-        @keyframes mouseEnter {
-            from {opacity:1;}
-            to {opacity: 0.4;}
-        }
-        @keyframes mouseLeave {
-            from {opacity:0.4;}
-            to {opacity: 1;}
-        }
-        #contents {
-            word-break: break-all;
-            display: none;
-        }
-        .contents {
-            margin-bottom: 2vmin;
-        }
-
-        #contents p.title {
-            font-size: 50px;
-            margin: calc(24px + 2vmin) 4.4vmin;
-        }
-
-        #contents div:last-child {
-            margin-bottom: 0;
-        }
-
         #contents span {
             display: inline-block;
             width: 100%;
@@ -97,20 +47,16 @@
             overflow: hidden;
             vertical-align: top;
         }
-
         #contents span img {
             vertical-align: bottom;
             width: 100%;
         }
-
         #contents span {
             background: #eee;
         }
-
         #contents a:nth-child(odd) span {
             background: #e2e2e2;
         }
-
         #contents span p {
             position: absolute;
             top: 50%;
@@ -120,7 +66,6 @@
             padding: 20px;
             line-height: 1.8;
         }
-
         #contents span p.target {
             bottom: 0;
             top: auto;
@@ -145,40 +90,28 @@
             color: #777;
         }
 
-        /*自适应*/
-        @media (max-width: 1800px) and (max-height: 1800px) {
-            #circle{
-                top:10px;
-                right:10px;
-                width:80px;
-                height:80px;
-                position: absolute;
-                display: table-cell;
-                vertical-align: middle;
-                text-align: center;
-            }
-            #menuBtn{
-                width: 65px;
-            }
-            /*动画*/
-            @keyframes gradient {
-                0%{height: 65px;width: 65px;opacity: 0.3}
-                50%{height: 80px;width: 80px;opacity: 1}
-                100%{height: 65px;width: 65px;opacity: 0.3}
-            }
-            #menuBtn{
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%,-50%);
-                animation:gradient 2s ease-out;
-                animation-iteration-count: infinite
-            }
+        #contents span.blank p.target {
+            background-color: rgba(255, 255, 255, 0.6);
         }
-        /* @media (max-width: 600px) and (max-height: 900px) {
+
+        #contents a span.others {
+            background: #333;
+        }
+
+        #contents span.others p {
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            color: #fff;
+            font-size: calc(1.5rem + 2vmin);
+            transform: translateY(-50%);
+        }
+
+        @media (max-width: 600px) and (max-height: 900px) {
             #contents span {
                 height: calc(32px + 36vmin);
             }
+
             #contents span img {
                 top: 50%;
                 transform: translateY(-50%);
@@ -206,9 +139,9 @@
 
         @media (min-width: 1800px) {
             #contents span {
-                width: calc(100%/4);
+                width: calc(100%/5);
             }
-        } */
+        }
 
         @-webkit-keyframes animLoading {
             0% {
@@ -219,6 +152,7 @@
                 opacity: 1.0;
             }
         }
+
         @keyframes animLoading {
             0% {
                 opacity: 0.2;
@@ -229,61 +163,30 @@
             }
         }
     </style>
+    <script async="" src="https://www.google-analytics.com/analytics.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" defer=""></script>
 </head>
 
-<body id="content">
-    <div id="contents" style="display:block;">
+<body id="aidnx" class="aidnsub" data-ver="623">
+    <div id="contents" style="display: block;">
         <p class="title">WEB</p>
-        <div class="contents"><a href="../html/momotap/html/momotap_start.html"><span>
-            <img src="../images/Demo_1.png">
-                    <p class="loading" style="display: none;">DEMO</p>
+        <div class="contents"><a href="../rift/"><span><img src="../images/Demo_1.png">
+                    <p class="loading" style="display: none;">DIMENSIONAL RIFT</p>
                 </span></a>
         </div>
-    </div>
-    <div id="menu"
-        style="height: 100%;top:-100%;background-color: #fbfbfb;width: 100%;position: absolute;float:bottom;">
-        <div class="drop_box" style="top:30px;">
-            <h class="title" onclick="window.location = '../index.html'" style="font-size: 60px;">
-                <span style="margin-left: 2.7%">KIPS</span>
-            </h>
+        <div id="bt_menu"><img src="../images/menu.png" onmousedown=OnMenuClick(); alt=""></div>
+        <div id="menu" style="overflow:auto;height: 100%;top:-100%;background-color: #fbfbfb;width: 100%;position: absolute;">
+            <h1><a href="../index.html">KIPS</a></h1>
+            <h2>kipkips official website</h2>
+            <p><a href="../news/">NEWS</a></p>
+            <p class="none">CONTENTS</p>
+            <p><a href="../sound/">SOUND</a></p>
+            <p><a href="../about/">ABOUT</a></p>
+            <p class="spa"><a href="../daniwell/">GITHUB</a></p>
         </div>
-        <div class="drop_box" style="top:40px;">
-            <h style="font-size:20px;font:'Montserrat';line-height:1;letter-spacing:5px;">
-                <span style="margin-left: 3%">kipkips official website</span>
-            </h>
+        <div id="loading" style="display: none;">
+            <p></p>
         </div>
-        <div class="drop_box" style="top:90px;">
-            <h class="title" id="news" onclick="window.location = 'news.html'"
-                style="text-decoration-line:line-through;font-size: 38px;">
-                <span>NEWS</span>
-            </h>
-        </div>
-        <div class="drop_box" style="top:120px;">
-            <h onclick="window.location = 'contents.html'" target="_self" class="title"
-                style="font-size: 38px;">
-                <span>CONTENTS</span>
-            </h>
-        </div>
-        <div class="drop_box" style="top:150px;">
-            <h onclick="window.location = 'sounds.html'" class="title" style="font-size: 38px;">
-                <span>SOUNDS</span>
-            </h>
-        </div>
-        <div class="drop_box" style="top:180px;">
-            <h onclick="window.location = 'about.html'" class="title" style="font-size: 38px;">
-                <span>ABOUT</span>
-            </h>
-        </div>
-        <div class="drop_box" style="top:230px;">
-            <h onclick="window.open('https://github.com/KIPKIPS')" target="_blank" class="title"
-                style="font-size: 38px;">
-                <span> GITHUB</span>
-            </h>
-        </div>
-    </div>
-    <div id="circle">
-        <img id="menuBtn" src="../images/menu.png" onmousedown=OnMenuClick(); alt="">
-    </div>
 </body>
 
 </html>

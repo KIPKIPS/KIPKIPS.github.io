@@ -1,0 +1,294 @@
+/*!
+YUI 3.18.1 (build f7e7bcb)
+Copyright 2014 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
+html {
+    color: #000;
+    background: #fff
+}
+
+blockquote,
+body,
+code,
+dd,
+div,
+dl,
+dt,
+fieldset,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+legend,
+li,
+ol,
+p,
+pre,
+td,
+textarea,
+th,
+ul {
+    margin: 0;
+    padding: 0
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+fieldset,
+img {
+    border: 0
+}
+
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var {
+    font-style: normal;
+    font-weight: 400
+}
+
+ol,
+ul {
+    list-style: none
+}
+
+caption,th {
+    text-align: left
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-size: 100%;
+    font-weight: 400
+}
+
+q:after,q:before {
+    content: ''
+}
+
+abbr,acronym {
+    border: 0;
+    font-variant: normal
+}
+
+sup {
+    vertical-align: text-top
+}
+
+sub {
+    vertical-align: text-bottom
+}
+
+input,select,textarea {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit
+}
+
+legend {
+    color: #000
+}
+
+#yui3-css-stamp.cssreset {
+    display: none
+}
+
+body,html {
+    font-family: 'Montserrat Light', Montserrat, 'Sawarabi Gothic', "游ゴシック", "Yu Gothic", "游ゴシック体", YuGothic, "Yu Gothic UI", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Meiryo UI", "メイリオ", Meiryo, sans-serif;
+    font-size: 16px;
+    letter-spacing: .4rem;
+    line-height: 1;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-variant-ligatures: no-common-ligatures;
+    font-variant-ligatures: no-common-ligatures
+}
+
+a,body,html {
+    -webkit-tap-highlight-color: transparent
+}
+
+a:active,
+a:link,
+a:visited {
+    color: #000;
+    text-decoration: none;
+    outline: 0
+}
+
+a:hover {
+    opacity: .3;
+    /* text-decoration: none; */
+    outline: 0
+}
+
+.noselect {
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none
+}
+
+.noanti {
+    -ms-interpolation-mode: nearest-neighbor;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated
+}
+
+#loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000
+}
+
+#loading p {
+    display: block;
+    width: calc(30px + 3vmin);
+    height: 2.5px;
+    background: #000;
+    -webkit-animation: animLoadingTop .3s ease-in-out infinite alternate;
+    animation: animLoadingTop .3s ease-in-out infinite alternate
+}
+
+/* #menu {
+    overflow:auto;
+    height: 100%;
+    top:-100%;
+    background-color: #fbfbfb;
+    width: 100%;
+    position: relative;
+} */
+
+#menu h1 {
+    font-weight: 400;
+    font-size: calc(1.8rem + 3.6vmin);
+    margin-bottom: 1vh
+}
+
+#menu h2 {
+    font-weight: 400;
+    font-size: calc(.7rem + .9vmin);
+    margin-bottom: 6vh;
+    letter-spacing: .22rem
+}
+
+#menu p {
+    margin-bottom: 4vh;
+    font-size: calc(.5rem + 3.6vmin)
+}
+
+#menu p.spa {
+    margin-top: 6vh
+}
+
+#menu p.none {
+    text-decoration: line-through
+}
+
+.aidnsub #menu {
+    position: fixed;
+    background: #f9f9f9;
+    width: 100%;
+    height: 100%
+}
+
+#bt_menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: calc(10px + 3vmin);
+    cursor: pointer;
+    z-index: 101
+}
+
+#bt_menu img {
+    width: calc(36px + 5vmin);
+    padding: 1px;
+    -webkit-animation: animMenu .9s ease-in-out infinite alternate;
+    animation: animMenu .9s ease-in-out infinite alternate
+}
+
+@-webkit-keyframes animMenu {
+    0% {
+        opacity: .2;
+        transform: scale(1)
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1.13)
+    }
+}
+
+@keyframes animMenu {
+    0% {
+        opacity: .2;
+        transform: scale(1)
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1.13)
+    }
+}
+
+@-webkit-keyframes animLoadingTop {
+    0% {
+        transform: rotate(-22deg)
+    }
+
+    100% {
+        transform: rotate(22deg)
+    }
+}
+
+@keyframes animLoadingTop {
+    0% {
+        transform: rotate(-22deg)
+    }
+
+    100% {
+        transform: rotate(22deg)
+    }
+}
+
+.goog-te-gadget {
+    margin-top: 10px;
+    margin-bottom: 10px
+}
+
+.goog-te-gadget a:link,
+.goog-te-gadget a:visited {
+    text-decoration: none
+}
+
+div.skiptranslate {
+    opacity: 0
+}
+
+#google_translate_element div.skiptranslate {
+    opacity: 1;
+    letter-spacing: .13rem
+}
+
+#google_translate_element .goog-te-gadget-simple {
+    padding: 6px
+}
