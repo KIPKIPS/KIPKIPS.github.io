@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <!-- <meta name="google-site-verification" content="kDm7L5QyOIWwvxJVw9Aq1QppIH30RPw95dhBT2YTXbE"> -->
@@ -32,6 +33,7 @@
         * {
             margin: 0;
             padding: 0;
+            font-family: "Montserrat";
         }
         #menuBtn{
             position: absolute;
@@ -50,7 +52,7 @@
             to {top:-100%;}
         }
         .title{
-            font:70% "Montserrat";
+            font:"Montserrat";
             line-height:1;
             letter-spacing:5px;
         }
@@ -80,7 +82,7 @@
         }
 
         #contents p.title {
-            font-size: calc(1.6rem + 3vmin);
+            font-size: 50px;
             margin: calc(24px + 2vmin) 4.4vmin;
         }
 
@@ -144,7 +146,7 @@
         }
 
         /*自适应*/
-        @media (max-width: 4000px) and (max-height: 4000px) {
+        @media (max-width: 1800px) and (max-height: 1800px) {
             #circle{
                 top:10px;
                 right:10px;
@@ -187,25 +189,25 @@
 
         @media (min-width: 600px) {
             #contents span {
-                width: calc(100%);
+                width: calc(100%/2);
             }
         }
 
         @media (min-width: 1000px) {
             #contents span {
-                width: calc(100%/2);
+                width: calc(100%/3);
             }
         }
 
         @media (min-width: 1400px) {
             #contents span {
-                width: calc(100%/3);
+                width: calc(100%/4);
             }
         }
 
         @media (min-width: 1800px) {
             #contents span {
-                width: calc(100%/4);
+                width: calc(100%/5);
             }
         }
 
@@ -242,40 +244,40 @@
     <div id="menu"
         style="height: 100%;top:-100%;background-color: #fbfbfb;width: 100%;position: absolute;float:bottom;">
         <div class="drop_box" style="top:30px;">
-            <h class="title" onclick="window.location = '../index.html'" style="font-size: calc(2.5rem + 2.5vmin);">
+            <h class="title" onclick="window.location = '../index.html'" style="font-size: 60px;">
                 <span style="margin-left: 2.7%">KIPS</span>
             </h>
         </div>
         <div class="drop_box" style="top:40px;">
-            <h style="font-size: calc(.8rem + .8vmin);font:'Montserrat';line-height:1;letter-spacing:5px;">
+            <h style="font-size:20px;font:'Montserrat';line-height:1;letter-spacing:5px;">
                 <span style="margin-left: 3%">kipkips official website</span>
             </h>
         </div>
         <div class="drop_box" style="top:90px;">
             <h class="title" id="news" onclick="window.location = 'news.html'"
-                style="text-decoration-line:line-through;font-size: calc(1.4rem + 1.4vmin);">
+                style="text-decoration-line:line-through;font-size: 38px;">
                 <span>NEWS</span>
             </h>
         </div>
         <div class="drop_box" style="top:120px;">
             <h onclick="window.location = 'contents.html'" target="_self" class="title"
-                style="font-size: calc(1.4rem + 1.4vmin);">
+                style="font-size: 38px;">
                 <span>CONTENTS</span>
             </h>
         </div>
         <div class="drop_box" style="top:150px;">
-            <h onclick="window.location = 'sounds.html'" class="title" style="font-size: calc(1.4rem + 1.4vmin);">
+            <h onclick="window.location = 'sounds.html'" class="title" style="font-size: 38px;">
                 <span>SOUNDS</span>
             </h>
         </div>
         <div class="drop_box" style="top:180px;">
-            <h onclick="window.location = 'about.html'" class="title" style="font-size: calc(1.4rem + 1.4vmin);">
+            <h onclick="window.location = 'about.html'" class="title" style="font-size: 38px;">
                 <span>ABOUT</span>
             </h>
         </div>
         <div class="drop_box" style="top:230px;">
             <h onclick="window.open('https://github.com/KIPKIPS')" target="_blank" class="title"
-                style="font-size: calc(1.4rem + 1.4vmin);">
+                style="font-size: 38px;">
                 <span> GITHUB</span>
             </h>
         </div>
