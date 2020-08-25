@@ -9,31 +9,7 @@ html {
     background: #fff
 }
 
-blockquote,
-body,
-code,
-dd,
-div,
-dl,
-dt,
-fieldset,
-form,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-input,
-legend,
-li,
-ol,
-p,
-pre,
-td,
-textarea,
-th,
-ul {
+blockquote,body,code,dd,div,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,input,legend,li,ol,p,pre,td,textarea,th,ul {
     margin: 0;
     padding: 0
 }
@@ -43,26 +19,16 @@ table {
     border-spacing: 0
 }
 
-fieldset,
-img {
+fieldset,img {
     border: 0
 }
 
-address,
-caption,
-cite,
-code,
-dfn,
-em,
-strong,
-th,
-var {
+address,caption,cite,code,dfn,em,strong,th,var {
     font-style: normal;
     font-weight: 400
 }
 
-ol,
-ul {
+ol,ul {
     list-style: none
 }
 
@@ -120,9 +86,7 @@ a,body,html {
     -webkit-tap-highlight-color: transparent
 }
 
-a:active,
-a:link,
-a:visited {
+a:active,a:link,a:visited {
     color: #000;
     text-decoration: none;
     outline: 0
@@ -130,7 +94,7 @@ a:visited {
 
 a:hover {
     opacity: .3;
-    /* text-decoration: none; */
+    text-decoration: none;
     outline: 0
 }
 
@@ -275,8 +239,7 @@ a:hover {
     margin-bottom: 10px
 }
 
-.goog-te-gadget a:link,
-.goog-te-gadget a:visited {
+.goog-te-gadget a:link,.goog-te-gadget a:visited {
     text-decoration: none
 }
 

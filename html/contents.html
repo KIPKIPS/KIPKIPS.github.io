@@ -14,32 +14,49 @@
             word-break: break-all;
             display: none;
         }
+
         .contents {
             margin-bottom: 2vmin;
         }
+
         #contents p.title {
             font-size: calc(1.6rem + 3vmin);
             margin: calc(24px + 2vmin) 4.4vmin;
         }
+
         #contents div:last-child {
             margin-bottom: 0;
         }
-        #menuBtn{
+
+        #menuBtn {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%,-50%);
-            animation:gradient 2s ease-out;
+            transform: translate(-50%, -50%);
+            animation: gradient 2s ease-out;
             animation-iteration-count: infinite
         }
+
         @keyframes moveDown {
-            from {top:-100%;}
-            to {top:0;}
+            from {
+                top: -100%;
+            }
+
+            to {
+                top: 0;
+            }
         }
+
         @keyframes moveUp {
-            from {top:0;}
-            to {top:-100%;}
+            from {
+                top: 0;
+            }
+
+            to {
+                top: -100%;
+            }
         }
+
         #contents span {
             display: inline-block;
             width: 100%;
@@ -47,16 +64,20 @@
             overflow: hidden;
             vertical-align: top;
         }
+
         #contents span img {
             vertical-align: bottom;
             width: 100%;
         }
+
         #contents span {
             background: #eee;
         }
+
         #contents a:nth-child(odd) span {
             background: #e2e2e2;
         }
+
         #contents span p {
             position: absolute;
             top: 50%;
@@ -66,6 +87,7 @@
             padding: 20px;
             line-height: 1.8;
         }
+
         #contents span p.target {
             bottom: 0;
             top: auto;
@@ -96,6 +118,10 @@
 
         #contents a span.others {
             background: #333;
+        }
+
+        .spa {
+            margin-top: 6vh;
         }
 
         #contents span.others p {
@@ -175,14 +201,17 @@
                 </span></a>
         </div>
         <div id="bt_menu"><img src="../images/menu.png" onmousedown=OnMenuClick(); alt=""></div>
-        <div id="menu" style="overflow:auto;height: 100%;top:-100%;background-color: #fbfbfb;width: 100%;position: absolute;">
-            <h1><a href="../index.html">KIPS</a></h1>
-            <h2>kipkips official website</h2>
-            <p><a href="../news/">NEWS</a></p>
-            <p class="none">CONTENTS</p>
-            <p><a href="../sound/">SOUND</a></p>
-            <p><a href="../about/">ABOUT</a></p>
-            <p class="spa"><a href="../daniwell/">GITHUB</a></p>
+        <div id="menu"
+            style="overflow:auto;height: 100%;top:-100%;background-color: #fbfbfb;width: 100%;position: absolute;">
+            <div style="padding: 4vmin 4.4vmin;">
+                <h1><a href="../index.html">KIPS</a></h1>
+                <h2>kipkips official website</h2>
+                <p><a href="news.html">NEWS</a></p>
+                <p class="none">CONTENTS</p>
+                <p><a href="sounds.html">SOUND</a></p>
+                <p><a href="about.html">ABOUT</a></p>
+                <p class="spa"><a href="https://github.com/KIPKIPS" target="_blank">GITHUB</a></p>
+            </div>
         </div>
         <div id="loading" style="display: none;">
             <p></p>
