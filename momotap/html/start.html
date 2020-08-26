@@ -6,14 +6,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
     <link href="https://fonts.googleapis.com/css?family=Sawarabi+Gothic|Montserrat&amp;display=swap" rel="stylesheet">
-    <link id="icon" rel="shortcut icon" href="../../../images/icon.png" />
+    <link id="icon" rel="shortcut icon" href="../../images/icon.png" />
     <title>KIPKIPS</title>
     <script type="text/javascript" src="../js/fullScreen.js"></script>
     <script type="text/javascript">
         function fullOnMouseDown() {
             requestFullScreen(document.getElementById("body"));
         }
-
         var dom = function (s) {
             return document.getElementById(s)
         };
@@ -34,6 +33,7 @@
             };
             return dom.cssName(name);
         };
+        //加载动画
         window.onload = function () {
             var e3 = dom("back"),
                 css3transition = dom.cssName("transition");
@@ -69,7 +69,6 @@
         // });
 
     </script>
-
     <style>
         #back:hover {
             animation: change1 0.2s ease, change2 0.2s ease;
@@ -172,7 +171,7 @@
         <div id="text" class="text"
             style="opacity: 0; cursor: auto; height: 100%;width: 100%; margin-top: 0px; font-size: 20px; font-family: sans-serif;">
             <p style="user-select: none;cursor: auto; font-size: 21px; margin-top:280px">M O M O T A P</p>
-            <p style=" margin-top:25px; font-size: 16px"><a href="momotap_game.html" id="st"
+            <p style=" margin-top:25px; font-size: 16px"><a href="game.html" id="st"
                     style="color: #ffffff; border-bottom: 1px dashed #ffffff;user-select: none; text-decoration: none; height: 25px ; margin-right: 0;margin-left: 0">S
                     T A R T</a></p>
             <p style="height: 5px; margin-top:7px;"><a id="ab"
@@ -186,13 +185,13 @@
                 <a id="sh"
                     style="user-select: none; color: #ffffff; cursor: auto;font-size: 16px; height: 24px ; margin-right: 0;margin-left:0">S
                     H A R E :</a></p>
-            <p style="height: 0; margin-top:32px;margin-left:0">
-                <img id="qq" src="../../../images/qq.png"
+            <p style="height: 0; margin-top:32px;margin-left:0;user-select: none;">
+                <img id="qq" src="../../images/qq.png"
                     style="opacity: 0.9; user-select: none; height: 35px ; margin-right: 0;margin-left:0">
                 <a></a>
-                <img id="wechat" src="../../../images/wechat.png"
+                <img id="wechat" src="../../images/wechat.png"
                     style="opacity: 0.9;user-select: none;height: 35px ; margin-right: 0;margin-left:0">
-                <img id="weibo" src="../../../images/weibo.png"
+                <img id="weibo" src="../../images/weibo.png"
                     style="opacity: 0.9;user-select: none;height: 35px ; margin-right: 0;margin-left:0">
             </p>
         </div>
@@ -202,7 +201,7 @@
             </p>
         </div>
         <div id="full" class="full" onmousedown="fullOnMouseDown()"
-            style="opacity: 0; height: 20px;width: 20px; float: right; margin-right: 5px;margin-top: 0px; font-size: 22px;">
+            style="user-select: none;opacity: 0; height: 20px;width: 20px; float: right; margin-right: 5px;margin-top: 0px; font-size: 22px;">
             <p><a id="fu">□</a></p>
         </div>
         <!--主体-->
