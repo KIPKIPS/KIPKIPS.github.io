@@ -7,39 +7,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="https://fonts.googleapis.com/css?family=Sawarabi+Gothic|Montserrat&amp;display=swap" rel="stylesheet">
 
-    <link id="icon" rel="shortcut icon" href="../../../images/icon.png" />
+    <link id="icon" rel="shortcut icon" href="../../images/icon.png" />
     <!-- <script type="text/javascript" src="../js/elementHandler.js"></script>
     <script type="text/javascript" src="../js/colorChange.js"></script>
     <script type="text/javascript" src="../js/bgmController.js"></script>
     <script type="text/javascript" src="../js/boxLeaveEnterController.js"></script>
     <script type="text/javascript" src="../js/boxOpacityController.js"></script> -->
     <script type="text/javascript" src="../js/fullScreen.js"></script>
+    <script type="text/javascript" src="../js/momotap.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/momotap.css">
 
-    <title></title>
+    <title>Momotap</title>
 
     <script>
-        // document.addEventListener('visibilitychange', function () { //浏览器切换事件
-        //     if (document.visibilityState == 'hidden') { //状态判断
-        //         //normal_title=document.title;
-        //         document.title = '(●――●)喔呦,崩溃啦!';
-        //         document.getElementById('a').pause();
-        //         document.getElementById('icon').href = '../images/leaveIcon.png';
-        //     } else {
-        //         document.title = '(/≥▽≤)咦?又好了!';
-        //         document.getElementById('icon').href = '../images/icon.png';
-        //         if (canPlay == true) {
-        //             document.getElementById('a').play();
-        //         }
-
-        //         setTimeout(function () {
-        //             document.title = 'Hi,RECNEPS-KIPS';
-        //         }, 2000)
-
-        //     }
-        // });
-
+        function fullOnMouseDown() {
+            requestFullScreen(document.getElementById("body"));
+        }
+        function backDown() {
+            history.go(-1)
+        }
         var dom = function (s) {
             return document.getElementById(s)
         };
@@ -60,7 +48,7 @@
             };
             return dom.cssName(name);
         };
-        function x() {
+        function anime() {
             var el = dom("cover"),
                 css3transition = dom.cssName("transition");
             el.style[css3transition] = "opacity 0.8s ease";
@@ -112,59 +100,17 @@
                 e7.style.opacity = "1";
             }, 800);
         }
-
     </script>
 
-    <style>
-        /*button OnMouseOver闪烁动画*/
-        #back:hover {
-            animation: change1 0.2s ease, change2 0.2s ease;
-        }
-
-        @keyframes change1 {
-            from {
-                opacity: 1
-            }
-
-            to {
-                opacity: 0
-            }
-        }
-
-        @keyframes change2 {
-            from {
-                opacity: 0
-            }
-
-            to {
-                opacity: 1
-            }
-        }
-
-        #full:hover {
-            animation: change1 0.2s ease, change2 0.2s ease;
-        }
-
-        #bgmOF:hover {
-            animation: change1 0.2s ease, change2 0.2s ease;
-        }
-
-        #feedOF:hover {
-            animation: change1 0.2s ease, change2 0.2s ease;
-        }
-    </style>
 </head>
 
 <body id="body" style="height: 100%;width: 100%">
-    <audio id="a" src="../music/loop.mp3" loop
-        onloadeddata="obj1 = this; setTimeout(function() { obj1.play(); },1020)">
-    </audio>
-    <audio id="a1" src="../music/loop.mp3" onloadeddata="obj = this; setTimeout(function() { x(); },10)">
+    <audio id="audio" src="../music/loop.mp3" onloadeddata=" obj = this; setTimeout(function() { anime(); },10)">
     </audio>
 
     <div id="outer" class="outer"></div>
-    <canvas id="color1" class="color1"></canvas>
-    <div id="color" class="color" onmousedown="allOnMouseDown()" onmousemove="o()">
+    <canvas id="color" class="color"></canvas>
+    <!-- <div id="color" class="color" onmousedown="allOnMouseDown()" onmousemove="o()">
 
         <canvas id="change1" class="change"></canvas>
         <canvas id='change2' class='change'></canvas>
@@ -281,25 +227,23 @@
         <canvas id="box31" class="box" onmousedown="box31OnMouseDown()">
             <span></span>
         </canvas>
-    </div>
+    </div> -->
 
-    <div id="back" class="back" onmouseover="backOnMouseOver()" onmousedown="backDown()">
-        <</div>
-            <div id="full" class="full" onmouseover="fullOnMouseOver()" onmousedown="fullDown()">□</div>
-            <div id="text" class="text" onmouseover="textOnMouseOver()">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C L I C K&nbsp;&nbsp;&nbsp;&&nbsp;&nbsp;&nbsp;D R A G&nbsp;&nbsp;&nbsp;o
-                r&nbsp;&nbsp;&nbsp;S W I P E&nbsp;&nbsp;&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </div>
-            <div id="feedOF" class="feedOF" onmouseover="feedOnMouseOver()" onmousedown="feedDown()">F E E D B A C K : O
-                N</div>
-            <div id="bgmOF" class="bgmOF" onmouseover="bgmOnMouseOver()" onmousedown="bgmDown()">B A C K T R A C K : O N
-            </div>
-            <div id="cover"
-                style="background-color: #FFAFAF;height: 100%;width: 100%;opacity: 1;position:absolute;left: 0;top: 0;">
-            </div>
-            <div id="line"
-                style="background-color: white;height: 2px;width: 0;opacity: 0.8;position:absolute;left: 0;right: 0;top: 50%;margin: 0 auto;">
-            </div>
+    <div id="back" class="back" onmouseover="" onmousedown="backDown()"><</div>
+    <div id="full" class="full" onmouseover="" onmousedown="fullOnMouseDown()">□</div>
+    <div id="text" class="text" onmouseover="">
+        C L I C K&nbsp;&nbsp;&nbsp;&&nbsp;&nbsp;&nbsp;D R A G&nbsp;&nbsp;&nbsp;o
+        r&nbsp;&nbsp;&nbsp;P R E S S&nbsp;&nbsp;&nbsp;A N Y&nbsp;&nbsp;&nbsp;K E
+        Y&nbsp;&nbsp;&nbsp;!
+    </div>
+    <div id="feedOF" class="feedOF" onmouseover="" onmousedown="feedDown()">F E E D B A C K : O N</div>
+    <div id="bgmOF" class="bgmOF" onmouseover="" onmousedown="bgmDown()">B A C K T R A C K : O N</div>
+    <div id="cover"
+        style="background-color: #FFAFAF;height: 100%;width: 100%;opacity: 1;position:absolute;left: 0;top: 0;">
+    </div>
+    <div id="line"
+        style="background-color: white;height: 2px;width: 0;opacity: 0.8;position:absolute;left: 0;right: 0;top: 50%;margin: 0 auto;">
+    </div>
 </body>
 
 </html>
