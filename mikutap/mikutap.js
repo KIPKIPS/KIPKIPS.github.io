@@ -1,13 +1,16 @@
 init();
 
-//初始化操作
+//初始化
 function init() {
     animate();
     initScene();
     addClickEvent();
 }
+
+//通用元素和预定义全局变量
 var startPanel, sceneLoading, mainPanel, feedbackText, bgmText,aboutCover,aboutPanel;
-var feedOn,bgmOn ;
+var feedOn,bgmOn,isFull;
+
 //初始化界面
 function initScene() {
     console.log('init');
@@ -28,6 +31,7 @@ function initScene() {
     aboutCover.css('display', 'none');
     aboutPanel.css('display', 'none');
     feedOn=bgmOn=true;
+    isFull=false;
 }
 
 //注册点击事件
@@ -73,26 +77,27 @@ function showMainPanel() {
     mainPanel.css('display', 'block');
 }
 
+//feedback事件
 function feedDown() {
     var txt = feedOn ? 'FEEDBACK:OFF' : 'FEEDBACK:ON'
     feedbackText.html(txt)
     feedOn = !feedOn
 }
 
+//bgm事件
 function bgmDown() {
     var txt = bgmOn ? 'BACKTRACK:OFF' : 'BACKTRACK:ON'
     bgmText.html(txt)
     bgmOn = !bgmOn
 }
+
 /*全屏函数*/
-var isFull = false
 function requestFullScreen(element) {
     var fullScreen = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
     var quitFullScreenByDocument = document.exitFullScreen || document.mozCancelFullScreen || document.webkitExitFullscreen || element.msExitFullscreen;
     var quitFullScreenByElement = element.msExitFullscreen;
     if (!isFull) {
         fullScreen.call(element);
-        isFull = true
     }
     else {
         if (document) {
@@ -101,20 +106,23 @@ function requestFullScreen(element) {
         else {
             quitFullScreenByElement.call(element);
         }
-        isFull = false;
     }
+    isFull = !isFull
 }
 
-//关于按钮
+//about按钮 打开about界面
 function about(){
     aboutCover.css('display','block');
     aboutPanel.css('display','block');
 }
+
+//关闭about界面
 function closeAbout() {
     aboutCover.css('display', 'none');
     aboutPanel.css('display', 'none');
 }
 
+//帧循环
 function animate() {
     requestAnimationFrame(animate);
     if (TWEEN != undefined) {
