@@ -42,7 +42,8 @@ html {
     z-index: 1
 }
 
-#bt_back,#bt_fs {
+#bt_back,
+#bt_fs {
     position: absolute;
     z-index: 100;
     padding: 10px;
@@ -54,7 +55,7 @@ html {
 
 #bt_fs {
     left: auto;
-    right: 10px
+    right: 0
 }
 
 #scene_main,
