@@ -15,7 +15,7 @@ var startPanel, sceneLoading, mainPanel, feedbackText, bgmText, aboutCover, abou
 //状态控制变量
 var feedOn, bgmOn, isFull, settingDisplay, isStart;
 //数值
-var screenWidth, screenHeight;
+var aspectRatio;
 
 //初始化场景数据
 function initData() {
@@ -37,13 +37,10 @@ function initData() {
     aboutCover.css('display', 'none');
     aboutPanel.css('display', 'none');
     canvas = document.getElementById('canvas');
-
-    screenWidth = window.innerWidth;//计算画布的宽度
-    screenHeight = window.innerHeight;//计算画布的高度
     context = canvas.getContext('2d')
     //设置宽高
-    canvas.width = screenWidth;
-    canvas.height = screenHeight;
+    canvas.width = window.innerWidth;//计算画布的宽度
+    canvas.height = window.innerHeight;//计算画布的高度
     feedOn = bgmOn = true;
     isFull = false;
     settingDisplay = true;
@@ -51,6 +48,7 @@ function initData() {
     if (canvas.getContext) {
         ctx = canvas.getContext('2d');
     }
+    aspectRatio = window.innerWidth / window.innerHeight;//宽高比
 }
 
 var render, scene, camera;
@@ -203,16 +201,15 @@ function onUpdate() {
 //按照位置绘制矩形 自适应布局绘制
 function createRect(index){
     //宽高比小于等于1,w:4 h:8 否则 w:8 h:4
-    var aspectRatio = window.innerWidth / window.innerHeight;//宽高比
-    var pivot=pivotX = aspectRatio<=1?4:8;//每行矩形数
+    var pivotX = aspectRatio<=1?4:8;//每行矩形数
     var pivotY = pivotX==4?8:4;
 
     var itemWidth = window.innerWidth/pivotX;
     var itemHeight = window.innerHeight / pivotY;
     //计算行列索引 类似于进制转换,对应四进制和八进制
     var row,col
-    row = index % pivot-1;
-    col = Math.floor(index / pivot)
+    row = index % pivotX-1;
+    col = Math.floor(index / pivotX)
     var x = row*itemWidth
     var y = col*itemHeight
     var width = itemWidth
@@ -241,6 +238,7 @@ function clearCanvas() {
 
 //窗口尺寸自适应
 window.onresize = function () {
+    aspectRatio = window.innerWidth / window.innerHeight;//宽高比
     // canvas.width = window.innerWidth;
     // canvas.height = window.innerHeight;
 }
