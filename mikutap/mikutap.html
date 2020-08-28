@@ -1,10 +1,7 @@
 <!--
- * @Author: your name
+ * @Author: kipkips
  * @Date: 2020-08-27 23:56:57
- * @LastEditTime: 2020-08-27 23:59:39
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \KIPKIPS.github.io\test.html
+ * @LastEditTime: 2020-08-28 23:31:07
 -->
 <html lang="en">
 <head >
@@ -19,17 +16,19 @@
     <link charset="utf-8" href="mikutap.css" rel="stylesheet">
     <script charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" type="text/javascript"></script>
     <script charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.1.1/Tween.min.js" type="text/javascript"></script>
+    <script charset="utf-8" src="https://cdn.bootcss.com/three.js/r83/three.min.js" type="text/javascript"></script>
+    <!-- <script charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/jcanvas/21.0.1/min/jcanvas.min.js" type="text/javascript"></script> -->
 </head>
 
 <body id="body">
     <div id="view">
-        <canvas width="362" height="754" style="width: 362px; height: 754px; cursor: inherit;">
+        <canvas id="canvas" style="width: 100%; height: 100%; cursor: inherit;">
         </canvas>
     </div>
     <div id="scene_top" style="display: block;">
         <h1>Mikutap</h1>
         <div id="ng" style="display: none;">
-            <p class="atten">申し訳ございません、<br>お使いの端末又はブラウザには対応しておりません。</p>
+            <p class="atten"></p>
         </div>
         <div class="ok" style="display: block;">
             <p id="bt_start"><a>START</a></p>
@@ -59,7 +58,7 @@
             <p class="close"><span id="bt_close">×</span></p>
             <p class="con"> Voiced by <a href="https://ec.crypton.co.jp/pages/prod/vocaloid/mikuv4x"
                     target="_blank">Hatsune Miku</a> </p>
-            <p class="con"> Created by <a href="../html/about.html" target="_blank">daniwell</a> (<a
+            <p class="con"> Created by <a href="../html/about.html" target="_blank">kipkips</a> (<a
                     href="https://twitter.com/RECNEPS_KIPS" target="_blank">twitter</a>) </p>
             <p class="link">Inspired by <a href="http://patatap.com/" target="_blank">Patatap</a><br>(Wonderful
                 website!)</p>
