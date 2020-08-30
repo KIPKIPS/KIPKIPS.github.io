@@ -212,8 +212,8 @@ function createRect(index){
     var pivotX = aspectRatio<=1?4:8;//每行矩形数
     var pivotY = pivotX==4?8:4;
 
-    var itemWidth = window.innerWidth/pivotX;
-    var itemHeight = window.innerHeight / pivotY;
+    var itemWidth = Math.floor(window.innerWidth / pivotX);
+    var itemHeight = Math.floor(window.innerHeight / pivotY);
     //计算行列索引 类似于进制转换,对应四进制和八进制
     var row = index % pivotX == 0 ? pivotX-1:index % pivotX-1;
     var col = index % pivotX == 0 ? Math.floor(index / pivotX)-1:Math.floor(index / pivotX)
@@ -226,34 +226,32 @@ function createRect(index){
         height: itemHeight,
         transparency:0.5
     })
-    console.log(x,y)
+    //console.log(x,y)
 }
 
 //绘制透明度的矩形
 function rectangle(base) {
     var t = base.transparency ? base.transparency:1;
     var transparency = { val: 0 }
-    new TWEEN.Tween(transparency).onUpdate(function (transparency) {
+    var toVisible=new TWEEN.Tween(transparency).onUpdate(function (transparency) {
+        clearCanvas(base.x, base.y, base.width, base.height)
         ctx.fillStyle = "rgba(255,255,255," + transparency.val + ")";//rgba
         ctx.fillRect(base.x, base.y, base.width, base.height);//坐标和长宽
         //console.log(transparency.val)
          })//每一帧执行
         .easing(TWEEN.Easing.Linear.None) //缓动方式
         .to({ val: t }, 100)
-        .onComplete(function () { 
-            
-         }) //回调函数
-        .start();
-    // ctx.fillStyle = "rgba(255,255,255," + t + ")";//rgba
-    // ctx.fillRect(base.x, base.y, base.width, base.height);//坐标和长宽
+        .start()
+        .repeat(1)
+        .yoyo(1);
 }
 
 //计算鼠标位置对应的index
 function calculateIndex() {
     var pivotX = aspectRatio <= 1 ? 4 : 8;//每行矩形数
     var pivotY = pivotX == 4 ? 8 : 4;
-    var itemWidth = window.innerWidth / pivotX;
-    var itemHeight = window.innerHeight / pivotY;
+    var itemWidth = Math.floor(window.innerWidth / pivotX);
+    var itemHeight = Math.floor(window.innerHeight / pivotY);
     var row = Math.ceil(pointY / itemHeight);
     var col = Math.ceil(ponitX/itemWidth);
     var index = (row - 1)*pivotX+col
@@ -261,8 +259,8 @@ function calculateIndex() {
 }
 
 //清理画布
-function clearCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+function clearCanvas(x,y,w,h) {
+    ctx.clearRect(x,y,w,h);
 }
 
 //窗口尺寸自适应
