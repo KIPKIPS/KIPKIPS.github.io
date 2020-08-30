@@ -11,11 +11,11 @@ function init() {
 
 //通用元素和预定义全局变量
 //元素变量
-var startPanel, sceneLoading, mainPanel, feedbackText, bgmText, aboutCover, aboutPanel, canvas, ctx;
+var startPanel, sceneLoading, mainPanel, feedbackText, bgmText, aboutCover, aboutPanel, canvas, ctx,backBtn,fullBtn;
 //状态控制变量
-var feedOn, bgmOn, isFull, settingDisplay, isStart;
+var feedOn, bgmOn, isFull, settingDisplay, isStart, mouseDown;
 //数值
-var screenWidth, screenHeight, aspectRatio,ponitX,pointY;
+var screenWidth, screenHeight, aspectRatio, ponitX, pointY,curIndex;
 
 //初始化场景数据
 function initData() {
@@ -51,6 +51,10 @@ function initData() {
         ctx = canvas.getContext('2d');
     }
     aspectRatio = window.innerWidth / window.innerHeight;//宽高比
+    mouseDown = false;
+    curIndex = 0;
+    backBtn=$('#bt_back');
+    fullBtn=$('#bt_fs');
 }
 
 var render, scene, camera;
@@ -83,29 +87,44 @@ function addClickEvent() {
     $('#bt_backtrack').children('a').click(function () { bgmDown(); });
     $('#bt_about').children('a').click(function () { about(); });
     $('#bt_close').click(function () { closeAbout(); });
-    $('#view').click(function () { sceneClick(); });
-    $("#canvas").click(function (event) {
-        ponitX = event.pageX;
-        pointY = event.pageY;
-    });
-
+    $('#view').mousedown(function () { sceneDown(); });
+    $('#view').mouseup(function () { mouseDown = false });
+    $('#view').mousemove(function () { sceneMove(); });
+    $('#view').mouseenter(function () { curIndex = 0; });
+    $("#canvas").mousedown(function (event) { ponitX = event.pageX; pointY = event.pageY; });
+    $("#canvas").mousemove(function (event) { ponitX = event.pageX; pointY = event.pageY; });
+    $("#canvas").mouseup(function () { mouseDown = false; });
+    $("#canvas").mouseover(function (event) { mouseDown = event.which == 1 });
+    $("#body").mouseleave(function () { curIndex = 0; });
 }
 
 
 //点击主场景触发的时间
 var timer;
-function sceneClick() {
+function sceneDown() {
     if (!isStart) {
         return
     }
+    mouseDown = true;
     clearTimeout(timer);//必须在触发时清除定时器
     settingDisplay = false;//关闭
     //若1500ms内不再点击则显示设置面板
     timer = setTimeout(function () {
         settingDisplay = true;
     }, 1500);
-    var index = calculateIndex(ponitX,pointY);//根据鼠标位置计算索引
-    createRect(index)
+    var index = calculateIndex(ponitX, pointY);//根据鼠标位置计算索引
+    //按键反馈打开再创建矩形
+    if (feedOn && mouseDown && curIndex!=index) {
+        curIndex = index
+        createRect(index);
+    }
+}
+
+function sceneMove() {
+    if (!mouseDown) {
+        return
+    }
+    sceneDown();
 }
 
 //更新界面
@@ -116,6 +135,8 @@ function update() {
 function checkSettingPanelDisplay() {
     var str = settingDisplay ? 'block' : 'none';
     mainPanel.css('display', str);
+    backBtn.css('display', str);
+    fullBtn.css('display', str);
 }
 
 //开始
@@ -135,7 +156,7 @@ function loading() {
     sceneLoading.css('display', 'block')
     var width = { w: 0 }
     new TWEEN.Tween(width).onUpdate(function (width) { sceneLoading.css('width', width.w + '%') })//每一帧执行
-        .easing(TWEEN.Easing.Linear.None) //缓动方式
+        .easing(TWEEN.Easing.Quadratic.In) //缓动方式
         .to({ w: 100 }, 300)
         .onComplete(function () { setTimeout(function () { showMainPanel(); }, 300); }) //回调函数
         .start();
@@ -193,6 +214,92 @@ function closeAbout() {
     aboutPanel.css('display', 'none');
 }
 
+
+//按照位置绘制矩形 自适应布局绘制
+function createRect(index) {
+    //宽高比小于等于1,w:4 h:8 否则 w:8 h:4
+    //aspectRatio = window.innerWidth / window.innerHeight;//宽高比
+    var pivotX = aspectRatio <= 1 ? 4 : 8;//每行矩形数
+    var pivotY = pivotX == 4 ? 8 : 4;
+
+    var itemWidth = Math.ceil(window.innerWidth / pivotX);
+    var itemHeight = Math.ceil(window.innerHeight / pivotY);
+    //计算行列索引 类似于进制转换,对应四进制和八进制
+    var row = index % pivotX == 0 ? pivotX - 1 : index % pivotX - 1;
+    var col = index % pivotX == 0 ? Math.floor(index / pivotX) - 1 : Math.floor(index / pivotX)
+    var x = row * itemWidth
+    var y = col * itemHeight
+    rectangle({
+        x: x,
+        y: y,
+        width: itemWidth,
+        height: itemHeight,
+        transparency: 0.6
+    })
+    //console.log(x,y)
+}
+
+//绘制透明度的矩形
+var toVisible, toHide
+function rectangle(base) {
+    clearCanvas(base.x, base.y, base.width, base.height);//先清空当前位置的矩形
+    var t = base.transparency ? base.transparency : 1;
+    var visible = { val: 0 }
+    toVisible = new TWEEN.Tween(visible)
+        .onUpdate(function (visible) {
+            clearCanvas(base.x, base.y, base.width, base.height)
+            ctx.fillStyle = "rgba(255,255,255," + visible.val + ")";//rgba
+            ctx.fillRect(base.x, base.y, base.width, base.height);//坐标和长宽
+            //console.log(TWEEN.Easing.Quadratic.Out)
+        })//每一帧执行
+        .easing(TWEEN.Easing.Quartic.Out) //缓动方式
+        .to({ val: t }, 800)
+        .start()
+        .onStop(function () {
+            clearCanvas(base.x, base.y, base.width, base.height)
+        })
+    var hide = { val: base.transparency }
+    toHide = new TWEEN.Tween(hide)
+        .onUpdate(function (hide) {
+            clearCanvas(base.x, base.y, base.width, base.height)
+            ctx.fillStyle = "rgba(255,255,255," + hide.val + ")";//rgba
+            ctx.fillRect(base.x, base.y, base.width, base.height);//坐标和长宽
+        })//每一帧执行
+        .easing(TWEEN.Easing.Quartic.Out) //缓动方式
+        .to({ val: 0 }, 800)
+        .start()
+        .onStop(function () {
+            clearCanvas(base.x, base.y, base.width, base.height)
+        })
+    toVisible.stop().chain(toHide)//显示动画链接隐藏动画 显示动画stop后再去播放隐藏,防止卡帧
+}
+
+//计算鼠标位置对应的index
+function calculateIndex() {
+    var pivotX = aspectRatio <= 1 ? 4 : 8;//每行矩形数
+    var pivotY = pivotX == 4 ? 8 : 4;
+    var itemWidth = Math.ceil(window.innerWidth / pivotX);
+    var itemHeight = Math.ceil(window.innerHeight / pivotY);
+    var row = Math.ceil(pointY / itemHeight);
+    var col = Math.ceil(ponitX / itemWidth);
+    col = col == 0 ? 1 : col //边界值校验,列数在最左侧的情况下强行置为1
+    var index = (row - 1) * pivotX + col
+    return index
+}
+
+//清理画布
+function clearCanvas(x, y, w, h) {
+    ctx.clearRect(x, y, w, h);
+}
+
+//窗口尺寸自适应
+window.onresize = function () {
+    aspectRatio = window.innerWidth / window.innerHeight;//宽高比
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    //clearCanvas()
+}
+
 //帧循环
 function onUpdate() {
     requestAnimationFrame(onUpdate);
@@ -204,70 +311,3 @@ function onUpdate() {
     }
     //render.render(scene, camera);//使用创建的相机和场景进行渲染
 }
-
-//按照位置绘制矩形 自适应布局绘制
-function createRect(index){
-    //宽高比小于等于1,w:4 h:8 否则 w:8 h:4
-    //aspectRatio = window.innerWidth / window.innerHeight;//宽高比
-    var pivotX = aspectRatio<=1?4:8;//每行矩形数
-    var pivotY = pivotX==4?8:4;
-
-    var itemWidth = Math.floor(window.innerWidth / pivotX);
-    var itemHeight = Math.floor(window.innerHeight / pivotY);
-    //计算行列索引 类似于进制转换,对应四进制和八进制
-    var row = index % pivotX == 0 ? pivotX-1:index % pivotX-1;
-    var col = index % pivotX == 0 ? Math.floor(index / pivotX)-1:Math.floor(index / pivotX)
-    var x = row*itemWidth
-    var y = col*itemHeight
-    rectangle({
-        x:x,
-        y:y,
-        width: itemWidth,
-        height: itemHeight,
-        transparency:0.5
-    })
-    //console.log(x,y)
-}
-
-//绘制透明度的矩形
-function rectangle(base) {
-    var t = base.transparency ? base.transparency:1;
-    var transparency = { val: 0 }
-    var toVisible=new TWEEN.Tween(transparency).onUpdate(function (transparency) {
-        clearCanvas(base.x, base.y, base.width, base.height)
-        ctx.fillStyle = "rgba(255,255,255," + transparency.val + ")";//rgba
-        ctx.fillRect(base.x, base.y, base.width, base.height);//坐标和长宽
-        //console.log(transparency.val)
-         })//每一帧执行
-        .easing(TWEEN.Easing.Linear.None) //缓动方式
-        .to({ val: t }, 100)
-        .start()
-        .repeat(1)
-        .yoyo(1);
-}
-
-//计算鼠标位置对应的index
-function calculateIndex() {
-    var pivotX = aspectRatio <= 1 ? 4 : 8;//每行矩形数
-    var pivotY = pivotX == 4 ? 8 : 4;
-    var itemWidth = Math.floor(window.innerWidth / pivotX);
-    var itemHeight = Math.floor(window.innerHeight / pivotY);
-    var row = Math.ceil(pointY / itemHeight);
-    var col = Math.ceil(ponitX/itemWidth);
-    var index = (row - 1)*pivotX+col
-    return index
-}
-
-//清理画布
-function clearCanvas(x,y,w,h) {
-    ctx.clearRect(x,y,w,h);
-}
-
-//窗口尺寸自适应
-window.onresize = function () {
-    aspectRatio = window.innerWidth / window.innerHeight;//宽高比
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    //clearCanvas()
-}
-
