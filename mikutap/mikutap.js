@@ -15,7 +15,7 @@ var startPanel, sceneLoading, mainPanel, feedbackText, bgmText, aboutCover, abou
 //状态控制变量
 var feedOn, bgmOn, isFull, settingDisplay, isStart;
 //数值
-var screenWidth, screenHeight, aspectRatio;
+var screenWidth, screenHeight, aspectRatio,ponitX,pointY;
 
 //初始化场景数据
 function initData() {
@@ -84,6 +84,11 @@ function addClickEvent() {
     $('#bt_about').children('a').click(function () { about(); });
     $('#bt_close').click(function () { closeAbout(); });
     $('#view').click(function () { sceneClick(); });
+    $("#canvas").click(function (event) {
+        ponitX = event.pageX;
+        pointY = event.pageY;
+    });
+
 }
 
 
@@ -99,8 +104,8 @@ function sceneClick() {
     timer = setTimeout(function () {
         settingDisplay = true;
     }, 1500);
-    
-    createRect(10)
+    var index = calculateIndex(ponitX,pointY);//根据鼠标位置计算索引
+    createRect(index)
 }
 
 //更新界面
@@ -229,6 +234,20 @@ function rectangle(base) {
     var t = base.transparency ? base.transparency:1;
     ctx.fillStyle = "rgba(255,255,255," + t + ")";//rgba
     ctx.fillRect(base.x, base.y, base.width, base.height);//坐标和长宽
+}
+
+//计算鼠标位置对应的index
+function calculateIndex() {
+    var pivotX = aspectRatio <= 1 ? 4 : 8;//每行矩形数
+    var pivotY = pivotX == 4 ? 8 : 4;
+    var itemWidth = window.innerWidth / pivotX;
+    var itemHeight = window.innerHeight / pivotY;
+    var row = Math.ceil(pointY / itemHeight);
+    var col = Math.ceil(ponitX/itemWidth);
+    
+    console.log(row,col)
+    var index = (row - 1)*pivotX+col
+    return index
 }
 
 //清理画布
