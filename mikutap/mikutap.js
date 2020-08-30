@@ -215,8 +215,8 @@ function createRect(index){
     var itemWidth = window.innerWidth/pivotX;
     var itemHeight = window.innerHeight / pivotY;
     //计算行列索引 类似于进制转换,对应四进制和八进制
-    var row = index % pivotX-1;
-    var col = Math.floor(index / pivotX)
+    var row = index % pivotX == 0 ? pivotX-1:index % pivotX-1;
+    var col = index % pivotX == 0 ? Math.floor(index / pivotX)-1:Math.floor(index / pivotX)
     var x = row*itemWidth
     var y = col*itemHeight
     rectangle({
@@ -226,14 +226,26 @@ function createRect(index){
         height: itemHeight,
         transparency:0.5
     })
-    console.log(aspectRatio, itemWidth, itemHeight)
+    console.log(x,y)
 }
 
 //绘制透明度的矩形
 function rectangle(base) {
     var t = base.transparency ? base.transparency:1;
-    ctx.fillStyle = "rgba(255,255,255," + t + ")";//rgba
-    ctx.fillRect(base.x, base.y, base.width, base.height);//坐标和长宽
+    var transparency = { val: 0 }
+    new TWEEN.Tween(transparency).onUpdate(function (transparency) {
+        ctx.fillStyle = "rgba(255,255,255," + transparency.val + ")";//rgba
+        ctx.fillRect(base.x, base.y, base.width, base.height);//坐标和长宽
+        //console.log(transparency.val)
+         })//每一帧执行
+        .easing(TWEEN.Easing.Linear.None) //缓动方式
+        .to({ val: t }, 100)
+        .onComplete(function () { 
+            
+         }) //回调函数
+        .start();
+    // ctx.fillStyle = "rgba(255,255,255," + t + ")";//rgba
+    // ctx.fillRect(base.x, base.y, base.width, base.height);//坐标和长宽
 }
 
 //计算鼠标位置对应的index
@@ -244,8 +256,6 @@ function calculateIndex() {
     var itemHeight = window.innerHeight / pivotY;
     var row = Math.ceil(pointY / itemHeight);
     var col = Math.ceil(ponitX/itemWidth);
-    
-    console.log(row,col)
     var index = (row - 1)*pivotX+col
     return index
 }
