@@ -1,3 +1,12 @@
+//通用元素和预定义全局变量
+//元素变量
+var startPanel, sceneLoading, mainPanel, feedbackText, bgmText, aboutCover, aboutPanel, canvas, ctx, backBtn, fullBtn, audioPlayer;
+//状态控制变量
+var feedOn, bgmOn, isFull, settingDisplay, isStart, mouseDown, loadAudioComplete;
+//数值
+var screenWidth, screenHeight, aspectRatio, ponitX, pointY, curIndex,lastMilScend;
+var mainArrayBufferList = [];
+var audioContext;
 init();
 
 //初始化
@@ -8,17 +17,9 @@ function init() {
     onUpdate();
 }
 
-
-//通用元素和预定义全局变量
-//元素变量
-var startPanel, sceneLoading, mainPanel, feedbackText, bgmText, aboutCover, aboutPanel, canvas, ctx,backBtn,fullBtn;
-//状态控制变量
-var feedOn, bgmOn, isFull, settingDisplay, isStart, mouseDown;
-//数值
-var screenWidth, screenHeight, aspectRatio, ponitX, pointY,curIndex;
-
 //初始化场景数据
 function initData() {
+    loadAudioComplete=false
     console.log('init');
     //显示开始菜单
     startPanel = $('#scene_top');
@@ -53,8 +54,65 @@ function initData() {
     aspectRatio = window.innerWidth / window.innerHeight;//宽高比
     mouseDown = false;
     curIndex = 0;
-    backBtn=$('#bt_back');
-    fullBtn=$('#bt_fs');
+    backBtn = $('#bt_back');
+    fullBtn = $('#bt_fs');
+    lastMilScend=0;
+    //var uintArray = Base64Binary.decode(base64_string);
+    //var byteArray = Base64Binary.decodeArrayBuffer(base64_string); 
+}
+
+//base64数据转换成arraybuffer
+var Base64Binary = {
+    _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+    /* will return a  Uint8Array type */
+    decodeArrayBuffer: function (input) {
+        var bytes = (input.length / 4) * 3;
+        var ab = new ArrayBuffer(bytes);
+        this.decode(input, ab);
+        return ab;
+    },
+    removePaddingChars: function (input) {
+        var lkey = this._keyStr.indexOf(input.charAt(input.length - 1));
+        if (lkey == 64) {
+            return input.substring(0, input.length - 1);
+        }
+        return input;
+    },
+    decode: function (input, arrayBuffer) {
+        //get last chars to see if are valid
+        input = this.removePaddingChars(input);
+        input = this.removePaddingChars(input);
+
+        var bytes = parseInt((input.length / 4) * 3, 10);
+
+        var uarray;
+        var chr1, chr2, chr3;
+        var enc1, enc2, enc3, enc4;
+        var i = 0;
+        var j = 0;
+
+        if (arrayBuffer)
+            uarray = new Uint8Array(arrayBuffer);
+        else
+            uarray = new Uint8Array(bytes);
+        input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+        for (i = 0; i < bytes; i += 3) {
+            //get the 3 octects in 4 ascii chars
+            enc1 = this._keyStr.indexOf(input.charAt(j++));
+            enc2 = this._keyStr.indexOf(input.charAt(j++));
+            enc3 = this._keyStr.indexOf(input.charAt(j++));
+            enc4 = this._keyStr.indexOf(input.charAt(j++));
+
+            chr1 = (enc1 << 2) | (enc2 >> 4);
+            chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+            chr3 = ((enc3 & 3) << 6) | enc4;
+
+            uarray[i] = chr1;
+            if (enc3 != 64) uarray[i + 1] = chr2;
+            if (enc4 != 64) uarray[i + 2] = chr3;
+        }
+        return uarray;
+    }
 }
 
 var render, scene, camera;
@@ -77,25 +135,22 @@ function initScene() {
 
 //注册点击事件
 function addClickEvent() {
-    //返回按钮
-    $('#bt_back').click(function () { history.go(-1); });
-    //全屏函数
-    $('#bt_fs').click(function () { requestFullScreen(document.getElementById("body")) });
-    //start btn
-    $('#bt_start').children('a').click(function () { start(); });
-    $('#bt_feedback').children('a').click(function () { feedDown(); });
-    $('#bt_backtrack').children('a').click(function () { bgmDown(); });
-    $('#bt_about').children('a').click(function () { about(); });
-    $('#bt_close').click(function () { closeAbout(); });
-    $('#view').mousedown(function () { sceneDown(); });
-    $('#view').mouseup(function () { mouseDown = false });
-    $('#view').mousemove(function () { sceneMove(); });
-    $('#view').mouseenter(function () { curIndex = 0; });
+    $('#bt_back').click(function () { history.go(-1); });//返回按钮
+    $('#bt_fs').click(function () { requestFullScreen(document.getElementById("body")) });//全屏函数
+    $('#bt_start').children('a').click(function () { start(); });//开始按钮
+    $('#bt_feedback').children('a').click(function () { feedDown(); });//点击反馈函数
+    $('#bt_backtrack').children('a').click(function () { bgmDown(); });//背景开关
+    $('#bt_about').children('a').click(function () { about(); });//关于界面
+    $('#bt_close').click(function () { closeAbout(); });//关于界面关闭
+    $('#view').mousedown(function () { sceneDown(); });//鼠标down下
+    $('#view').mouseup(function () { mouseDown = false });//鼠标弹起
+    $('#view').mousemove(function () { sceneMove(); });//鼠标move
+    $('#view').mouseenter(function () { curIndex = 0; });//鼠标进入view
     $("#canvas").mousedown(function (event) { ponitX = event.pageX; pointY = event.pageY; });
     $("#canvas").mousemove(function (event) { ponitX = event.pageX; pointY = event.pageY; });
-    $("#canvas").mouseup(function () { mouseDown = false; });
+    $("#canvas").mouseup(function () { mouseDown = false; curIndex = 0; }); //鼠标弹起清空状态
     $("#canvas").mouseover(function (event) { mouseDown = event.which == 1 });
-    $("#body").mouseleave(function () { curIndex = 0; });
+    $("#body").mouseleave(function () { curIndex = 0; });//鼠标离开
 }
 
 
@@ -105,6 +160,7 @@ function sceneDown() {
     if (!isStart) {
         return
     }
+    //console.log(getJSON)
     mouseDown = true;
     clearTimeout(timer);//必须在触发时清除定时器
     settingDisplay = false;//关闭
@@ -114,10 +170,18 @@ function sceneDown() {
     }, 1500);
     var index = calculateIndex(ponitX, pointY);//根据鼠标位置计算索引
     //按键反馈打开再创建矩形
-    if (feedOn && mouseDown && curIndex!=index) {
+    if (feedOn && mouseDown && curIndex != index) {
         curIndex = index
         createRect(index);
+        var cloner = mainArrayBufferList[index-1].slice(0, mainArrayBufferList[index-1].byteLength);
+        var curMilScend = Date.now();
+        if (curMilScend-lastMilScend>=170) {
+            lastMilScend = curMilScend;
+            playArrayBuffer(cloner, index - 1);
+        }
+        
     }
+
 }
 
 function sceneMove() {
@@ -148,18 +212,51 @@ function start() {
     $('#bt_back').click(function () {
         init();
     });
-    loading();
+    //这里需要使用then()异步函数,需要在获取到json数据之后再去执行后续操作
+    $.getJSON("../data/json/main.json").then((data) => {
+        loadAudioData(data).then(()=> {
+            loadAudioComplete=true;
+            loading();
+        })   
+    })
+    audioContext=createAudioContext();
+}
+async function loadAudioData(data) {
+    $.each(data, function (name, src) {
+        var index = Number(name.split('.')[0])
+        var base64Data = src.substring(src.indexOf(',') + 1) //去掉数据前缀
+        mainArrayBufferList[index] = Base64Binary.decodeArrayBuffer(base64Data);
+        //mainArrayBufferList[index] = window.atob('aaa')
+    })
+}
+function b64toBlob(b64Data, contentType, sliceSize) {
+    contentType = contentType || '';
+    sliceSize = sliceSize || 512;
+    var byteCharacters = atob(b64Data.substring(b64Data.indexOf(',') + 1));
+    var byteArrays = [];
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        var slice = byteCharacters.slice(offset, offset + sliceSize);
+        var byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+        var byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+    }
+    var blob = new Blob(byteArrays, { type: contentType });
+    return blob;
 }
 
 //加载动画
-function loading() {
+function loading(cur, tar) {
     sceneLoading.css('display', 'block')
     var width = { w: 0 }
-    new TWEEN.Tween(width).onUpdate(function (width) { sceneLoading.css('width', width.w + '%') })//每一帧执行
+    var tween = new TWEEN.Tween(width).onUpdate(function (width) { sceneLoading.css('width', width.w + '%') })//每一帧执行
         .easing(TWEEN.Easing.Quadratic.In) //缓动方式
         .to({ w: 100 }, 300)
-        .onComplete(function () { setTimeout(function () { showMainPanel(); }, 300); }) //回调函数
+        .onComplete(function () { setTimeout(function () { showMainPanel();}, 300); }) //回调函数
         .start();
+    
 }
 
 //显示主界面
@@ -167,6 +264,78 @@ function showMainPanel() {
     isStart = true;
     sceneLoading.css('display', 'none')
     mainPanel.css('display', 'block');
+}
+
+
+function playMp3(url) {
+    var AudioContext = window.AudioContext || window.webkitAudioContext;
+    var ctx = new AudioContext();
+    // 创建一个XMLHttpRequest请求对象
+    var request = new XMLHttpRequest();
+    // 请求一个MP3文件
+    request.open('GET', url, true);
+    // Web Audio API 固定为 "arraybuffer"
+    request.responseType = 'arraybuffer';
+    // 加载完成后解码
+    request.onload = function () {
+        ctx.decodeAudioData(mainArrayBufferList[0], function (buffer) {
+            console.log(request)
+            // 获得解码后的数据：buffer 
+            // 这里可以立即播放解码后的 buffer，也可以把 buffer 值先存起来
+            // 这个 playBuffer() 将在下文讲解如此实现
+            playBuffer(buffer);
+        }, function () {
+            // 这里写解码出错的处理（例如文件损坏、格式不对等） 
+        });
+    };
+    // 发送这个XMLHttpRequest请求
+    request.send();
+}
+function playBuffer(buffer) {
+    var sourceNode = ctx.createBufferSource();
+    sourceNode.buffer = buffer;
+    sourceNode.connect(ctx.destination);
+    sourceNode.start(0);
+}
+
+function createAudioContext() {
+    var audioContext;
+    try {
+        // Fix up for prefixing
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioContext = new AudioContext();
+    } catch (e) {
+        alert('Web Audio API is not supported in this browser');
+    }
+    return audioContext;
+}
+
+function playArrayBuffer(arrBuffer,index) {
+    audioContext.decodeAudioData(arrBuffer, function (audioBuffer) {
+        // 创建AudioBufferSourceNode对象
+        var source = audioContext.createBufferSource();
+
+        // 设置AudioBufferSourceNode对象的buffer为复制的3秒AudioBuffer对象
+        source.buffer = audioBuffer;
+        
+        // 这一句是必须的，表示结束，没有这一句没法播放，没有声音
+        // 这里直接结束，实际上可以对结束做一些特效处理
+        source.connect(audioContext.destination);
+        // 资源开始播放
+        source.start();
+    })
+}
+
+//数组深拷贝
+function arrayDeepCopy(array) {
+    var out = [], i = 0, len = array.length;
+    for (; i < len; i++) {
+        if (array[i] instanceof Array) {
+            out[i] = arrayDeepCopy(array[i]);
+        }
+        else out[i] = array[i];
+    }
+    return out;
 }
 
 //feedback事件
