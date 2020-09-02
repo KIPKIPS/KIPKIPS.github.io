@@ -2,11 +2,12 @@
 //元素变量
 var startPanel, sceneLoading, mainPanel, feedbackText, bgmText, aboutCover, aboutPanel, canvas, ctx, backBtn, fullBtn, audioPlayer;
 //状态控制变量
-var feedOn, bgmOn, isFull, settingDisplay, isStart, mouseDown, loadAudioComplete;
+var feedOn, bgmOn, isFull, settingDisplay, isStart, mouseDown, loadAudioComplete, isQuickClick, canClick;
 //数值
-var screenWidth, screenHeight, aspectRatio, ponitX, pointY, curIndex,lastMilScend;
-var mainArrayBufferList = [];
+var screenWidth, screenHeight, aspectRatio, ponitX, pointY, curIndex, intervalTime;
+var mainArrayBufferList = [], cacheList=[];
 var audioContext;
+var timer, count = 1, quickTimer, curTime, lastTimevar, lastState;
 init();
 
 //初始化
@@ -19,6 +20,7 @@ function init() {
 
 //初始化场景数据
 function initData() {
+    canClick=true;
     loadAudioComplete=false
     console.log('init');
     //显示开始菜单
@@ -56,9 +58,15 @@ function initData() {
     curIndex = 0;
     backBtn = $('#bt_back');
     fullBtn = $('#bt_fs');
-    lastMilScend=0;
+    lastTime=0;
+    isQuickClick=false;
+    intervalTime=250;
     //var uintArray = Base64Binary.decode(base64_string);
     //var byteArray = Base64Binary.decodeArrayBuffer(base64_string); 
+    //订阅消息
+    // Observe.on('say', function (data) {
+    //     console.log(data.args.text);
+    // })
 }
 
 //base64数据转换成arraybuffer
@@ -143,19 +151,125 @@ function addClickEvent() {
     $('#bt_about').children('a').click(function () { about(); });//关于界面
     $('#bt_close').click(function () { closeAbout(); });//关于界面关闭
     $('#view').mousedown(function () { sceneDown(); });//鼠标down下
-    $('#view').mouseup(function () { mouseDown = false });//鼠标弹起
+    $('#view').mouseup(function () { mouseDown = false; });//鼠标弹起
     $('#view').mousemove(function () { sceneMove(); });//鼠标move
     $('#view').mouseenter(function () { curIndex = 0; });//鼠标进入view
     $("#canvas").mousedown(function (event) { ponitX = event.pageX; pointY = event.pageY; });
     $("#canvas").mousemove(function (event) { ponitX = event.pageX; pointY = event.pageY; });
-    $("#canvas").mouseup(function () { mouseDown = false; curIndex = 0; }); //鼠标弹起清空状态
+    $("#canvas").mouseup(function () { mouseDown = false; curIndex = 0;}); //鼠标弹起清空状态
     $("#canvas").mouseover(function (event) { mouseDown = event.which == 1 });
     $("#body").mouseleave(function () { curIndex = 0; });//鼠标离开
+
+
+    $("#view").on('push', function () {
+        //需要删除部分元素,越多删的概率越大,定时播放
+        var func = function () {
+            // catchList.shift() //删除队首元素
+            if (cacheList.length==0) {
+                return
+            }
+            var index = cacheList[0]
+            if (index==undefined ||index==null) {
+                return
+            }
+            cacheList=[]
+            var cloner = mainArrayBufferList[index - 1].slice(0, mainArrayBufferList[index - 1].byteLength);
+            playArrayBuffer(cloner, index - 1);
+        }
+        setTimeout(func,50);
+    })
 }
 
+//观察者模式
+const Observe = (function () {
+    //防止消息队列暴露而被篡改，将消息容器设置为私有变量
+    let __message = {};
+    return {
+        //注册消息接口
+        on: function (type, fn) {
+            //如果此消息不存在，创建一个该消息类型
+            if (typeof __message[type] === 'undefined') {
+                // 将执行方法推入该消息对应的执行队列中
+                __message[type] = [fn];
+            } else {
+                //如果此消息存在，直接将执行方法推入该消息对应的执行队列中
+                __message[type].push(fn);
+            }
+        },
+        //发布消息接口
+        subscribe: function (type, args) {
+            //如果该消息没有注册，直接返回
+            if (!__message[type]) return;
+            //定义消息信息
+            let events = {
+                type: type,           //消息类型
+                args: args || {}       //参数
+            },
+                i = 0,                         // 循环变量
+                len = __message[type].length;   // 执行队列长度
+            //遍历执行函数
+            for (; i < len; i++) {
+                //依次执行注册消息对应的方法
+                __message[type][i].call(this, events)
+            }
+        },
+        //移除消息接口
+        off: function (type, fn) {
+            //如果消息执行队列存在
+            if (__message[type] instanceof Array) {
+                // 从最后一条依次遍历
+                let i = __message[type].length - 1;
+                for (; i >= 0; i--) {
+                    //如果存在改执行函数则移除相应的动作
+                    __message[type][i] === fn && __message[type].splice(i, 1);
+                }
+            }
+        }
+    }
+})();
+
+//队列
+function Queue() {
+    let items = [];
+
+    // 向队列添加元素（一个或多个）
+    this.enqueue = function (element) {
+        if (element instanceof Array) items = items.concat(element);
+        else items.push(element);
+    };
+
+    // 从队列移除元素
+    this.dequeue = function () {
+        return items.shift();
+    };
+
+    // 返回队列中的第一个元素
+    this.front = function () {
+        return items[0];
+    };
+
+    // 判断队列是否为空
+    this.isEmpty = function () {
+        return items.length === 0;
+    };
+
+    // 返回队列的长度
+    this.size = function () {
+        return items.length;
+    };
+
+    // 清空队列
+    this.clear = function () {
+        items = [];
+    };
+
+    // 打印队列内的所有元素
+    this.print = function () {
+        console.log(items.toString());
+    };
+}
 
 //点击主场景触发的时间
-var timer;
 function sceneDown() {
     if (!isStart) {
         return
@@ -172,14 +286,13 @@ function sceneDown() {
     //按键反馈打开再创建矩形
     if (feedOn && mouseDown && curIndex != index) {
         curIndex = index
-        createRect(index);
-        var cloner = mainArrayBufferList[index-1].slice(0, mainArrayBufferList[index-1].byteLength);
-        var curMilScend = Date.now();
-        if (curMilScend-lastMilScend>=170) {
-            lastMilScend = curMilScend;
-            playArrayBuffer(cloner, index - 1);
-        }
-        
+        createRect(index);//矩形不需要加入缓冲队列,直接反馈
+        //音频放入缓冲队列
+        cacheList.push(index)
+        $("#view").trigger('push')
+        //console.log(index);
+        // var cloner = mainArrayBufferList[index - 1].slice(0, mainArrayBufferList[index - 1].byteLength);
+        // playArrayBuffer(cloner, index - 1);
     }
 
 }
@@ -191,9 +304,31 @@ function sceneMove() {
     sceneDown();
 }
 
-//更新界面
+//更新逻辑
 function update() {
     checkSettingPanelDisplay();//检测是否显示设置面板
+    //checkQuickClick();
+    //console.log(catchList)
+}
+function checkQuickClick() {
+    count = Date.now() - lastTime >= 200 ? 1 : count;
+    
+    isQuickClick=count>1?true:false;
+    if (isQuickClick!=lastState) {
+        lastState = isQuickClick
+        if (isQuickClick) {
+            var index = calculateIndex(ponitX, pointY);//根据鼠标位置计算索引
+            canClick=false;
+            quickTimer=setInterval(() => {
+                var cloner = mainArrayBufferList[index - 1].slice(0, mainArrayBufferList[index - 1].byteLength);
+                playArrayBuffer(cloner, index - 1);
+                createRect(index);
+            }, 200);
+        }else{
+            canClick = true;
+            clearInterval(quickTimer)
+        }
+    }
 }
 
 function checkSettingPanelDisplay() {
@@ -220,6 +355,7 @@ function start() {
         })   
     })
     audioContext=createAudioContext();
+    lastState=null
 }
 async function loadAudioData(data) {
     $.each(data, function (name, src) {
@@ -282,7 +418,6 @@ function playMp3(url) {
             console.log(request)
             // 获得解码后的数据：buffer 
             // 这里可以立即播放解码后的 buffer，也可以把 buffer 值先存起来
-            // 这个 playBuffer() 将在下文讲解如此实现
             playBuffer(buffer);
         }, function () {
             // 这里写解码出错的处理（例如文件损坏、格式不对等） 
