@@ -2,14 +2,13 @@
 //元素变量
 var startPanel, sceneLoading, mainPanel, feedbackText, bgmText, aboutCover, aboutPanel, canvas, ctx, backBtn, fullBtn;
 //状态控制变量
-var feedOn, bgmOn, isFull, settingDisplay, isStart, mouseDown, loadAudioComplete,isPlay;
+var feedOn, bgmOn, isFull, settingDisplay, isStart, mouseDown, loadAudioComplete,isPlay,mouseMove;
 //数值
-var screenWidth, screenHeight, aspectRatio, ponitX, pointY, curIndex, intervalTime;
-var mainArrayBufferList = [], cacheList=[];
-var audioContext;
-var timer, count = 1, curTime, lastTime,upTime;
-var lastState=false
-var rhythm
+var screenWidth, screenHeight, aspectRatio, ponitX, pointY, curIndex,cacheLength;
+var mainArrayBufferList = [],cacheList=[];
+var audioContext, timer, compressorNode;
+var lastPointX=0, lastPointY=0
+
 init();
 
 //初始化
@@ -22,6 +21,7 @@ function init() {
 
 //初始化场景数据
 function initData() {
+    cacheLength=0;
     isPlay=false
     loadAudioComplete=false
     console.log('init');
@@ -61,14 +61,6 @@ function initData() {
     backBtn = $('#bt_back');
     fullBtn = $('#bt_fs');
     lastTime=0;
-    intervalTime=250;
-    HFClick=false;
-    //var uintArray = Base64Binary.decode(base64_string);
-    //var byteArray = Base64Binary.decodeArrayBuffer(base64_string); 
-    //订阅消息
-    // Observe.on('say', function (data) {
-    //     console.log(data.args.text);
-    // })
 }
 
 var render, scene, camera;
@@ -105,16 +97,18 @@ function addClickEvent() {
     $('#view').mousemove(function () { sceneMove(); });//鼠标move
     $('#view').mouseenter(function () { curIndex = 0; });//鼠标进入view
     $("#canvas").mousedown(function (event) { ponitX = event.pageX; pointY = event.pageY; });
-    $("#canvas").mousemove(function (event) { ponitX = event.pageX; pointY = event.pageY; });
-    $("#canvas").mouseup(function () { mouseDown = false; curIndex = 0;upTime=Date.now();}); //鼠标弹起清空状态
+    $("#canvas").mousemove(function (event) { ponitX = event.pageX; pointY = event.pageY;});
+     //鼠标弹起清空状态
+    $("#canvas").mouseup(function () { 
+        mouseDown = false; 
+        if (cacheList.length>=1) {
+            cacheList = [cacheList[0]]
+        }
+     } );
     $("#canvas").mouseover(function (event) { mouseDown = event.which == 1 });
     $("#body").mouseleave(function () { curIndex = 0; });//鼠标离开
-
-    // $("#view").on('clickTrigger',function () {
-    //     clickListen();
-    // });//绑定事件
 }
-var timeClick
+
 //点击主场景触发的时间
 function sceneDown() {
     if (!isStart) {
@@ -129,63 +123,62 @@ function sceneDown() {
         settingDisplay = true;
     }, 1500);
     //按键反馈打开再创建矩形
-    if (feedOn && mouseDown && curIndex != index) {
-        var index = calculateIndex(ponitX, pointY);//根据鼠标位置计算索引
+    var index = calculateIndex(ponitX, pointY);//根据鼠标位置计算索引
+    if (mouseDown) { //&& curIndex != index
+        if (feedOn) {
+            createRect(index);//矩形直接反馈,不放进暂存列表
+        }if (cacheList.length>0) {
+            cacheList = []
+        }
+        cacheList.push(index)
         curIndex = index
-        createRect(index);//矩形不需要缓冲,直接反馈
-        // $("#view").trigger('clickTrigger')
-        // curTime=Date.now()
-        // if (curTime-lastTime<300) {
-            //     count++
-            // }else{
-                //     count=1
-                // }
-                // if (count<5 &&!isPlay) {
-        //     playArrayBuffer(index);
-        // }
-        // lastTime=curTime;
-        playArrayBuffer(index,function () {
-            isPlay=false
-        })
     }
 }
-
 function sceneMove() {
+    if (!isStart) {
+        return
+    }
     if (!mouseDown) {
         return
     }
-    sceneDown();
+    clearTimeout(timer);//必须在触发时清除定时器
+    settingDisplay = false;//关闭
+    //若1500ms内不再点击则显示设置面板
+    timer = setTimeout(function () {
+        settingDisplay = true;
+    }, 1500);
+    //按键反馈打开再创建矩形
+    var index = calculateIndex(ponitX, pointY);//根据鼠标位置计算索引
+    if (mouseDown && curIndex != index) { //&& curIndex != index
+        if (feedOn) {
+            createRect(index);//矩形直接反馈,不放进暂存列表
+        }
+        cacheList.push(index)
+        curIndex = index
+    }
 }
 
 //更新逻辑
+var playIndex=0
 function update() {
     checkSettingPanelDisplay();//检测是否显示设置面板
-    // if (Date.now()-upTime>300) {
-    //     count=1;
-    // } 
-    // state=count>=10
-    // if (state!=lastState) {
-    //     if (state==true) {
-    //         isPlay = true;
-    //         //定时器循环执行的内容
-    //         function once() {
-    //             var index = calculateIndex(ponitX, pointY);//根据鼠标位置计算索引
-    //             // if (ci != index &&!mouseDown) {
-    //             //     clearInterval(rhythm)
-    //             //     rhythm = setInterval(once, 200);//之后再去循环执行
-    //             // }
-    //             playArrayBuffer(index);
-    //         }
-    //         once();//先执行一次
-    //         rhythm = setInterval(once, 200);//之后再去循环执行
-    //     }else{
-    //         clearInterval(rhythm)
-    //         isPlay=false
-    //     }
-    // }
-    // lastState=state
-    console.log(isPlay)
+    if (loadAudioComplete) {
+        if (!isPlay) {
+            isPlay=true;
+            function func() {
+                if (cacheList.length>0) {
+                    cacheList = [cacheList[0]]
+                }
+                playArrayBuffer(cacheList[0],cacheList.length);
+                cacheList.shift()
+            }
+            func();
+            setInterval(func, 200);
+        }
+    }
 }
+
+
 
 function checkSettingPanelDisplay() {
     var str = settingDisplay ? 'block' : 'none';
@@ -206,18 +199,18 @@ function start() {
     //这里需要使用then()异步函数,需要在获取到json数据之后再去执行后续操作
     $.getJSON("../data/json/main.json").then((data) => {
         loadAudioData(data).then(()=> {
+            audioContext = createAudioContext();
+            compressorNode = audioContext.createDynamicsCompressor();
             loadAudioComplete=true;
             loading();
         })   
     })
-    audioContext=createAudioContext();
 }
 async function loadAudioData(data) {
     $.each(data, function (name, src) {
-        var index = Number(name.split('.')[0])
+        var index = name.split('.')[0]
         var base64Data = src.substring(src.indexOf(',') + 1) //去掉数据前缀
         mainArrayBufferList[index] = Base64Binary.decodeArrayBuffer(base64Data);
-        //mainArrayBufferList[index] = window.atob('aaa')
     })
 }
 function b64toBlob(b64Data, contentType, sliceSize) {
@@ -239,7 +232,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 }
 
 //加载动画
-function loading(cur, tar) {
+function loading() {
     sceneLoading.css('display', 'block')
     var width = { w: 0 }
     var tween = new TWEEN.Tween(width).onUpdate(function (width) { sceneLoading.css('width', width.w + '%') })//每一帧执行
@@ -247,7 +240,6 @@ function loading(cur, tar) {
         .to({ w: 100 }, 300)
         .onComplete(function () { setTimeout(function () { showMainPanel();}, 300); }) //回调函数
         .start();
-    
 }
 
 //显示主界面
@@ -257,37 +249,7 @@ function showMainPanel() {
     mainPanel.css('display', 'block');
 }
 
-
-function playMp3(url) {
-    var AudioContext = window.AudioContext || window.webkitAudioContext;
-    var ctx = new AudioContext();
-    // 创建一个XMLHttpRequest请求对象
-    var request = new XMLHttpRequest();
-    // 请求一个MP3文件
-    request.open('GET', url, true);
-    // Web Audio API 固定为 "arraybuffer"
-    request.responseType = 'arraybuffer';
-    // 加载完成后解码
-    request.onload = function () {
-        ctx.decodeAudioData(mainArrayBufferList[0], function (buffer) {
-            console.log(request)
-            // 获得解码后的数据：buffer 
-            // 这里可以立即播放解码后的 buffer，也可以把 buffer 值先存起来
-            playBuffer(buffer);
-        }, function () {
-            // 这里写解码出错的处理（例如文件损坏、格式不对等） 
-        });
-    };
-    // 发送这个XMLHttpRequest请求
-    request.send();
-}
-function playBuffer(buffer) {
-    var sourceNode = ctx.createBufferSource();
-    sourceNode.buffer = buffer;
-    sourceNode.connect(ctx.destination);
-    sourceNode.start(0);
-}
-
+//创建audio api上下文
 function createAudioContext() {
     var audioContext;
     try {
@@ -300,25 +262,30 @@ function createAudioContext() {
     return audioContext;
 }
 
-function playArrayBuffer(index,callBack) {
-    isPlay=true
-    var cloner = mainArrayBufferList[index - 1].slice(0, mainArrayBufferList[index - 1].byteLength);
-    audioContext.decodeAudioData(cloner, function (audioBuffer) {
-        // 创建AudioBufferSourceNode对象
-        var source = audioContext.createBufferSource();
-
-        // 设置AudioBufferSourceNode对象的buffer为复制的3秒AudioBuffer对象
-        source.buffer = audioBuffer;
-        
-        // 这一句是必须的，表示结束，没有这一句没法播放，没有声音
-        // 这里直接结束，实际上可以对结束做一些特效处理
-        source.connect(audioContext.destination);
-        // 资源开始播放
-        source.start();
-    })
-    if (callBack) {
-        callBack()
+function playArrayBuffer(index,l) {
+    if (index==undefined || index==null) {
+        return
     }
+    //console.log(l)
+    var bufferCloner = mainArrayBufferList[index - 1].slice(0, mainArrayBufferList[index - 1].byteLength);
+    audioContext.decodeAudioData(bufferCloner, function (audioBuffer) {
+        // 创建AudioBufferSourceNode对象
+        var sourceNode = audioContext.createBufferSource();
+        var gainNode = audioContext.createGain();
+        gainNode.gain.value = 1.2;
+        gainNode.gain.setValueAtTime(0, audioContext.currentTime + 0);
+        gainNode.gain.exponentialRampToValueAtTime(1.3, audioContext.currentTime +0.01);
+        sourceNode.buffer = audioBuffer;
+
+        sourceNode.connect(gainNode);
+        gainNode.connect(compressorNode); 
+        compressorNode.connect(audioContext.destination);//混音器,防止爆音
+        //isPlay = true
+        sourceNode.start();
+        sourceNode.onended=function () {
+            //cacheList = [cacheList[0]]
+        }
+    })
 }
 
 //数组深拷贝
@@ -398,7 +365,7 @@ function createRect(index) {
         y: y,
         width: itemWidth,
         height: itemHeight,
-        transparency: 0.6
+        transparency: 0.7
     })
     //console.log(x,y)
 }
@@ -416,8 +383,8 @@ function rectangle(base) {
             ctx.fillRect(base.x, base.y, base.width, base.height);//坐标和长宽
             //console.log(TWEEN.Easing.Quadratic.Out)
         })//每一帧执行
-        .easing(TWEEN.Easing.Quartic.Out) //缓动方式
-        .to({ val: t }, 800)
+        .easing(TWEEN.Easing.Quartic.In) //缓动方式
+        .to({ val: t }, 400)
         .start()
         .onStop(function () {
             clearCanvas(base.x, base.y, base.width, base.height)
@@ -476,95 +443,6 @@ function onUpdate() {
     //render.render(scene, camera);//使用创建的相机和场景进行渲染
 }
 
-//观察者模式
-const Observe = (function () {
-    //防止消息队列暴露而被篡改，将消息容器设置为私有变量
-    let __message = {};
-    return {
-        //注册消息接口
-        on: function (type, fn) {
-            //如果此消息不存在，创建一个该消息类型
-            if (typeof __message[type] === 'undefined') {
-                // 将执行方法推入该消息对应的执行队列中
-                __message[type] = [fn];
-            } else {
-                //如果此消息存在，直接将执行方法推入该消息对应的执行队列中
-                __message[type].push(fn);
-            }
-        },
-        //发布消息接口
-        subscribe: function (type, args) {
-            //如果该消息没有注册，直接返回
-            if (!__message[type]) return;
-            //定义消息信息
-            let events = {
-                type: type,           //消息类型
-                args: args || {}       //参数
-            },
-                i = 0,                         // 循环变量
-                len = __message[type].length;   // 执行队列长度
-            //遍历执行函数
-            for (; i < len; i++) {
-                //依次执行注册消息对应的方法
-                __message[type][i].call(this, events)
-            }
-        },
-        //移除消息接口
-        off: function (type, fn) {
-            //如果消息执行队列存在
-            if (__message[type] instanceof Array) {
-                // 从最后一条依次遍历
-                let i = __message[type].length - 1;
-                for (; i >= 0; i--) {
-                    //如果存在改执行函数则移除相应的动作
-                    __message[type][i] === fn && __message[type].splice(i, 1);
-                }
-            }
-        }
-    }
-})();
-
-//队列
-function Queue() {
-    let items = [];
-
-    // 向队列添加元素（一个或多个）
-    this.enqueue = function (element) {
-        if (element instanceof Array) items = items.concat(element);
-        else items.push(element);
-    };
-
-    // 从队列移除元素
-    this.dequeue = function () {
-        return items.shift();
-    };
-
-    // 返回队列中的第一个元素
-    this.front = function () {
-        return items[0];
-    };
-
-    // 判断队列是否为空
-    this.isEmpty = function () {
-        return items.length === 0;
-    };
-
-    // 返回队列的长度
-    this.size = function () {
-        return items.length;
-    };
-
-    // 清空队列
-    this.clear = function () {
-        items = [];
-    };
-
-    // 打印队列内的所有元素
-    this.print = function () {
-        console.log(items.toString());
-    };
-}
-
 //base64数据转换成arraybuffer
 var Base64Binary = {
     _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
@@ -616,5 +494,17 @@ var Base64Binary = {
             if (enc4 != 64) uarray[i + 2] = chr3;
         }
         return uarray;
+    }
+}
+Array.prototype.indexOf = function (val) {
+    for (var i = 0; i < this.length; i++) {
+        if (this[i] == val) return i;
+    }
+    return -1;
+}
+Array.prototype.remove = function (val) {
+    var index = this.indexOf(val);
+    if (index > -1) {
+        this.splice(index, 1);
     }
 }
