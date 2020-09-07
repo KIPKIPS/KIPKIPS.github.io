@@ -101,7 +101,7 @@ function addClickEvent() {
      //鼠标弹起清空状态
     $("#canvas").mouseup(function () { 
         mouseDown = false; 
-        if (cacheList.length>=1) {
+        if (cacheList.length>1) {
             cacheList = [cacheList[0]]
         }
      } );
@@ -125,10 +125,11 @@ function sceneDown() {
     //按键反馈打开再创建矩形
     var index = calculateIndex(ponitX, pointY);//根据鼠标位置计算索引
     if (mouseDown) { //&& curIndex != index
+        if (cacheList.length>0) {
+            cacheList = []
+        }
         if (feedOn) {
             createRect(index);//矩形直接反馈,不放进暂存列表
-        }if (cacheList.length>0) {
-            cacheList = []
         }
         cacheList.push(index)
         curIndex = index
@@ -169,11 +170,11 @@ function update() {
                 if (cacheList.length>0) {
                     cacheList = [cacheList[0]]
                 }
-                playArrayBuffer(cacheList[0],cacheList.length);
+                playArrayBuffer(cacheList[0]);
                 cacheList.shift()
             }
             func();
-            setInterval(func, 200);
+            setInterval(func, 220);
         }
     }
 }
@@ -272,7 +273,7 @@ function playArrayBuffer(index,l) {
         // 创建AudioBufferSourceNode对象
         var sourceNode = audioContext.createBufferSource();
         var gainNode = audioContext.createGain();
-        gainNode.gain.value = 1.2;
+        gainNode.gain.value = 1;
         gainNode.gain.setValueAtTime(0, audioContext.currentTime + 0);
         gainNode.gain.exponentialRampToValueAtTime(1.3, audioContext.currentTime +0.01);
         sourceNode.buffer = audioBuffer;
