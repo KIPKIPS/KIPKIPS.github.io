@@ -63,23 +63,23 @@ function initData() {
     lastTime=0;
 }
 
-var render, scene, camera;
-//初始化场景
-function initScene() {
-    scene = new THREE.Scene();//场景
-    camera = new THREE.OrthographicCamera(
-        -window.innerWidth / 2,
-        window.innerWidth / 2,
-        window.innerHeight / 2,
-        -window.innerHeight / 2, 10, 1000
-    );
-    render = new THREE.WebGLRenderer();//渲染器
-    render.setSize(window.innerWidth, window.innerHeight);//渲染器尺寸
-    render.domElement = canvas//设置画布
-    render.render(scene, camera);//使用创建的相机和场景进行渲染
-    camera.position.z = 10;
-    //render.domElement.css('background-color','#46aaff')
-}
+// var render, scene, camera;
+// //初始化场景
+// function initScene() {
+//     scene = new THREE.Scene();//场景
+//     camera = new THREE.OrthographicCamera(
+//         -window.innerWidth / 2,
+//         window.innerWidth / 2,
+//         window.innerHeight / 2,
+//         -window.innerHeight / 2, 10, 1000
+//     );
+//     render = new THREE.WebGLRenderer();//渲染器
+//     render.setSize(window.innerWidth, window.innerHeight);//渲染器尺寸
+//     render.domElement = canvas//设置画布
+//     render.render(scene, camera);//使用创建的相机和场景进行渲染
+//     camera.position.z = 10;
+//     //render.domElement.css('background-color','#46aaff')
+// }
 
 //注册点击事件
 function addClickEvent() {
