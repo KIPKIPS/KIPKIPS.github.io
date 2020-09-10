@@ -159,7 +159,7 @@ function sceneMove() {
     }
 }
 
-//更新逻辑
+//每帧执行的逻辑,尽量不要在update做复杂逻辑判断和循环
 var playIndex=0
 function update() {
     checkSettingPanelDisplay();//检测是否显示设置面板
