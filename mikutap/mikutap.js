@@ -3,8 +3,7 @@
 var startPanel, sceneLoading, mainPanel, feedbackText, bgmText, aboutCover, aboutPanel, canvas, ctx, backBtn, fullBtn;
 //状态控制变量
 var feedOn, bgmOn, isFull, settingDisplay, isStart, mouseDown, loadAudioComplete,isPlay,mouseMove;
-//数值
-var screenWidth, screenHeight, aspectRatio, ponitX, pointY, curIndex;
+var screenWidth, screenHeight, aspectRatio, ponitX, pointY, curIndex;//数值
 var mainArrayBufferList = [],cacheList=[];
 var audioContext, timer, compressorNode;
 
