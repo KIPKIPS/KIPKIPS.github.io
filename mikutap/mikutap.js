@@ -4,10 +4,9 @@ var startPanel, sceneLoading, mainPanel, feedbackText, bgmText, aboutCover, abou
 //状态控制变量
 var feedOn, bgmOn, isFull, settingDisplay, isStart, mouseDown, loadAudioComplete,isPlay,mouseMove;
 //数值
-var screenWidth, screenHeight, aspectRatio, ponitX, pointY, curIndex,cacheLength;
+var screenWidth, screenHeight, aspectRatio, ponitX, pointY, curIndex;
 var mainArrayBufferList = [],cacheList=[];
 var audioContext, timer, compressorNode;
-var lastPointX=0, lastPointY=0
 
 init();
 
