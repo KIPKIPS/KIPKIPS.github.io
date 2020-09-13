@@ -121,6 +121,7 @@ function sceneDown() {
     }, 1500);
     //按键反馈打开再创建矩形
     var index = calculateIndex(ponitX, pointY);//根据鼠标位置计算索引
+    cacheList.push(index);
     //if (mouseDown) { //&& curIndex != index
         if (cacheList.length>0) {
             cacheList = []
@@ -129,10 +130,11 @@ function sceneDown() {
             createRect(index);//矩形直接反馈,不放进暂存列表
         }
         //test
-        var ct = Date.now();
-        var t = ct - lastTime > 250 ? 0 : ct - lastTime;
-        cacheList.push([index, t]);
-        lastTime=ct ;
+        // var ct = Date.now();
+        // var t = ct - lastTime > 250 ? 0 : ct - lastTime;
+        // cacheList.push([index, t]);
+        // lastTime=ct ;
+        //test end
         curIndex = index;
     //}
 }
@@ -171,15 +173,26 @@ function update() {
     //     func();
     //     setInterval(func, 220);
     // }
-    if (cacheList.length>0) {
-        var t = cacheList[0][1]
-        var index = cacheList[0][0]
-        cacheList.shift()
+    // test
+    // if (cacheList.length>0) {
+    //     var t = cacheList[0][1]
+    //     var index = cacheList[0][0]
+    //     cacheList.shift()
+    //     function func() {
+    //         //cacheList = cacheList.length > 0 ? [cacheList[0]] : cacheList
+    //         playArrayBuffer(index);
+    //     }
+    //     setTimeout(func, t);
+    // }
+    if (loadAudioComplete && !isPlay) {
+        isPlay = true;
         function func() {
-            //cacheList = cacheList.length > 0 ? [cacheList[0]] : cacheList
-            playArrayBuffer(index);
+            cacheList = cacheList.length > 0 ? [cacheList[0]] : cacheList
+            playArrayBuffer(cacheList[0]);
+            cacheList.shift()
         }
-        setTimeout(func, t);
+        func();
+        setInterval(func, 220);
     }
 }
 
