@@ -12,7 +12,6 @@ init();
 //初始化
 function init() {
     initData();
-    //initScene();
     addClickEvent();
     onUpdate();
 }
@@ -99,14 +98,14 @@ function addClickEvent() {
      //鼠标弹起清空状态
     $("#canvas").mouseup(function () { 
         mouseDown = false; 
-        if (cacheList.length>1) {
-            cacheList = [cacheList[0]]
-        }
+        // if (cacheList.length>1) {
+        //     cacheList = [cacheList[0]]
+        // }
      } );
     $("#canvas").mouseover(function (event) { mouseDown = event.which == 1 });
     $("#body").mouseleave(function () { curIndex = 0; });//鼠标离开
 }
-
+var lastTime=0
 //点击主场景触发的时间
 function sceneDown() {
     if (!isStart) {
@@ -122,22 +121,23 @@ function sceneDown() {
     }, 1500);
     //按键反馈打开再创建矩形
     var index = calculateIndex(ponitX, pointY);//根据鼠标位置计算索引
-    if (mouseDown) { //&& curIndex != index
+    //if (mouseDown) { //&& curIndex != index
         if (cacheList.length>0) {
             cacheList = []
         }
         if (feedOn) {
             createRect(index);//矩形直接反馈,不放进暂存列表
         }
-        cacheList.push(index)
-        curIndex = index
-    }
+        //test
+        var ct = Date.now();
+        var t = ct - lastTime > 250 ? 0 : ct - lastTime;
+        cacheList.push([index, t]);
+        lastTime=ct ;
+        curIndex = index;
+    //}
 }
 function sceneMove() {
-    if (!isStart) {
-        return
-    }
-    if (!mouseDown) {
+    if (!isStart || !mouseDown) {
         return
     }
     clearTimeout(timer);//必须在触发时清除定时器
@@ -161,19 +161,25 @@ function sceneMove() {
 var playIndex=0
 function update() {
     checkSettingPanelDisplay();//检测是否显示设置面板
-    if (loadAudioComplete) {
-        if (!isPlay) {
-            isPlay=true;
-            function func() {
-                if (cacheList.length>0) {
-                    cacheList = [cacheList[0]]
-                }
-                playArrayBuffer(cacheList[0]);
-                cacheList.shift()
-            }
-            func();
-            setInterval(func, 220);
+    // if (loadAudioComplete && !isPlay) {
+    //     isPlay = true;
+    //     function func() {
+    //         cacheList = cacheList.length > 0 ? [cacheList[0]] : cacheList
+    //         playArrayBuffer(cacheList[0]);
+    //         cacheList.shift()
+    //     }
+    //     func();
+    //     setInterval(func, 220);
+    // }
+    if (cacheList.length>0) {
+        var t = cacheList[0][1]
+        var index = cacheList[0][0]
+        cacheList.shift()
+        function func() {
+            //cacheList = cacheList.length > 0 ? [cacheList[0]] : cacheList
+            playArrayBuffer(index);
         }
+        setTimeout(func, t);
     }
 }
 
@@ -248,7 +254,7 @@ function showMainPanel() {
     mainPanel.css('display', 'block');
 }
 
-//创建audio api上下文
+//创建audio api context
 function createAudioContext() {
     var audioContext;
     try {
@@ -261,12 +267,12 @@ function createAudioContext() {
     return audioContext;
 }
 
-function playArrayBuffer(index,l) {
-    if (index==undefined || index==null) {
+function playArrayBuffer(index) {
+    var tempBuffer = mainArrayBufferList[index - 1]
+    if (!tempBuffer) {
         return
     }
-    //console.log(l)
-    var bufferCloner = mainArrayBufferList[index - 1].slice(0, mainArrayBufferList[index - 1].byteLength);
+    var bufferCloner = tempBuffer.slice(0, tempBuffer.byteLength);
     audioContext.decodeAudioData(bufferCloner, function (audioBuffer) {
         // 创建AudioBufferSourceNode对象
         var sourceNode = audioContext.createBufferSource();
@@ -281,9 +287,9 @@ function playArrayBuffer(index,l) {
         compressorNode.connect(audioContext.destination);//混音器,防止爆音
         //isPlay = true
         sourceNode.start();
-        sourceNode.onended=function () {
-            //cacheList = [cacheList[0]]
-        }
+        // sourceNode.onended=function () {
+        //     //cacheList = [cacheList[0]]
+        // }
     })
 }
 
@@ -364,7 +370,7 @@ function createRect(index) {
         y: y,
         width: itemWidth,
         height: itemHeight,
-        transparency: 0.7
+        transparency: 0.6
     })
     //console.log(x,y)
 }
@@ -383,7 +389,7 @@ function rectangle(base) {
             //console.log(TWEEN.Easing.Quadratic.Out)
         })//每一帧执行
         .easing(TWEEN.Easing.Quartic.In) //缓动方式
-        .to({ val: t }, 400)
+        .to({ val: t }, 200)
         .start()
         .onStop(function () {
             clearCanvas(base.x, base.y, base.width, base.height)
