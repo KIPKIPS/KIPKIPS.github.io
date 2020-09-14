@@ -122,21 +122,19 @@ function sceneDown() {
     //按键反馈打开再创建矩形
     var index = calculateIndex(ponitX, pointY);//根据鼠标位置计算索引
     cacheList.push(index);
-    //if (mouseDown) { //&& curIndex != index
-        if (cacheList.length>0) {
-            cacheList = []
-        }
-        if (feedOn) {
-            createRect(index);//矩形直接反馈,不放进暂存列表
-        }
-        //test
-        // var ct = Date.now();
-        // var t = ct - lastTime > 250 ? 0 : ct - lastTime;
-        // cacheList.push([index, t]);
-        // lastTime=ct ;
-        //test end
-        curIndex = index;
-    //}
+    // if (cacheList.length>0) {
+    //     cacheList = []
+    // }
+    if (feedOn) {
+        createRect(index);//矩形直接反馈,不放进暂存列表
+    }
+    //test
+    // var ct = Date.now();
+    // var t = ct - lastTime > 250 ? 0 : ct - lastTime;
+    // cacheList.push([index, t]);
+    // lastTime=ct ;
+    //test end
+    curIndex = index;
 }
 function sceneMove() {
     if (!isStart || !mouseDown) {
@@ -195,8 +193,6 @@ function update() {
         setInterval(func, 220);
     }
 }
-
-
 
 function checkSettingPanelDisplay() {
     var str = settingDisplay ? 'block' : 'none';
