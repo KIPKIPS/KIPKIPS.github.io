@@ -16,9 +16,9 @@ init();
 
 //初始化
 function init() {
-    initData();
-    addClickEvent();
-    onUpdate();
+    initData();//初始化数据
+    addClickEvent();//初始化控件事件
+    onUpdate();//帧循环
 }
 
 //初始化场景数据
