@@ -1,3 +1,8 @@
+
+//  @Author: KIPKIPS
+//  @Date: 2020 - 06 - 24 19: 04: 06
+//  @FilePath: \KIPKIPS.github.io\mikutap.js
+
 //通用元素和预定义全局变量
 //元素变量
 var startPanel, sceneLoading, mainPanel, feedbackText, bgmText, aboutCover, aboutPanel, canvas, ctx, backBtn, fullBtn;
@@ -83,7 +88,6 @@ function sceneDown() {
     if (!isStart) {
         return
     }
-    //console.log(getJSON)
     mouseDown = true;
     clearTimeout(timer);//必须在触发时清除定时器
     settingDisplay = false;//关闭
@@ -102,7 +106,7 @@ function sceneMove() {
     if (!isStart || !mouseDown) {
         return
     }
-    sceneDown()
+    //sceneDown()
 }
 
 //每帧执行的逻辑,尽量不要在update做复杂逻辑判断和循环
@@ -143,23 +147,6 @@ async function loadAudioData(data) {
         mainArrayBufferList[index] = Base64Binary.decodeArrayBuffer(base64Data);
     })
 }
-function b64toBlob(b64Data, contentType, sliceSize) {
-    contentType = contentType || '';
-    sliceSize = sliceSize || 512;
-    var byteCharacters = atob(b64Data.substring(b64Data.indexOf(',') + 1));
-    var byteArrays = [];
-    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-        var slice = byteCharacters.slice(offset, offset + sliceSize);
-        var byteNumbers = new Array(slice.length);
-        for (var i = 0; i < slice.length; i++) {
-            byteNumbers[i] = slice.charCodeAt(i);
-        }
-        var byteArray = new Uint8Array(byteNumbers);
-        byteArrays.push(byteArray);
-    }
-    var blob = new Blob(byteArrays, { type: contentType });
-    return blob;
-}
 
 //加载动画
 function loading() {
@@ -179,7 +166,7 @@ function showMainPanel() {
     mainPanel.css('display', 'block');
 }
 
-//创建audio api context
+//创建audio context
 function createAudioContext() {
     var audioContext;
     try {
@@ -433,4 +420,22 @@ Array.prototype.remove = function (val) {
     if (index > -1) {
         this.splice(index, 1);
     }
+}
+
+function b64toBlob(b64Data, contentType, sliceSize) {
+    contentType = contentType || '';
+    sliceSize = sliceSize || 512;
+    var byteCharacters = atob(b64Data.substring(b64Data.indexOf(',') + 1));
+    var byteArrays = [];
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        var slice = byteCharacters.slice(offset, offset + sliceSize);
+        var byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+        var byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+    }
+    var blob = new Blob(byteArrays, { type: contentType });
+    return blob;
 }
