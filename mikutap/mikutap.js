@@ -10,7 +10,7 @@ var startPanel, sceneLoading, mainPanel, feedbackText, bgmText, aboutCover, abou
 var feedOn, bgmOn, isFull, settingDisplay, isStart, mouseDown, loadAudioComplete,mouseMove;
 var screenWidth, screenHeight, aspectRatio, ponitX, pointY, curIndex;//数值
 var mainArrayBufferList = [];
-var audioContext, timer, compressorNode;
+var audioContext, settingPanelTimer, compressorNode;
 
 init();
 
@@ -89,10 +89,10 @@ function sceneDown() {
         return
     }
     mouseDown = true;
-    clearTimeout(timer);//必须在触发时清除定时器
+    clearTimeout(settingPanelTimer);//必须在触发时清除定时器
     settingDisplay = false;//关闭
     //若1500ms内不再点击则显示设置面板
-    timer = setTimeout(function () {
+    settingPanelTimer = setTimeout(function () {
         settingDisplay = true;
     }, 1500);
     //按键反馈打开再创建矩形
