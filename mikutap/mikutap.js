@@ -2,9 +2,9 @@
 //元素变量
 var startPanel, sceneLoading, mainPanel, feedbackText, bgmText, aboutCover, aboutPanel, canvas, ctx, backBtn, fullBtn;
 //状态控制变量
-var feedOn, bgmOn, isFull, settingDisplay, isStart, mouseDown, loadAudioComplete,isPlay,mouseMove;
+var feedOn, bgmOn, isFull, settingDisplay, isStart, mouseDown, loadAudioComplete,mouseMove;
 var screenWidth, screenHeight, aspectRatio, ponitX, pointY, curIndex;//数值
-var mainArrayBufferList = [],cacheList=[];
+var mainArrayBufferList = [];
 var audioContext, timer, compressorNode;
 
 init();
@@ -18,8 +18,6 @@ function init() {
 
 //初始化场景数据
 function initData() {
-    cacheLength=0;
-    isPlay=false
     loadAudioComplete=false
     console.log('init');
     //显示开始菜单
@@ -54,29 +52,9 @@ function initData() {
     }
     aspectRatio = window.innerWidth / window.innerHeight;//宽高比
     mouseDown = false;
-    curIndex = 0;
     backBtn = $('#bt_back');
     fullBtn = $('#bt_fs');
-    lastTime=0;
 }
-
-// var render, scene, camera;
-// //初始化场景
-// function initScene() {
-//     scene = new THREE.Scene();//场景
-//     camera = new THREE.OrthographicCamera(
-//         -window.innerWidth / 2,
-//         window.innerWidth / 2,
-//         window.innerHeight / 2,
-//         -window.innerHeight / 2, 10, 1000
-//     );
-//     render = new THREE.WebGLRenderer();//渲染器
-//     render.setSize(window.innerWidth, window.innerHeight);//渲染器尺寸
-//     render.domElement = canvas//设置画布
-//     render.render(scene, camera);//使用创建的相机和场景进行渲染
-//     camera.position.z = 10;
-//     //render.domElement.css('background-color','#46aaff')
-// }
 
 //注册点击事件
 function addClickEvent() {
@@ -105,7 +83,6 @@ function addClickEvent() {
     $("#canvas").mouseover(function (event) { mouseDown = event.which == 1 });
     $("#body").mouseleave(function () { curIndex = 0; });//鼠标离开
 }
-var lastTime=0
 //点击主场景触发的时间
 function sceneDown() {
     if (!isStart) {
@@ -121,77 +98,21 @@ function sceneDown() {
     }, 1500);
     //按键反馈打开再创建矩形
     var index = calculateIndex(ponitX, pointY);//根据鼠标位置计算索引
-    cacheList.push(index);
-    // if (cacheList.length>0) {
-    //     cacheList = []
-    // }
     if (feedOn) {
         createRect(index);//矩形直接反馈,不放进暂存列表
     }
-    //test
-    // var ct = Date.now();
-    // var t = ct - lastTime > 250 ? 0 : ct - lastTime;
-    // cacheList.push([index, t]);
-    // lastTime=ct ;
-    //test end
-    curIndex = index;
+    playArrayBuffer(index)
 }
 function sceneMove() {
     if (!isStart || !mouseDown) {
         return
     }
-    clearTimeout(timer);//必须在触发时清除定时器
-    settingDisplay = false;//关闭
-    //若1500ms内不再点击则显示设置面板
-    timer = setTimeout(function () {
-        settingDisplay = true;
-    }, 1500);
-    //按键反馈打开再创建矩形
-    var index = calculateIndex(ponitX, pointY);//根据鼠标位置计算索引
-    if (mouseDown && curIndex != index) { //&& curIndex != index
-        if (feedOn) {
-            createRect(index);//矩形直接反馈,不放进暂存列表
-        }
-        cacheList.push(index)
-        curIndex = index
-    }
+    sceneDown()
 }
 
 //每帧执行的逻辑,尽量不要在update做复杂逻辑判断和循环
-var playIndex=0
 function update() {
     checkSettingPanelDisplay();//检测是否显示设置面板
-    // if (loadAudioComplete && !isPlay) {
-    //     isPlay = true;
-    //     function func() {
-    //         cacheList = cacheList.length > 0 ? [cacheList[0]] : cacheList
-    //         playArrayBuffer(cacheList[0]);
-    //         cacheList.shift()
-    //     }
-    //     func();
-    //     setInterval(func, 220);
-    // }
-    // test
-    // if (cacheList.length>0) {
-    //     var t = cacheList[0][1]
-    //     var index = cacheList[0][0]
-    //     cacheList.shift()
-    //     function func() {
-    //         //cacheList = cacheList.length > 0 ? [cacheList[0]] : cacheList
-    //         playArrayBuffer(index);
-    //     }
-    //     setTimeout(func, t);
-    // }
-    if (loadAudioComplete && !isPlay) {
-        isPlay = true;
-        function func() {
-            cacheList = cacheList.length > 0 ? [cacheList[0]] : cacheList
-            playArrayBuffer(cacheList[0]);
-            cacheList.shift()
-        }
-        func();
-        setInterval(func, 220);
-    }
 }
 
 function checkSettingPanelDisplay() {
@@ -294,11 +215,7 @@ function playArrayBuffer(index) {
         sourceNode.connect(gainNode);
         gainNode.connect(compressorNode); 
         compressorNode.connect(audioContext.destination);//混音器,防止爆音
-        //isPlay = true
         sourceNode.start();
-        // sourceNode.onended=function () {
-        //     //cacheList = [cacheList[0]]
-        // }
     })
 }
 
