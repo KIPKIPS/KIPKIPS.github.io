@@ -227,7 +227,7 @@ function bgmDown() {
     bgmOn = !bgmOn;
 }
 
-/*全屏函数*/
+//全屏函数
 function requestFullScreen(element) {
     var fullScreen = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
     var quitFullScreenByDocument = document.exitFullScreen || document.mozCancelFullScreen || document.webkitExitFullscreen || element.msExitFullscreen;
