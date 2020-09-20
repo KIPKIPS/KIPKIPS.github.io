@@ -74,12 +74,7 @@ function addClickEvent() {
     $("#canvas").mousedown(function (event) { ponitX = event.pageX; pointY = event.pageY; });
     $("#canvas").mousemove(function (event) { ponitX = event.pageX; pointY = event.pageY;});
      //鼠标弹起清空状态
-    $("#canvas").mouseup(function () { 
-        mouseDown = false; 
-        // if (cacheList.length>1) {
-        //     cacheList = [cacheList[0]]
-        // }
-     } );
+    $("#canvas").mouseup(function () { mouseDown = false; } );
     $("#canvas").mouseover(function (event) { mouseDown = event.which == 1 });
     $("#body").mouseleave(function () { curIndex = 0; });//鼠标离开
 }
