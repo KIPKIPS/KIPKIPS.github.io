@@ -3,8 +3,8 @@
 //  @Date: 2020 - 06 - 24 19: 04: 06
 //  @FilePath: \KIPKIPS.github.io\mikutap.js
 
-//通用元素和预定义全局变量
-//元素变量
+//通用控件对象和预定义全局变量
+//通用控件对象
 var startPanel, sceneLoading, mainPanel, feedbackText, bgmText, aboutCover, aboutPanel, canvas, ctx, backBtn, fullBtn;
 //状态控制变量
 var feedOn, bgmOn, isFull, settingDisplay, isStart, mouseDown, loadAudioComplete,mouseMove;
