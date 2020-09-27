@@ -179,6 +179,7 @@ function createAudioContext() {
     return audioContext;
 }
 
+//播放缓冲区的音频数据
 function playArrayBuffer(index) {
     var tempBuffer = mainArrayBufferList[index - 1]
     if (!tempBuffer) {
