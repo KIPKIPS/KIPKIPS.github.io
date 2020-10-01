@@ -190,14 +190,15 @@ function playArrayBuffer(index) {
         // 创建AudioBufferSourceNode对象
         var sourceNode = audioContext.createBufferSource();
         var gainNode = audioContext.createGain();
-        gainNode.gain.value = 1;
-        gainNode.gain.setValueAtTime(0, audioContext.currentTime + 0);
-        gainNode.gain.exponentialRampToValueAtTime(1.3, audioContext.currentTime +0.01);
+        gainNode.gain.value = 1.3;
+        //gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+        //gainNode.gain.exponentialRampToValueAtTime(1.5, audioContext.currentTime);
         sourceNode.buffer = audioBuffer;
 
         sourceNode.connect(gainNode);
-        gainNode.connect(compressorNode); 
-        compressorNode.connect(audioContext.destination);//混音器,防止爆音
+        //gainNode.connect(compressorNode); 
+        //compressorNode.connect(audioContext.destination);//混音器,防止爆音
+        gainNode.connect(audioContext.destination)
         sourceNode.start();
     })
 }
