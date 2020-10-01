@@ -174,7 +174,7 @@ function createAudioContext() {
         window.AudioContext = window.AudioContext || window.webkitAudioContext;
         audioContext = new AudioContext();
     } catch (e) {
-        alert('Web Audio API is not supported in this browser');
+        alert('Web Audio API is not supported in this browser');//弹窗
     }
     return audioContext;
 }
