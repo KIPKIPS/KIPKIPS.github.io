@@ -8,9 +8,35 @@
 var startPanel, sceneLoading, mainPanel, feedbackText, bgmText, aboutCover, aboutPanel, canvas, ctx, backBtn, fullBtn;
 //状态控制变量
 var feedOn, bgmOn, isFull, settingDisplay, isStart, mouseDown, loadAudioComplete,mouseMove;
-var screenWidth, screenHeight, aspectRatio, ponitX, pointY, curIndex;//数值
-var mainArrayBufferList = [];
-var audioContext, settingPanelTimer, compressorNode;
+var screenWidth, screenHeight, aspectRatio, ponitX, pointY, curIndex, lastIndex;//数值
+var mainArrayBufferList = [],cacheList = [];
+var audioContext, settingPanelTimer, compressorNode, audioManager;
+
+// 单例构造函数
+function CreateAudioManager() {
+    this.curAudio = null;
+    this.cacheList = [];
+    this.AddCacheList = function (index) {
+        cacheList.push({
+            index: index,
+            createTime: Date.now(),
+        })
+    } 
+    this.Play = function () {
+        playArrayBuffer(cacheList[0].index)
+        cacheList.splice()
+    }
+};
+//audio对象管理类,单例模式
+var AudioManager = {
+    Instance: function () {
+        var instance;
+        return function () {
+            instance = !instance ? new CreateAudioManager() : instance;
+            return instance;
+        }
+    }()
+}
 
 init();
 
@@ -59,6 +85,7 @@ function initData() {
     mouseDown = false;
     backBtn = $('#bt_back');
     fullBtn = $('#bt_fs');
+    audioManager = AudioManager.Instance();
 }
 
 //注册点击事件
@@ -84,7 +111,7 @@ function addClickEvent() {
     $("#body").mouseleave(function () { curIndex = 0; });//鼠标离开
 }
 //点击主场景触发的时间
-function sceneDown() {
+function sceneDown(index) {
     if (!isStart) {
         return
     }
@@ -96,17 +123,25 @@ function sceneDown() {
         settingDisplay = true;
     }, 1500);
     //按键反馈打开再创建矩形
-    var index = calculateIndex(ponitX, pointY);//根据鼠标位置计算索引
+    var index = index || calculateIndex(ponitX, pointY);//根据鼠标位置计算索引
     if (feedOn) {
         createRect(index);//矩形直接反馈,不放进暂存列表
     }
-    playArrayBuffer(index)
+    //cacheList.push(index)
+    //playArrayBuffer(index)
+    // 创建实例对象
+    audioManager.AddCacheList(index)
+    audioManager.Play()
 }
 function sceneMove() {
     if (!isStart || !mouseDown) {
         return
     }
-    //sceneDown()
+    var index = calculateIndex(ponitX, pointY);//根据鼠标位置计算索引
+    if (index != lastIndex) {
+        lastIndex = index
+        sceneDown(index)
+    }
 }
 
 //每帧执行的逻辑,尽量不要在update做复杂逻辑判断和循环
@@ -191,14 +226,13 @@ function playArrayBuffer(index) {
         var sourceNode = audioContext.createBufferSource();
         var gainNode = audioContext.createGain();
         gainNode.gain.value = 1.3;
-        //gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-        //gainNode.gain.exponentialRampToValueAtTime(1.5, audioContext.currentTime);
+        gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(1.3, audioContext.currentTime);
         sourceNode.buffer = audioBuffer;
 
         sourceNode.connect(gainNode);
-        //gainNode.connect(compressorNode); 
-        //compressorNode.connect(audioContext.destination);//混音器,防止爆音
-        gainNode.connect(audioContext.destination)
+        gainNode.connect(compressorNode); 
+        compressorNode.connect(audioContext.destination);//混音器,防止爆音
         sourceNode.start();
     })
 }
