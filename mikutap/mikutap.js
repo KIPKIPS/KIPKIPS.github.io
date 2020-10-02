@@ -24,7 +24,7 @@ function CreateAudioManager() {
     } 
     this.Play = function () {
         playArrayBuffer(cacheList[0].index)
-        cacheList.splice()
+        cacheList.shift()
     }
 };
 //audio对象管理类,单例模式
