@@ -14,17 +14,21 @@ var audioContext, settingPanelTimer, compressorNode, audioManager;
 
 // 单例构造函数
 function CreateAudioManager() {
-    this.curAudio = null;
+    this.curIndex = 0;
     this.cacheList = [];
     this.AddCacheList = function (index) {
         cacheList.push({
             index: index,
             createTime: Date.now(),
         })
-    } 
+    };
     this.Play = function () {
         playArrayBuffer(cacheList[0].index)
         //cacheList.shift()
+    };
+    this.Reset = function () {
+        this.curIndex = 0;
+        this.cacheList = [];
     }
 };
 //audio对象管理类,单例模式
@@ -42,6 +46,7 @@ init();
 
 //初始化
 function init() {
+    console.log('init');
     initComponent();//初始化组件
     initData();//初始化数据
     addClickEvent();//初始化组件响应事件
@@ -56,9 +61,14 @@ function initComponent() {
     bgmText = $('#bt_backtrack').children('a');
     aboutCover = $('#about_cover');
     aboutPanel = $('#about');
+
     canvas = document.getElementById('canvas');
+    context = canvas.getContext('2d')
+    ctx = canvas.getContext ? canvas.getContext('2d') : null;
+
     backBtn = $('#bt_back');
     fullBtn = $('#bt_fs');
+
     //显示开始菜单
     startPanel.css('display', 'block');
     //初始化进度条
@@ -71,13 +81,10 @@ function initComponent() {
 
 //初始化场景数据
 function initData() {
-    console.log('init');
     upTime = 0;
     loadAudioComplete=false
-    
     screenWidth = window.innerWidth;//计算画布的宽度
     screenHeight = window.innerHeight;//计算画布的高度
-    context = canvas.getContext('2d')
     //设置宽高
     canvas.width = screenWidth;
     canvas.height = screenHeight;
@@ -85,10 +92,9 @@ function initData() {
     isFull = false;
     settingDisplay = true;
     isStart = false;
-    ctx = canvas.getContext ? canvas.getContext('2d') : null;
     aspectRatio = window.innerWidth / window.innerHeight;//宽高比
     mouseDown = false;
-    
+
     audioManager = AudioManager.Instance();
 }
 
@@ -108,7 +114,10 @@ function addClickEvent() {
     $("#canvas").mousedown(function (event) { ponitX = event.pageX; pointY = event.pageY; });
     $("#canvas").mousemove(function (event) { ponitX = event.pageX; pointY = event.pageY;});
     //鼠标弹起清空状态
-    $("#canvas").mouseup(function () { mouseDown = false; upTime = Date.now(); });
+    $("#canvas").mouseup(function () { 
+        mouseDown = false; 
+        upTime = Date.now(); 
+    });
     $("#canvas").mouseover(function (event) { mouseDown = event.which == 1 });
     $("#body").mouseleave(function () { curIndex = 0; });//鼠标离开
 }
@@ -147,6 +156,9 @@ function sceneMove() {
 //每帧执行的逻辑,尽量不要在update做复杂逻辑判断和循环
 function update() {
     checkSettingPanelDisplay();//检测是否显示设置面板
+    if (Date.now() - upTime >= 300) {
+        audioManager.Reset();
+    }
 }
 
 function checkSettingPanelDisplay() {
