@@ -8,7 +8,7 @@
 var startPanel, sceneLoading, mainPanel, feedbackText, bgmText, aboutCover, aboutPanel, canvas, ctx, backBtn, fullBtn;
 //状态控制变量
 var feedOn, bgmOn, isFull, settingDisplay, isStart, mouseDown, loadAudioComplete,mouseMove;
-var screenWidth, screenHeight, aspectRatio, ponitX, pointY, curIndex, lastIndex;//数值
+var screenWidth, screenHeight, aspectRatio, ponitX, pointY, curIndex, lastIndex, upTime;//数值
 var mainArrayBufferList = [],cacheList = [];
 var audioContext, settingPanelTimer, compressorNode, audioManager;
 
@@ -24,7 +24,7 @@ function CreateAudioManager() {
     } 
     this.Play = function () {
         playArrayBuffer(cacheList[0].index)
-        cacheList.shift()
+        //cacheList.shift()
     }
 };
 //audio对象管理类,单例模式
@@ -42,32 +42,39 @@ init();
 
 //初始化
 function init() {
+    initComponent();//初始化组件
     initData();//初始化数据
-    addClickEvent();//初始化控件事件
+    addClickEvent();//初始化组件响应事件
     onUpdate();//帧循环
 }
 
-//初始化场景数据
-function initData() {
-    loadAudioComplete=false
-    console.log('init');
-    //显示开始菜单
+function initComponent() {
     startPanel = $('#scene_top');
-    startPanel.css('display', 'block');
-    //初始化进度条
     sceneLoading = $('#scene_loading');
-    sceneLoading.css({ 'display': 'none', 'width': '0%' });
-    //隐藏主界面
     mainPanel = $('#scene_main');
-    mainPanel.css('display', 'none');
-
     feedbackText = $('#bt_feedback').children('a');
     bgmText = $('#bt_backtrack').children('a');
     aboutCover = $('#about_cover');
     aboutPanel = $('#about');
+    canvas = document.getElementById('canvas');
+    backBtn = $('#bt_back');
+    fullBtn = $('#bt_fs');
+    //显示开始菜单
+    startPanel.css('display', 'block');
+    //初始化进度条
+    sceneLoading.css({ 'display': 'none', 'width': '0%' });
+    //隐藏主界面
+    mainPanel.css('display', 'none');
     aboutCover.css('display', 'none');
     aboutPanel.css('display', 'none');
-    canvas = document.getElementById('canvas');
+}
+
+//初始化场景数据
+function initData() {
+    console.log('init');
+    upTime = 0;
+    loadAudioComplete=false
+    
     screenWidth = window.innerWidth;//计算画布的宽度
     screenHeight = window.innerHeight;//计算画布的高度
     context = canvas.getContext('2d')
@@ -78,13 +85,10 @@ function initData() {
     isFull = false;
     settingDisplay = true;
     isStart = false;
-    if (canvas.getContext) {
-        ctx = canvas.getContext('2d');
-    }
+    ctx = canvas.getContext ? canvas.getContext('2d') : null;
     aspectRatio = window.innerWidth / window.innerHeight;//宽高比
     mouseDown = false;
-    backBtn = $('#bt_back');
-    fullBtn = $('#bt_fs');
+    
     audioManager = AudioManager.Instance();
 }
 
@@ -97,16 +101,14 @@ function addClickEvent() {
     $('#bt_backtrack').children('a').click(function () { bgmDown(); });//背景开关
     $('#bt_about').children('a').click(function () { about(); });//关于界面
     $('#bt_close').click(function () { closeAbout(); });//关于界面关闭
-    $('#view').mousedown(function () { 
-        sceneDown(); 
-    });//鼠标down下
+    $('#view').mousedown(function () { sceneDown(); });//鼠标down下
     $('#view').mouseup(function () { mouseDown = false; });//鼠标弹起
     $('#view').mousemove(function () { sceneMove(); });//鼠标move
     $('#view').mouseenter(function () { curIndex = 0; });//鼠标进入view
     $("#canvas").mousedown(function (event) { ponitX = event.pageX; pointY = event.pageY; });
     $("#canvas").mousemove(function (event) { ponitX = event.pageX; pointY = event.pageY;});
-     //鼠标弹起清空状态
-    $("#canvas").mouseup(function () { mouseDown = false; } );
+    //鼠标弹起清空状态
+    $("#canvas").mouseup(function () { mouseDown = false; upTime = Date.now(); });
     $("#canvas").mouseover(function (event) { mouseDown = event.which == 1 });
     $("#body").mouseleave(function () { curIndex = 0; });//鼠标离开
 }
@@ -134,9 +136,7 @@ function sceneDown(index) {
     audioManager.Play()
 }
 function sceneMove() {
-    if (!isStart || !mouseDown) {
-        return
-    }
+    if (!isStart || !mouseDown) return
     var index = calculateIndex(ponitX, pointY);//根据鼠标位置计算索引
     if (index != lastIndex) {
         lastIndex = index
