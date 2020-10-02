@@ -10,25 +10,42 @@ var startPanel, sceneLoading, mainPanel, feedbackText, bgmText, aboutCover, abou
 var feedOn, bgmOn, isFull, settingDisplay, isStart, mouseDown, loadAudioComplete,mouseMove;
 var screenWidth, screenHeight, aspectRatio, ponitX, pointY, curIndex, lastIndex, upTime;//数值
 var mainArrayBufferList = [],cacheList = [];
-var audioContext, settingPanelTimer, compressorNode, audioManager;
+var audioContext, settingPanelTimer, compressorNode, audioManager, mouseUpTimer;
+var canPlay = true
 
 // 单例构造函数
 function CreateAudioManager() {
     this.curIndex = 0;
     this.cacheList = [];
+    this.cachePlay = false;
+    this.intervalTimer
+    this.Play = function () {
+        var curIndex = this.curIndex
+        var cacheList = this.cacheList
+        if (cacheList[curIndex] && this.cachePlay == false) {
+            this.cachePlay = true;
+            var intervalFunc = function () {
+                playArrayBuffer(cacheList[curIndex].index)
+                this.curIndex += 1;
+            }
+            intervalFunc();//先直接调用一次,实时响应操作
+            this.intervalTimer = setInterval(intervalFunc, 220);
+        }
+    }
     this.AddCacheList = function (index) {
-        cacheList.push({
+        this.cacheList.push({
             index: index,
             createTime: Date.now(),
-        })
-    };
-    this.Play = function () {
-        playArrayBuffer(cacheList[0].index)
-        //cacheList.shift()
-    };
+        });
+        //console.log(this.cacheList)
+        this.Play()
+    }
     this.Reset = function () {
         this.curIndex = 0;
         this.cacheList = [];
+        this.cachePlay = false;
+        clearInterval(this.intervalTimer)
+        console.log('reset')
     }
 };
 //audio对象管理类,单例模式
@@ -111,15 +128,27 @@ function addClickEvent() {
     $('#view').mouseup(function () { mouseDown = false; });//鼠标弹起
     $('#view').mousemove(function () { sceneMove(); });//鼠标move
     $('#view').mouseenter(function () { curIndex = 0; });//鼠标进入view
-    $("#canvas").mousedown(function (event) { ponitX = event.pageX; pointY = event.pageY; });
+    $("#canvas").mousedown(function (event) { ponitX = event.pageX; pointY = event.pageY; downTime = Date.now() });
     $("#canvas").mousemove(function (event) { ponitX = event.pageX; pointY = event.pageY;});
     //鼠标弹起清空状态
     $("#canvas").mouseup(function () { 
         mouseDown = false; 
         upTime = Date.now(); 
+        clearTimeout(mouseUpTimer)
+        //clearTimeout(audioManager.intervalTimer)
+        mouseUpTimer = setTimeout(() => {
+            if (audioManager) {
+                audioManager.Reset()
+            }
+        },220);
     });
     $("#canvas").mouseover(function (event) { mouseDown = event.which == 1 });
-    $("#body").mouseleave(function () { curIndex = 0; });//鼠标离开
+    $("#body").mouseleave(function () { 
+        curIndex = 0;
+        if (audioManager) {
+            audioManager.Reset()
+        }
+    });//鼠标离开
 }
 //点击主场景触发的时间
 function sceneDown(index) {
@@ -140,9 +169,7 @@ function sceneDown(index) {
     }
     //cacheList.push(index)
     //playArrayBuffer(index)
-    // 创建实例对象
     audioManager.AddCacheList(index)
-    audioManager.Play()
 }
 function sceneMove() {
     if (!isStart || !mouseDown) return
@@ -156,9 +183,7 @@ function sceneMove() {
 //每帧执行的逻辑,尽量不要在update做复杂逻辑判断和循环
 function update() {
     checkSettingPanelDisplay();//检测是否显示设置面板
-    if (Date.now() - upTime >= 300) {
-        audioManager.Reset();
-    }
+    //console.log(audioManager.cacheList)
 }
 
 function checkSettingPanelDisplay() {
@@ -237,7 +262,7 @@ function playArrayBuffer(index) {
         // 创建AudioBufferSourceNode对象
         var sourceNode = audioContext.createBufferSource();
         var gainNode = audioContext.createGain();
-        gainNode.gain.value = 1.3;
+        gainNode.gain.value = 1;
         gainNode.gain.setValueAtTime(0, audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(1.3, audioContext.currentTime);
         sourceNode.buffer = audioBuffer;
