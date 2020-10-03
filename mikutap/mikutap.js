@@ -15,38 +15,35 @@ var canPlay = true
 
 // 单例构造函数
 function CreateAudioManager() {
+    this.outTimer;
     this.curIndex = 0;
     this.cacheList = [];
+    this.timerList = [];
     this.cachePlay = false;
-    this.intervalTimer
+    this.selectIndex = 0;
     this.Play = function () {
-        var curIndex = this.curIndex
-        var cacheList = this.cacheList
-        if (cacheList[curIndex] && this.cachePlay == false) {
-            this.cachePlay = true;
-            var intervalFunc = function () {
-                playArrayBuffer(cacheList[curIndex].index)
-                this.curIndex += 1;
-            }
-            intervalFunc();//先直接调用一次,实时响应操作
-            this.intervalTimer = setInterval(intervalFunc, 220);
+        for (var i = 0; i < this.cacheList.length; i++) {
+            nextTime = this.cacheList[this.curIndex].createTime - this.cacheList[this.curIndex - 1].createTime
         }
-    }
+    };
     this.AddCacheList = function (index) {
         this.cacheList.push({
             index: index,
             createTime: Date.now(),
         });
-        //console.log(this.cacheList)
-        this.Play()
-    }
+        if (!this.cachePlay) {
+            this.cachePlay = true
+            this.Play()
+        }
+    };
     this.Reset = function () {
+        this.cachePlay = false;
+        clearInterval(this.outTimer)
         this.curIndex = 0;
         this.cacheList = [];
-        this.cachePlay = false;
-        clearInterval(this.intervalTimer)
+        this.selectIndex = 0;
         console.log('reset')
-    }
+    };
 };
 //audio对象管理类,单例模式
 var AudioManager = {
@@ -57,6 +54,11 @@ var AudioManager = {
             return instance;
         }
     }()
+}
+
+//调试打印接口
+function wkp(str) {
+    console.log(str)
 }
 
 init();
@@ -135,12 +137,11 @@ function addClickEvent() {
         mouseDown = false; 
         upTime = Date.now(); 
         clearTimeout(mouseUpTimer)
-        //clearTimeout(audioManager.intervalTimer)
         mouseUpTimer = setTimeout(() => {
             if (audioManager) {
                 audioManager.Reset()
             }
-        },220);
+        },2000);
     });
     $("#canvas").mouseover(function (event) { mouseDown = event.which == 1 });
     $("#body").mouseleave(function () { 
@@ -167,8 +168,6 @@ function sceneDown(index) {
     if (feedOn) {
         createRect(index);//矩形直接反馈,不放进暂存列表
     }
-    //cacheList.push(index)
-    //playArrayBuffer(index)
     audioManager.AddCacheList(index)
 }
 function sceneMove() {
@@ -370,7 +369,7 @@ function rectangle(base) {
             //console.log(TWEEN.Easing.Quadratic.Out)
         })//每一帧执行
         .easing(TWEEN.Easing.Quartic.In) //缓动方式
-        .to({ val: t }, 200)
+        .to({ val: t }, 400)
         .start()
         .onStop(function () {
             clearCanvas(base.x, base.y, base.width, base.height)
@@ -383,7 +382,7 @@ function rectangle(base) {
             ctx.fillRect(base.x, base.y, base.width, base.height);//坐标和长宽
         })//每一帧执行
         .easing(TWEEN.Easing.Quartic.Out) //缓动方式
-        .to({ val: 0 }, 800)
+        .to({ val: 0 }, 1200)
         .start()
         .onStop(function () {
             clearCanvas(base.x, base.y, base.width, base.height)
