@@ -15,34 +15,34 @@ var canPlay = true
 
 // 单例构造函数
 function CreateAudioManager() {
-    this.outTimer;
     this.curIndex = 0;
     this.cacheList = [];
-    this.timerList = [];
     this.cachePlay = false;
-    this.selectIndex = 0;
+    this.timerList = [];
     this.Play = function () {
-        for (var i = 0; i < this.cacheList.length; i++) {
-            nextTime = this.cacheList[this.curIndex].createTime - this.cacheList[this.curIndex - 1].createTime
-        }
+        // playArrayBuffer(this.cacheList[this.curIndex].index);
+        // this.curIndex += 1;
+        // var index = this.curIndex;
+        // for (var i = 0; i < this.cacheList.length; i++) {
+        //     var cache = this.cacheList[i];
+        //     playArrayBuffer(cache.index);
+        // }
     };
     this.AddCacheList = function (index) {
         this.cacheList.push({
             index: index,
             createTime: Date.now(),
         });
-        if (!this.cachePlay) {
-            this.cachePlay = true
-            this.Play()
-        }
+        this.Play()
     };
     this.Reset = function () {
         this.cachePlay = false;
-        clearInterval(this.outTimer)
         this.curIndex = 0;
         this.cacheList = [];
-        this.selectIndex = 0;
-        console.log('reset')
+        for (var i = 0; i < this.timerList.length; i++) {
+            clearTimeout(this.timerList[i]);
+        }
+        wkp('reset')
     };
 };
 //audio对象管理类,单例模式
@@ -141,7 +141,7 @@ function addClickEvent() {
             if (audioManager) {
                 audioManager.Reset()
             }
-        },2000);
+        },300);
     });
     $("#canvas").mouseover(function (event) { mouseDown = event.which == 1 });
     $("#body").mouseleave(function () { 
@@ -168,14 +168,18 @@ function sceneDown(index) {
     if (feedOn) {
         createRect(index);//矩形直接反馈,不放进暂存列表
     }
-    audioManager.AddCacheList(index)
+    if (index != lastIndex) {
+        lastIndex = index;
+        audioManager.Reset();
+    }
+    audioManager.AddCacheList(index);
 }
 function sceneMove() {
     if (!isStart || !mouseDown) return
     var index = calculateIndex(ponitX, pointY);//根据鼠标位置计算索引
     if (index != lastIndex) {
-        lastIndex = index
-        sceneDown(index)
+        lastIndex = index;
+        sceneDown(index);
     }
 }
 
