@@ -20,12 +20,22 @@ function CreateAudioManager() {
     this.cachePlay = false;
     this.timerList = [];
     this.Play = function () {
-        // playArrayBuffer(this.cacheList[this.curIndex].index);
-        // this.curIndex += 1;
+        playArrayBuffer(this.cacheList[this.curIndex].index)
+        this.curIndex += 1;
+        // var list = this.cacheList;
         // var index = this.curIndex;
-        // for (var i = 0; i < this.cacheList.length; i++) {
-        //     var cache = this.cacheList[i];
-        //     playArrayBuffer(cache.index);
+        // if (list[index]) {
+        //     if (this.cachePlay == false) {
+        //         this.cachePlay = true;
+        //         var intervalFunc = function () {
+        //             if (list[index]) {
+        //                 playArrayBuffer(list[index].index);
+        //                 index += 1;
+        //             }
+        //         }
+        //         intervalFunc();//先直接调用一次,实时响应操作
+        //         this.intervalTimer = setInterval(intervalFunc, 210);
+        //     }
         // }
     };
     this.AddCacheList = function (index) {
@@ -141,7 +151,7 @@ function addClickEvent() {
             if (audioManager) {
                 audioManager.Reset()
             }
-        },300);
+        },1000);
     });
     $("#canvas").mouseover(function (event) { mouseDown = event.which == 1 });
     $("#body").mouseleave(function () { 
