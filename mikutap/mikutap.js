@@ -7,9 +7,9 @@
 //通用控件对象
 var startPanel, sceneLoading, mainPanel, feedbackText, bgmText, aboutCover, aboutPanel, canvas, ctx, backBtn, fullBtn;
 //状态控制变量
-var feedOn, bgmOn, isFull, settingDisplay, isStart, mouseDown, loadAudioComplete,mouseMove;
+var feedOn, bgmOn, isFull, settingDisplay, isStart, mouseDown, loadAudioComplete, mouseMove;
 var screenWidth, screenHeight, aspectRatio, ponitX, pointY, curIndex, lastIndex, upTime;//数值
-var mainArrayBufferList = [],cacheList = [];
+var mainArrayBufferList = [], cacheList = [];
 var audioContext, settingPanelTimer, compressorNode, audioManager, mouseUpTimer;
 var canPlay = true
 
@@ -111,7 +111,7 @@ function initComponent() {
 //初始化场景数据
 function initData() {
     upTime = 0;
-    loadAudioComplete=false
+    loadAudioComplete = false
     screenWidth = window.innerWidth;//计算画布的宽度
     screenHeight = window.innerHeight;//计算画布的高度
     //设置宽高
@@ -141,20 +141,20 @@ function addClickEvent() {
     $('#view').mousemove(function () { sceneMove(); });//鼠标move
     $('#view').mouseenter(function () { curIndex = 0; });//鼠标进入view
     $("#canvas").mousedown(function (event) { ponitX = event.pageX; pointY = event.pageY; downTime = Date.now() });
-    $("#canvas").mousemove(function (event) { ponitX = event.pageX; pointY = event.pageY;});
+    $("#canvas").mousemove(function (event) { ponitX = event.pageX; pointY = event.pageY; });
     //鼠标弹起清空状态
-    $("#canvas").mouseup(function () { 
-        mouseDown = false; 
-        upTime = Date.now(); 
+    $("#canvas").mouseup(function () {
+        mouseDown = false;
+        upTime = Date.now();
         clearTimeout(mouseUpTimer)
         mouseUpTimer = setTimeout(() => {
             if (audioManager) {
                 audioManager.Reset()
             }
-        },1000);
+        }, 1000);
     });
     $("#canvas").mouseover(function (event) { mouseDown = event.which == 1 });
-    $("#body").mouseleave(function () { 
+    $("#body").mouseleave(function () {
         curIndex = 0;
         if (audioManager) {
             audioManager.Reset()
@@ -217,12 +217,12 @@ function start() {
     });
     //这里需要使用then()异步函数,需要在获取到json数据之后再去执行后续操作
     $.getJSON("../data/json/main.json").then((data) => {
-        loadAudioData(data).then(()=> {
+        loadAudioData(data).then(() => {
             audioContext = createAudioContext();
             compressorNode = audioContext.createDynamicsCompressor();
-            loadAudioComplete=true;
+            loadAudioComplete = true;
             loading();
-        })   
+        })
     })
 }
 async function loadAudioData(data) {
@@ -240,7 +240,7 @@ function loading() {
     var tween = new TWEEN.Tween(width).onUpdate(function (width) { sceneLoading.css('width', width.w + '%') })//每一帧执行
         .easing(TWEEN.Easing.Quadratic.In) //缓动方式
         .to({ w: 100 }, 300)
-        .onComplete(function () { setTimeout(function () { showMainPanel();}, 300); }) //回调函数
+        .onComplete(function () { setTimeout(function () { showMainPanel(); }, 300); }) //回调函数
         .start();
 }
 
@@ -281,7 +281,7 @@ function playArrayBuffer(index) {
         sourceNode.buffer = audioBuffer;
 
         sourceNode.connect(gainNode);
-        gainNode.connect(compressorNode); 
+        gainNode.connect(compressorNode);
         compressorNode.connect(audioContext.destination);//混音器,防止爆音
         sourceNode.start();
     })
