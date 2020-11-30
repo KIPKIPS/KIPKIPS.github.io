@@ -146,27 +146,37 @@
             }
         }
 
-        @media (min-width: 600px) {
+        @media (min-width: 400px) {
             #contents span {
                 width: calc(100%/2);
+                letter-spacing:-5px;
+            }
+        }
+        @media (min-width: 600px) {
+            #contents span {
+                width: calc(100%/3);
+                letter-spacing:-5px;
             }
         }
 
         @media (min-width: 1000px) {
             #contents span {
-                width: calc(100%/3);
+                width: calc(100%/4);
+                letter-spacing:-5px;
             }
         }
 
         @media (min-width: 1400px) {
             #contents span {
                 width: calc(100%/4);
+                letter-spacing:-5px;
             }
         }
 
         @media (min-width: 1800px) {
             #contents span {
                 width: calc(100%/5);
+                letter-spacing:-5px;
             }
         }
 
@@ -195,11 +205,31 @@
 </head>
 
 <body id="kips" class="kips" data-ver="623">
-    <div id="contents" style="display: block;">
+    <div id="contents" style="display: block; font-size: 0;">
         <p class="title">WEB</p>
-        <div class="contents"><a href="../mikutap/mikutap.html"><span><img src="../images/Demo_1.png">
-                    <p class="loading" style="display: none;">DIMENSIONAL RIFT</p>
-                </span></a>
+        <div class="contents" style="font-size: 0;letter-spacing:-5px">
+            <!-- Mikutap-->
+            <a href="../mikutap/mikutap.html">
+                <span>
+                    <img src="../images/mikutap.png">
+                    <p class="loading" style="display: none;">MIKUTAP</p>
+                </span>
+            </a>
+            <a href="../github_annual_summary/github_annual_summary.html">
+                <span>
+                    <img src="../images/github_annual_summary.png">
+                    <p class="loading" style="display: none;">GITHUB ANNUAL SUMMARY</p>
+                </span>
+            </a>
+            <a href="../github_annual_summary/github_annual_summary.html">
+                <span>
+                    <img src="../images/github_annual_summary.png">
+                    <p class="loading" style="display: none;">GITHUB ANNUAL SUMMARY</p>
+                </span>
+            </a>
+            <!-- <a href="../github_annual_summary/github_annual_summary.html"><span><img src="../images/github_annual_summary.png">
+                <p class="loading" style="display: none;">GITHUB ANNUAL SUMMARY</p>
+            </span></a> -->
         </div>
         <div id="bt_menu"><img src="../images/menu.png" onmousedown=OnMenuClick(); alt=""></div>
         <div id="menu" style="overflow:auto;height: 100%;top:-100%;background-color: #fbfbfb;width: 100%;position: absolute;">
