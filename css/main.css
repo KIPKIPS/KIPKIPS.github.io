@@ -131,6 +131,14 @@ a:hover {
     -webkit-animation: animLoadingTop .3s ease-in-out infinite alternate;
     animation: animLoadingTop .3s ease-in-out infinite alternate
 }
+#fadeinout p {
+    display: block;
+    width: calc(30px + 3vmin);
+    height: 2.5px;
+    background: #000;
+    -webkit-animation: animLoadingTop 2s ease-in-out infinite alternate;
+    animation: animLoadingTop 2s ease-in-out infinite alternate
+}
 
 /* #menu {
     overflow:auto;

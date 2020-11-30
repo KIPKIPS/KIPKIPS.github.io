@@ -108,6 +108,11 @@
             -webkit-animation: animLoading 0.15s ease-out infinite;
             animation: animLoading 0.15s ease-out infinite;
         }
+        #contents span p.fadeinout {
+            -webkit-animation: breathingAnim 4s ease-out infinite;
+            animation: breathingAnim 4s ease-out infinite;
+        }
+        
 
         #contents span.blank p {
             color: #777;
@@ -199,6 +204,30 @@
                 opacity: 1.0;
             }
         }
+
+        @-webkit-keyframes breathingAnim {
+            0% {
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.1;
+            }
+        }
+
+        @keyframes breathingAnim {
+            0% {
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.1;
+            }
+        }
     </style>
     <script async="" src="https://www.google-analytics.com/analytics.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" defer=""></script>
@@ -221,10 +250,10 @@
                     <p class="loading" style="display: none;">GITHUB ANNUAL SUMMARY</p>
                 </span>
             </a>
-            <a href="../github_annual_summary/github_annual_summary.html">
+            <a>
                 <span>
-                    <img src="../images/github_annual_summary.png">
-                    <p class="loading" style="display: none;">GITHUB ANNUAL SUMMARY</p>
+                    <img src="../images/comming_soon.png">
+                    <p class="fadeinout" style="display: block;letter-spacing: 1px;font-size: 30px;line-height: 40px;">STAY<br>TUNNED···</p>
                 </span>
             </a>
             <!-- <a href="../github_annual_summary/github_annual_summary.html"><span><img src="../images/github_annual_summary.png">
